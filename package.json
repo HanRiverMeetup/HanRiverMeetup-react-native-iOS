@@ -7,9 +7,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "moment": "^2.22.2",
     "react": "16.3.1",
     "react-native": "0.55.4",
-    "react-native-fbsdk": "^0.7.0"
+    "react-native-fbsdk": "^0.7.0",
+    "react-navigation": "^2.5.5",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-jest": "23.2.0",

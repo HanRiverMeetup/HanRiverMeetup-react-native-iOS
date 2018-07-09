@@ -42,6 +42,7 @@
 		6F969C1920EBEE11001BBEDA /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F969C1520EBEE11001BBEDA /* FBSDKLoginKit.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		BEC42CB6C8D289FAA9E31489 /* libPods-HanRiverMeetup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 616B2CE4301A48E9B27C0A09 /* libPods-HanRiverMeetup.a */; };
 		DE246B026D68463BB378272B /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFB27EDE57A46F68BA7A0D4 /* libRCTFBSDK.a */; };
 /* End PBXBuildFile section */
 
@@ -353,6 +354,8 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		42F86C5E32534A039EA623D8 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		5EE4DF509F3DF33D3847CE23 /* Pods-HanRiverMeetup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanRiverMeetup.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup.debug.xcconfig"; sourceTree = "<group>"; };
+		616B2CE4301A48E9B27C0A09 /* libPods-HanRiverMeetup.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HanRiverMeetup.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F969C1220EBEE0F001BBEDA /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		6F969C1320EBEE0F001BBEDA /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6F969C1420EBEE10001BBEDA /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -361,6 +364,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		DCFB27EDE57A46F68BA7A0D4 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
+		F17C43AA8F55682E053F145A /* Pods-HanRiverMeetup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanRiverMeetup.release.xcconfig"; path = "Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -394,6 +398,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				DE246B026D68463BB378272B /* libRCTFBSDK.a in Frameworks */,
 				6F969C1720EBEE11001BBEDA /* Bolts.framework in Frameworks */,
+				BEC42CB6C8D289FAA9E31489 /* libPods-HanRiverMeetup.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,6 +548,7 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				616B2CE4301A48E9B27C0A09 /* libPods-HanRiverMeetup.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -570,6 +576,15 @@
 				6F969C1120EBEB70001BBEDA /* libRCTFBSDK.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		75F2DBF1DF8CC7559A900FB0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5EE4DF509F3DF33D3847CE23 /* Pods-HanRiverMeetup.debug.xcconfig */,
+				F17C43AA8F55682E053F145A /* Pods-HanRiverMeetup.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
@@ -623,6 +638,7 @@
 				6F969C1220EBEE0F001BBEDA /* FBSDKCoreKit.framework */,
 				6F969C1520EBEE11001BBEDA /* FBSDKLoginKit.framework */,
 				6F969C1420EBEE10001BBEDA /* FBSDKShareKit.framework */,
+				75F2DBF1DF8CC7559A900FB0 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -674,10 +690,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "HanRiverMeetup" */;
 			buildPhases = (
+				F3B00A6FB67C0329F519C202 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				AB9A12AEFA9BAF6435C63B55 /* [CP] Embed Pods Frameworks */,
+				9F66B638782D8462E997CF64 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1158,6 +1177,57 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		9F66B638782D8462E997CF64 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB9A12AEFA9BAF6435C63B55 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3B00A6FB67C0329F519C202 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HanRiverMeetup-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1278,6 +1348,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EE4DF509F3DF33D3847CE23 /* Pods-HanRiverMeetup.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1307,6 +1378,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F17C43AA8F55682E053F145A /* Pods-HanRiverMeetup.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;

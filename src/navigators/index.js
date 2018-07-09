@@ -1,12 +1,23 @@
 //input main navigator sources here
 import { StackNavigator, SwitchNavigator, NavigationActions } from "react-navigation"
-import 
+import Launch from "../screens/Launch"
+import Login from "../screens/Login"
+import MainTabbar from "./tabNavi"
 
-export default SwitchNavigator(
+const LoginStack = StackNavigator(
   {
-    AuthLoading: AuthLoadingScreen,
-    App: AppStack,
-    Auth: MainStack
+    Login,
+    MainTabbar
   },
-  { initialRouteName: "AuthLoading" }
+  {
+    headerMode: "none"
+  }
 )
+
+const AppStack = StackNavigator({ MainTabbar }, { headerMode: "none" })
+
+export default SwitchNavigator({
+  Launch,
+  App: AppStack,
+  Login: LoginStack
+})

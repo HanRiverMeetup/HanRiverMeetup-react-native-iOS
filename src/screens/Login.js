@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Platform, StyleSheet, Text, View, TouchableOpacity } from "react-native"
 import { LoginManager, LoginButton, AccessToken } from "react-native-fbsdk"
 
-export default class FBLogin extends Component {
+export default class Login extends Component {
   _fbAuth = () => {
     LoginManager.logInWithReadPermissions(["public_profile"]).then(
       function(result) {

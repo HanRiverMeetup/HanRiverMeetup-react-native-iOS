@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Platform, StyleSheet, Text, View, TouchableOpacity } from "react-native"
+import { View, StyleSheet, Text } from "react-native"
 
 export default class Home extends Component {
   static navigationOptions = options => {

@@ -54,3 +54,8 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+# Podfile
+Pods/
+#configs
+configs/

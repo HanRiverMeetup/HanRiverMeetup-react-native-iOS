@@ -23,6 +23,7 @@
     "class-methods-use-this": "off",
     "camelcase": "off",
     "no-use-before-define": "off",
+    "semi-style": "off",
 
     "react/display-name": "off",
     "react/no-this-in-sfc": "off",

@@ -4886,6 +4886,10 @@ react-native-maps@^0.21.0:
     babel-plugin-module-resolver "^2.3.0"
     babel-preset-react-native "1.9.0"
 
+react-native-nanum-square@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-nanum-square/-/react-native-nanum-square-1.0.0.tgz#a6a8500daffed5e3a7b26dac7ecbf5d9a065524b"
+
 react-native-safe-area-view@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.7.0.tgz#38f5ab9368d6ef9e5d18ab64212938af3ec39421"

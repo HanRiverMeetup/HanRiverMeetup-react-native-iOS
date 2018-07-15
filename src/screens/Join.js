@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import styled from 'styled-components';
+import Images from '@assets';
+
+const Container = styled.SafeAreaView`
+  flex: 1;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ListText = styled.Text`
+  font-family: NanumSquareR;
+  font-size: 18;
+`;
+
+const TabIcon = styled.Image`
+  width: 20px;
+  height: 20px;
+`;
 
 export default class Home extends Component {
-  static navigationOptions = options => {
+  static navigationOptions = () => {
     return {
-      title: '같이놀강',
+      title: '지금한강',
+      tabBarIcon: ({ tintColor }) => {
+        return <TabIcon source={Images.bubble} style={{ tintColor }} />;
+      },
     };
   };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>동해물과 백두산이 마르고 닳도록!</Text>
-      </View>
+      <Container>
+        <ListText>지금한강</ListText>
+      </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontFamily: 'NanumSquareR',
-    fontSize: 22,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 32,
-    letterSpacing: 0,
-    textAlign: 'left',
-    color: '#333333',
-  },
-});

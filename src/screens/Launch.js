@@ -1,10 +1,17 @@
-import React, { Component } from "react"
-import { Platform, StyleSheet, Text, View, TouchableOpacity } from "react-native"
+import React, { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class Launch extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
   componentDidMount() {
-    // this.props.navigation.navigate("Login")
-    this.props.navigation.navigate("App")
+    // this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('App');
   }
 
   render() {
@@ -12,14 +19,14 @@ export default class Launch extends Component {
       <View style={styles.container}>
         <Text>LaunchScreen</Text>
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
-})
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

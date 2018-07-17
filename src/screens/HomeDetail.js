@@ -162,13 +162,14 @@ export default class Home extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
+      getParam: PropTypes.func,
     }).isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      index: this.props.navigation.getParam('index'),
+      index: props.navigation.getParam('index'),
     };
   }
 
@@ -179,6 +180,11 @@ export default class Home extends Component {
 
   changeIndex = index => {
     this.setState({ index });
+  };
+
+  toDetail = () => {
+    const { navigation } = this.props;
+    navigation.navigate('RoomIn');
   };
 
   renderCenterView = () => {
@@ -202,7 +208,7 @@ export default class Home extends Component {
   };
 
   renderItem = ({ item }) => (
-    <ContentView onPress={() => alert('touch!')}>
+    <ContentView onPress={this.toDetail}>
       <InnerView>
         <ProfileImg
           source={{ uri: item.profileImg }}

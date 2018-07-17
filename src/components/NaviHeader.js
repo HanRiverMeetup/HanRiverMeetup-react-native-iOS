@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Images from '@assets';
-import { NavigationActions } from 'react-navigation';
 
 const Container = styled.View`
   flex: 1.5;
@@ -38,7 +37,7 @@ const BackImg = styled.Image`
 const NaviHeader = ({ centerView, onBack }) => (
   <Container>
     <LeftView>
-      <BackBtn onPress={onBack}>
+      <BackBtn onPress={onBack} hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}>
         <BackImg source={Images.bt_back} />
       </BackBtn>
     </LeftView>

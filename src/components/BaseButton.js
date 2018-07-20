@@ -8,7 +8,7 @@ const ButtonContainer = styled.TouchableHighlight`
 `;
 
 const BaseButton = props => (
-  <ButtonContainer {...props} underlayColor="rgba(256,256,256,0.5)">
+  <ButtonContainer {...props} underlayColor="rgba(240,256,256,0.7)">
     {props.children}
   </ButtonContainer>
 );

@@ -746,6 +746,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				9F66B638782D8462E997CF64 /* [CP] Copy Pods Resources */,
+				888FF3381223A601C0D9818D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1248,6 +1249,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		888FF3381223A601C0D9818D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		9F66B638782D8462E997CF64 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

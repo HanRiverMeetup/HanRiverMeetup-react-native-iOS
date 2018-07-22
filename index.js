@@ -1,4 +1,4 @@
-import { AppRegistry } from "react-native"
-import App from "./src/navigators"
+import { AppRegistry } from 'react-native';
+import App from './src/navigators';
 
-AppRegistry.registerComponent("HanRiverMeetup", () => App)
+AppRegistry.registerComponent('HanRiverMeetup', () => App);

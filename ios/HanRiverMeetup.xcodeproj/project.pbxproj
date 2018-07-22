@@ -44,6 +44,7 @@
 		6F969C1720EBEE11001BBEDA /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F969C1320EBEE0F001BBEDA /* Bolts.framework */; };
 		6F969C1820EBEE11001BBEDA /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F969C1420EBEE10001BBEDA /* FBSDKShareKit.framework */; };
 		6F969C1920EBEE11001BBEDA /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F969C1520EBEE11001BBEDA /* FBSDKLoginKit.framework */; };
+		6FC337232104EEBC004E9EAD /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC336FC2104EEA2004E9EAD /* libFastImage.a */; };
 		7DBA4431C60B46C7A2E1E423 /* NanumSquareRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 599FE45BF84149B3A50EA029 /* NanumSquareRegular.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8FAA983B2120405CB9644C6B /* NanumSquareExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A6837D13BF5463E878268B5 /* NanumSquareExtraBold.ttf */; };
@@ -326,6 +327,13 @@
 			remoteGlobalIDString = 9350E0F11CE3B0920041D815;
 			remoteInfo = RCTFBSDK;
 		};
+		6FC336FB2104EEA2004E9EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6FC336F42104EEA1004E9EAD /* FastImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A287971D1DE0C0A60081BDFA;
+			remoteInfo = FastImage;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -384,6 +392,8 @@
 		6F969C1320EBEE0F001BBEDA /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6F969C1420EBEE10001BBEDA /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		6F969C1520EBEE11001BBEDA /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		6FC336BB2104DD7F004E9EAD /* HanRiverMeetup.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HanRiverMeetup.entitlements; path = HanRiverMeetup/HanRiverMeetup.entitlements; sourceTree = "<group>"; };
+		6FC336F42104EEA1004E9EAD /* FastImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		9746C5CDE7CF40FD954E165A /* NanumSquareBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareBold.ttf; path = ../assets/fonts/NanumSquareBold.ttf; sourceTree = "<group>"; };
@@ -416,6 +426,7 @@
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
+				6FC337232104EEBC004E9EAD /* libFastImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
@@ -537,6 +548,7 @@
 		13B07FAE1A68108700A75B9A /* HanRiverMeetup */ = {
 			isa = PBXGroup;
 			children = (
+				6FC336BB2104DD7F004E9EAD /* HanRiverMeetup.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -614,6 +626,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6FC336F52104EEA1004E9EAD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FC336FC2104EEA2004E9EAD /* libFastImage.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		75F2DBF1DF8CC7559A900FB0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +655,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6FC336F42104EEA1004E9EAD /* FastImage.xcodeproj */,
 				6F8D876220FB486800EAB090 /* BVLinearGradient.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -804,10 +825,16 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = Q5VAQ4ZHM5;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = Q5VAQ4ZHM5;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -835,6 +862,10 @@
 				{
 					ProductGroup = 6F8D876320FB486800EAB090 /* Products */;
 					ProjectRef = 6F8D876220FB486800EAB090 /* BVLinearGradient.xcodeproj */;
+				},
+				{
+					ProductGroup = 6FC336F52104EEA1004E9EAD /* Products */;
+					ProjectRef = 6FC336F42104EEA1004E9EAD /* FastImage.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1159,6 +1190,13 @@
 			remoteRef = 6F969C1020EBEB70001BBEDA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		6FC336FC2104EEA2004E9EAD /* libFastImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFastImage.a;
+			remoteRef = 6FC336FB2104EEA2004E9EAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1370,6 +1408,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Q5VAQ4ZHM5;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1399,6 +1438,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = Q5VAQ4ZHM5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
@@ -1424,6 +1464,7 @@
 			baseConfigurationReference = 5EE4DF509F3DF33D3847CE23 /* Pods-HanRiverMeetup.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HanRiverMeetup/HanRiverMeetup.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Q5VAQ4ZHM5;
@@ -1454,6 +1495,7 @@
 			baseConfigurationReference = F17C43AA8F55682E053F145A /* Pods-HanRiverMeetup.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HanRiverMeetup/HanRiverMeetup.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q5VAQ4ZHM5;
 				FRAMEWORK_SEARCH_PATHS = (

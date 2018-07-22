@@ -1,23 +1,49 @@
 import React, { Component } from 'react';
-import { Dimensions, View } from 'react-native';
+import { Animated, Dimensions } from 'react-native';
 import styled from 'styled-components';
-import Images from '@assets';
+// import Images from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import PropTypes from 'prop-types';
+import FastImage from 'react-native-fast-image';
 
 import NaviHeader from '../components/NaviHeader';
 import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
 
 const { width: deviceWidth } = Dimensions.get('window');
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 const DATAS = [
-  { id: '0', text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?' },
-  { id: '1', text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?' },
-  { id: '2', text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?' },
-  { id: '3', text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?' },
-  { id: '4', text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?' },
-  { id: '5', text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?' },
+  {
+    id: '0',
+    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
+    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+  },
+  {
+    id: '1',
+    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
+    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+  },
+  {
+    id: '2',
+    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
+    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+  },
+  {
+    id: '3',
+    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
+    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+  },
+  {
+    id: '4',
+    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
+    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+  },
+  {
+    id: '5',
+    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
+    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+  },
 ];
 
 const Container = styled.SafeAreaView`
@@ -32,10 +58,12 @@ const Header = styled(LinearGradient)`
 const Body = styled.View`
   flex: 3;
   background-color: white;
+  border-bottom-color: #dcdcdc;
+  border-bottom-width: 1;
 `;
 
 const ChatTextInput = styled.TextInput`
-  background-color: orange;
+  background-color: white;
   height: 44px;
   padding-left: 24px;
   justify-content: center;
@@ -45,7 +73,6 @@ const ChatTextInput = styled.TextInput`
 const RegButton = styled(BaseButton)`
   flex: 1;
   height: 44px;
-  background-color: blue;
 `;
 
 const Bottom = styled.View`
@@ -54,6 +81,7 @@ const Bottom = styled.View`
 `;
 
 const RegText = styled(BaseText)`
+  font-family: NanumSquareB;
   font-size: 15.9;
 `;
 
@@ -93,7 +121,7 @@ const ContentText = styled(BaseText)`
 const KeyBoard = styled(KeyboardSpacer)``;
 
 const Scroll = styled.ScrollView.attrs({
-  contentContainerStyle: { alignItems: 'center', paddingBottom: 30 },
+  contentContainerStyle: { alignItems: 'center', paddingBottom: 30, paddingTop: 60 },
 })``;
 
 const HeaderText = styled(BaseText)`
@@ -114,10 +142,11 @@ const InfoView = styled.View`
   justify-content: center;
 `;
 
-const JoinButton = styled(BaseButton)``;
+const JoinButton = styled(BaseButton)`
+  margin-top: 36px;
+`;
 
 const JoinView = styled(LinearGradient)`
-  margin-top: 36px;
   height: 46px;
   width: ${deviceWidth - 48}px;
   padding: 1.5px;
@@ -133,10 +162,16 @@ const JoinInnerView = styled.View`
 const CommentsList = styled.FlatList`
   border-top-width: 1px;
   border-top-color: #dcdcdc;
+  margin-top: 9px;
+`;
+
+const CommentText = styled(BaseText)`
+  margin-top: 14;
+  color: #666666;
+  font-size: 12;
 `;
 
 const CommentListView = styled.View`
-  background-color: red;
   padding: 11px 24px 22px 24px;
 `;
 
@@ -153,9 +188,37 @@ const CommentTitleText = styled(BaseText)`
   text-align: center;
 `;
 
+const TimeText = styled(BaseText)`
+  color: #b1b1b1;
+  font-size: 12;
+  margin-top: 3;
+`;
+
 const Separator = styled.View`
   height: 1;
   background-color: #dcdcdc;
+`;
+
+const UserInfoView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const TimeAndName = styled.View``;
+
+const ProfileView = styled(AnimatedFastImage)`
+  background-color: #dcdcdc;
+  align-self: center;
+  position: absolute;
+  z-index: 100;
+`;
+
+const MiniProfileView = styled(FastImage)`
+  width: 34;
+  height: 34;
+  border-radius: 17;
+  background-color: #b1b1b1;
+  margin-right: 7;
 `;
 
 class RoomIn extends Component {
@@ -167,46 +230,89 @@ class RoomIn extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      scrollY: new Animated.Value(0),
+      imgShown: true,
+    };
   }
+
+  onKeyboard = (showm, height) => {
+    console.log(showm, height);
+    this.setState({ imgShown: !showm });
+  };
+
+  separator = () => <Separator />;
 
   back = () => {
     const { navigation } = this.props;
     navigation.goBack();
   };
 
-  separator = () => <Separator />;
-
   renderCenterView = () => <HeaderText>영수와 함께하는 한강여행!</HeaderText>;
 
   renderItem = ({ item }) => (
     <CommentListView>
-      <BaseText>{item.text}</BaseText>
+      <UserInfoView>
+        <MiniProfileView source={{ uri: item.imageUri }} />
+        <TimeAndName>
+          <CommentTitleText>USER1</CommentTitleText>
+          <TimeText>45분전</TimeText>
+        </TimeAndName>
+      </UserInfoView>
+      <CommentText>{item.text}</CommentText>
     </CommentListView>
   );
 
   render() {
+    const imageTranslate = this.state.scrollY.interpolate({
+      inputRange: [0, 40],
+      outputRange: [-55, -95],
+      extrapolate: 'clamp',
+    });
+
+    const imageLen = this.state.scrollY.interpolate({
+      inputRange: [0, 40],
+      outputRange: [110, 90],
+      extrapolate: 'clamp',
+    });
+
+    const imageRadius = this.state.scrollY.interpolate({
+      inputRange: [0, 40],
+      outputRange: [55, 45],
+      extrapolate: 'clamp',
+    });
+
+    const { imgShown } = this.state;
+
     return (
       <Container>
         <Header colors={['#2186f8', '#1fa6df']}>
           <NaviHeader
-            style={{ paddingBottom: 70 }}
+            style={{ paddingBottom: 70, zIndex: 200 }}
             centerView={this.renderCenterView}
             onBack={this.back}
           />
         </Header>
         <Body>
-          <View
-            style={{
-              width: 110,
-              height: 110,
-              borderRadius: 55,
-              backgroundColor: 'white',
-              marginTop: -60,
-              alignSelf: 'center',
-            }}
-          />
-          <Scroll>
+          {imgShown && (
+            <ProfileView
+              style={{
+                width: imageLen,
+                height: imageLen,
+                borderRadius: imageRadius,
+                marginTop: imageTranslate,
+              }}
+              source={{
+                uri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+              }}
+            />
+          )}
+          <Scroll
+            scrollEventThrottle={16}
+            onScroll={Animated.event([
+              { nativeEvent: { contentOffset: { y: this.state.scrollY } } },
+            ])}
+          >
             <ContentsView>
               <NameText>조영니</NameText>
               <InfoView>
@@ -248,7 +354,7 @@ class RoomIn extends Component {
             <RegText>등록</RegText>
           </RegButton>
         </Bottom>
-        <KeyBoard topSpacing={20} />
+        <KeyBoard topSpacing={20} onToggle={(shown, height) => this.onKeyboard(shown, height)} />
       </Container>
     );
   }

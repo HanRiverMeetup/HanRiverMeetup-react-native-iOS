@@ -232,21 +232,20 @@ class RoomIn extends Component {
     super(props);
     this.state = {
       scrollY: new Animated.Value(0),
+      imgShown: true,
     };
   }
 
-  back = () => {
-    const { navigation } = this.props;
-    navigation.goBack();
+  onKeyboard = (showm, height) => {
+    console.log(showm, height);
+    this.setState({ imgShown: !showm });
   };
 
   separator = () => <Separator />;
 
-  startAnimation = () => {
-    Animated.timing(this.animatedValue, {
-      toValue: 0,
-      duration: 500,
-    }).start();
+  back = () => {
+    const { navigation } = this.props;
+    navigation.goBack();
   };
 
   renderCenterView = () => <HeaderText>영수와 함께하는 한강여행!</HeaderText>;
@@ -283,6 +282,8 @@ class RoomIn extends Component {
       extrapolate: 'clamp',
     });
 
+    const { imgShown } = this.state;
+
     return (
       <Container>
         <Header colors={['#2186f8', '#1fa6df']}>
@@ -293,17 +294,19 @@ class RoomIn extends Component {
           />
         </Header>
         <Body>
-          <ProfileView
-            style={{
-              width: imageLen,
-              height: imageLen,
-              borderRadius: imageRadius,
-              marginTop: imageTranslate,
-            }}
-            source={{
-              uri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-            }}
-          />
+          {imgShown && (
+            <ProfileView
+              style={{
+                width: imageLen,
+                height: imageLen,
+                borderRadius: imageRadius,
+                marginTop: imageTranslate,
+              }}
+              source={{
+                uri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+              }}
+            />
+          )}
           <Scroll
             scrollEventThrottle={16}
             onScroll={Animated.event([
@@ -351,7 +354,7 @@ class RoomIn extends Component {
             <RegText>등록</RegText>
           </RegButton>
         </Bottom>
-        <KeyBoard topSpacing={20} />
+        <KeyBoard topSpacing={20} onToggle={(shown, height) => this.onKeyboard(shown, height)} />
       </Container>
     );
   }

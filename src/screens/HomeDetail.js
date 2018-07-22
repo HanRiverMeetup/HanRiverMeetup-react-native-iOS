@@ -4,14 +4,15 @@ import styled from 'styled-components';
 import Images from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
-import ResponsiveImage from 'react-native-responsive-image';
+import FastImage from 'react-native-fast-image';
 
 import NaviHeader from '../components/NaviHeader';
 import BaseButton from '../components/BaseButton';
+import WithLoadingContainer from '../components/WithLoadingContainer';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
-const Container = styled.SafeAreaView`
+const LoadingContainer = styled(WithLoadingContainer)`
   flex: 1;
   background-color: #2186f8;
 `;
@@ -39,7 +40,7 @@ const TitleText = styled.Text`
   color: white;
 `;
 
-const TitleIcon = styled.Image`
+const TitleIcon = styled.Image.attrs({ resizeMode: 'contain' })`
   width: 42px;
   height: 39px;
 `;
@@ -62,9 +63,10 @@ const DetailInfoView = styled.View`
   justify-content: space-around;
 `;
 
-const ProfileImg = styled(ResponsiveImage)`
+const ProfileImg = styled(FastImage)`
   width: 60px;
   height: 60px;
+  border-radius: 30px;
 `;
 
 const ContentTitle = styled.Text`
@@ -170,7 +172,16 @@ export default class Home extends Component {
     super(props);
     this.state = {
       index: props.navigation.getParam('index'),
+      isLoading: false,
     };
+  }
+
+  componentDidMount() {
+    this.setState({ isLoading: true }, () =>
+      setTimeout(() => {
+        this.setState({ isLoading: false });
+      }, 1500)
+    );
   }
 
   back = () => {
@@ -179,12 +190,21 @@ export default class Home extends Component {
   };
 
   changeIndex = index => {
-    this.setState({ index });
+    this.setState({ index, isLoading: true }, () =>
+      setTimeout(() => {
+        this.setState({ isLoading: false });
+      }, 1500)
+    );
   };
 
   toDetail = () => {
     const { navigation } = this.props;
     navigation.navigate('RoomIn');
+  };
+
+  makeRoom = () => {
+    const { navigation } = this.props;
+    navigation.navigate('MakeRoom');
   };
 
   renderCenterView = () => {
@@ -193,29 +213,24 @@ export default class Home extends Component {
       case 0:
         return <TitleIcon source={Images.chicken_icon_w} />;
       case 1:
-        return <TitleIcon source={Images.chicken_icon_w} />;
+        return <TitleIcon source={Images.cycle_w_icon} />;
       case 2:
-        return <TitleIcon source={Images.chicken_icon_w} />;
+        return <TitleIcon source={Images.duck_w_icon} />;
       case 3:
         return <TitleIcon source={Images.tent_icon} />;
       case 4:
-        return <TitleIcon source={Images.tent_icon} />;
+        return <TitleIcon source={Images.camera_w_icon} />;
       case 5:
-        return <TitleIcon source={Images.tent_icon} />;
+        return <TitleIcon source={Images.etc_w_icon} />;
       default:
-        break;
+        return null;
     }
   };
 
   renderItem = ({ item }) => (
     <ContentView onPress={this.toDetail}>
       <InnerView>
-        <ProfileImg
-          source={{ uri: item.profileImg }}
-          initWidth="60"
-          initHeight="60"
-          borderRadius={30}
-        />
+        <ProfileImg source={{ uri: item.profileImg }} />
         <InfoView>
           <ContentTitle>{item.contentTitle}</ContentTitle>
           <ContentLocation>{item.location}</ContentLocation>
@@ -233,9 +248,9 @@ export default class Home extends Component {
   );
 
   render() {
-    const { index } = this.state;
+    const { index, isLoading } = this.state;
     return (
-      <Container>
+      <LoadingContainer isLoading={isLoading}>
         <Header colors={['#2186f8', '#1fa6df']}>
           <NaviHeader centerView={this.renderCenterView} onBack={this.back} />
           <TitleLists>
@@ -267,10 +282,10 @@ export default class Home extends Component {
             ItemSeparatorComponent={() => <Separator />}
           />
         </Body>
-        <MakeRoomBtn>
+        <MakeRoomBtn onPress={this.makeRoom}>
           <BlueBtnImg source={Images.bt_plus} />
         </MakeRoomBtn>
-      </Container>
+      </LoadingContainer>
     );
   }
 }

@@ -20,14 +20,10 @@ const TabIcon = styled.Image`
 `;
 
 export default class Home extends Component {
-  static navigationOptions = () => {
-    return {
-      title: '지금한강',
-      tabBarIcon: ({ tintColor }) => {
-        return <TabIcon source={Images.bubble} style={{ tintColor }} />;
-      },
-    };
-  };
+  static navigationOptions = () => ({
+    title: '지금한강',
+    tabBarIcon: ({ tintColor }) => <TabIcon source={Images.bubble} style={{ tintColor }} />,
+  });
 
   render() {
     return (

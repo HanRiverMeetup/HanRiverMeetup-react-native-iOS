@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Images from '@assets';
 import { Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
+import FastImage from 'react-native-fast-image';
 
 import BaseButton from '../components/BaseButton';
 
@@ -80,7 +81,7 @@ const ContentView = styled.View`
   align-items: center;
 `;
 
-const ListImage = styled.Image`
+const ListImage = styled(FastImage)`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
 `;
@@ -102,14 +103,10 @@ const TabIcon = styled.Image`
 `;
 
 export default class Home extends Component {
-  static navigationOptions = () => {
-    return {
-      title: '같이놀강',
-      tabBarIcon: ({ tintColor }) => {
-        return <TabIcon source={Images.rectangle} style={{ tintColor }} />;
-      },
-    };
-  };
+  static navigationOptions = () => ({
+    title: '같이놀강',
+    tabBarIcon: ({ tintColor }) => <TabIcon source={Images.rectangle} style={{ tintColor }} />,
+  });
 
   static propTypes = {
     navigation: PropTypes.shape({

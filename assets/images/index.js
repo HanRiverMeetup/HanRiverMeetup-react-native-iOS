@@ -15,6 +15,20 @@ const images = {
   tent_icon: require('./tent_icon.png'),
   chicken_icon_w: require('./chicken_icon_w.png'),
   bt_plus: require('./bt_plus.png'),
+  loading_01: require('./loading_01.png'),
+  loading_02: require('./loading_02.png'),
+  loading_03: require('./loading_03.png'),
+  loading_04: require('./loading_04.png'),
+  loading_06: require('./loading_06.png'),
+  close_icon: require('./close.png'),
+  profile_img: require('./profile_img.png'),
+  add_button: require('./add_button.png'),
+  cycle_w_icon: require('./cycle_w.png'),
+  duck_w_icon: require('./duck_w.png'),
+  camera_w_icon: require('./camera_w.png'),
+  etc_w_icon: require('./etc_w.png'),
+  flag_icon: require('./flag.png'),
+  info_tab: require('./Info_tab.png'),
 };
 /* eslint-enable global-require */
 

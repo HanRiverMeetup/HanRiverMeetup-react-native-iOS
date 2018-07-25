@@ -15,6 +15,7 @@ const VIEWS = [
   <LoadingImg key={2} source={Images.loading_02} />,
   <LoadingImg key={3} source={Images.loading_03} />,
   <LoadingImg key={4} source={Images.loading_04} />,
+  <LoadingImg key={5} source={Images.loading_05} />,
   <LoadingImg key={6} source={Images.loading_06} />,
 ];
 

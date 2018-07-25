@@ -19,6 +19,7 @@ const images = {
   loading_02: require('./loading_02.png'),
   loading_03: require('./loading_03.png'),
   loading_04: require('./loading_04.png'),
+  loading_05: require('./loading_05.png'),
   loading_06: require('./loading_06.png'),
   close_icon: require('./close.png'),
   profile_img: require('./profile_img.png'),

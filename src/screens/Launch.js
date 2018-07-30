@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
+import { AccessToken } from 'react-native-fbsdk';
 import { StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -10,8 +12,13 @@ export default class Launch extends Component {
   };
 
   componentDidMount() {
-    // this.props.navigation.navigate('Login');
-    this.props.navigation.navigate('App');
+    AccessToken.getCurrentAccessToken().then(data => {
+      if (_.isEmpty(data)) {
+        this.props.navigation.navigate('Login');
+        return;
+      }
+      this.props.navigation.navigate('App');
+    });
   }
 
   render() {

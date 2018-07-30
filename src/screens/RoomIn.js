@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Animated, Dimensions } from 'react-native';
+import { Animated, Dimensions, View } from 'react-native';
 import styled from 'styled-components';
-// import Images from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import PropTypes from 'prop-types';
@@ -13,6 +12,7 @@ import BaseText from '../components/BaseText';
 
 const { width: deviceWidth } = Dimensions.get('window');
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+const AnimatedHeader = Animated.createAnimatedComponent(LinearGradient);
 const DATAS = [
   {
     id: '0',
@@ -51,9 +51,7 @@ const Container = styled.SafeAreaView`
   background-color: #2186f8;
 `;
 
-const Header = styled(LinearGradient)`
-  flex: 1.1;
-`;
+const Header = styled(AnimatedHeader)``;
 
 const Body = styled.View`
   flex: 3;
@@ -282,16 +280,34 @@ class RoomIn extends Component {
       extrapolate: 'clamp',
     });
 
+    const imageOpacity = this.state.scrollY.interpolate({
+      inputRange: [0, 20, 40],
+      outputRange: [1, 0.5, 0],
+      extrapolate: 'clamp',
+    });
+
+    const headerHeight = this.state.scrollY.interpolate({
+      inputRange: [0, 40],
+      outputRange: [160, 65],
+      extrapolate: 'clamp',
+    });
+
     const { imgShown } = this.state;
+
+    console.log('headerHight', headerHeight);
 
     return (
       <Container>
-        <Header colors={['#2186f8', '#1fa6df']}>
+        <Header colors={['#2186f8', '#1fa6df']} style={{ height: headerHeight }}>
           <NaviHeader
-            style={{ paddingBottom: 70, zIndex: 200 }}
+            style={{
+              zIndex: 200,
+              paddingTop: 10,
+            }}
             centerView={this.renderCenterView}
             onBack={this.back}
           />
+          <View style={{ flex: 1.3 }} />
         </Header>
         <Body>
           {imgShown && (
@@ -301,6 +317,7 @@ class RoomIn extends Component {
                 height: imageLen,
                 borderRadius: imageRadius,
                 marginTop: imageTranslate,
+                opacity: imageOpacity,
               }}
               source={{
                 uri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
@@ -354,7 +371,7 @@ class RoomIn extends Component {
             <RegText>등록</RegText>
           </RegButton>
         </Bottom>
-        <KeyBoard topSpacing={20} onToggle={(shown, height) => this.onKeyboard(shown, height)} />
+        <KeyBoard topSpacing={26} onToggle={(shown, height) => this.onKeyboard(shown, height)} />
       </Container>
     );
   }

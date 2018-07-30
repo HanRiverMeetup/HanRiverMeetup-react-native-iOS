@@ -5,6 +5,7 @@ import { Dimensions } from 'react-native';
 
 import Images from '@assets';
 import BaseButton from '../components/BaseButton';
+import BaseText from '../components/BaseText';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
@@ -38,11 +39,11 @@ const FacebookLogo = styled.Image`
   height: 14px;
 `;
 
-const LoginText = styled.Text`
-  font-family: NanumSquareR;
-  font-size: 15.9;
-  margin-left: 4px;
-  color: #666666;
+const LoginText = styled(BaseText)`
+  font-size: 14;
+  margin-left: 3px;
+  color: white;
+  font-family: NanumSquareB;
 `;
 
 const ButtonView = styled.View`
@@ -51,15 +52,13 @@ const ButtonView = styled.View`
   flex-direction: row;
 `;
 
-const FacebookButton = styled(BaseButton)`
-  flex: 1;
-  background-color: white;
-  width: ${deviceWidth - 56}px;
+const FacebookButton = styled(BaseButton).attrs({ underlayColor: 'rgba(49,49,49,0.3)' })`
+  background-color: #3b5998;
   height: 50px;
   position: absolute;
-  bottom: 35px;
+  bottom: 0px;
   border-color: #dcdcdc;
-  border-width: 1px;
+  width: ${deviceWidth};
 `;
 
 export default class Login extends Component {
@@ -88,7 +87,7 @@ export default class Login extends Component {
         <FacebookButton onPress={this.fbAuth}>
           <ButtonView>
             <FacebookLogo source={Images.facebook_logo} />
-            <LoginText>으로 로그인</LoginText>
+            <LoginText>로 로그인</LoginText>
           </ButtonView>
         </FacebookButton>
       </Container>

@@ -38,11 +38,11 @@ const ModalHeader = ({ title, onClose, style }) => (
 ModalHeader.propTypes = {
   title: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
-  style: PropTypes.oneOf(
+  style: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.number),
     PropTypes.number,
-    PropTypes.shape({})
-  ),
+    PropTypes.shape({}),
+  ]),
 };
 
 ModalHeader.defaultProps = {

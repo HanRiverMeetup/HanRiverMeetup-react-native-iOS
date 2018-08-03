@@ -48,7 +48,11 @@ const WithLoadingContainer = ({ children, isLoading, style }) =>
 WithLoadingContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   isLoading: PropTypes.bool.isRequired,
-  style: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.number), PropTypes.number, PropTypes.object),
+  style: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number),
+    PropTypes.number,
+    PropTypes.object,
+  ]),
 };
 
 WithLoadingContainer.defaultProps = {

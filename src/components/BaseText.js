@@ -12,7 +12,7 @@ const BaseText = ({ style, children }) => <Base style={style}>{children}</Base>;
 
 BaseText.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-  style: PropTypes.oneOfType(PropTypes.arrayOf(PropTypes.number), PropTypes.number),
+  style: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]),
 };
 
 BaseText.defaultProps = {

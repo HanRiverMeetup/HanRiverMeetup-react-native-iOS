@@ -49,7 +49,11 @@ const NaviHeader = ({ centerView, onBack, style }) => (
 NaviHeader.propTypes = {
   centerView: PropTypes.func.isRequired,
   onBack: PropTypes.func.isRequired,
-  style: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.number), PropTypes.number, PropTypes.object),
+  style: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number),
+    PropTypes.number,
+    PropTypes.object,
+  ]),
 };
 
 NaviHeader.defaultProps = {

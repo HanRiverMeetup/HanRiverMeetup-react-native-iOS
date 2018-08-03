@@ -230,13 +230,18 @@ class RoomIn extends Component {
     super(props);
     this.state = {
       scrollY: new Animated.Value(0),
-      imgShown: true,
     };
   }
 
-  onKeyboard = (showm, height) => {
-    console.log(showm, height);
-    this.setState({ imgShown: !showm });
+  onKeyboard = showm => {
+    console.log('this.ref', this.scrollRef);
+    if (showm) {
+      this.scrollRef.scrollToEnd({ animated: false });
+    }
+  };
+
+  scrollRefInput = ref => {
+    this.scrollRef = ref;
   };
 
   separator = () => <Separator />;
@@ -287,12 +292,10 @@ class RoomIn extends Component {
     });
 
     const headerHeight = this.state.scrollY.interpolate({
-      inputRange: [0, 40],
-      outputRange: [160, 65],
+      inputRange: [0, 50, 100],
+      outputRange: [160, 100, 65],
       extrapolate: 'clamp',
     });
-
-    const { imgShown } = this.state;
 
     console.log('headerHight', headerHeight);
 
@@ -310,22 +313,22 @@ class RoomIn extends Component {
           <View style={{ flex: 1.3 }} />
         </Header>
         <Body>
-          {imgShown && (
-            <ProfileView
-              style={{
-                width: imageLen,
-                height: imageLen,
-                borderRadius: imageRadius,
-                marginTop: imageTranslate,
-                opacity: imageOpacity,
-              }}
-              source={{
-                uri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-              }}
-            />
-          )}
+          <ProfileView
+            style={{
+              width: imageLen,
+              height: imageLen,
+              borderRadius: imageRadius,
+              marginTop: imageTranslate,
+              opacity: imageOpacity,
+            }}
+            source={{
+              uri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+            }}
+          />
           <Scroll
+            innerRef={this.scrollRefInput}
             scrollEventThrottle={16}
+            alwaysBounceVertical={false}
             onScroll={Animated.event([
               { nativeEvent: { contentOffset: { y: this.state.scrollY } } },
             ])}

@@ -1,1 +1,10 @@
-iOS만드는건 비밀~
+# Technical Stack
+
+ - react-native
+ - mobx-state-tree
+ - styled-component
+
+## Look foward to 
+
+ - Change ES to TypeScrpit
+ - Clean code

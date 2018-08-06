@@ -233,11 +233,12 @@ class RoomIn extends Component {
     };
   }
 
-  onKeyboard = showm => {
-    console.log('this.ref', this.scrollRef);
-    if (showm) {
-      this.scrollRef.scrollToEnd({ animated: false });
-    }
+  onKeyboard = show => {
+    setTimeout(() => {
+      if (show) {
+        this.scrollRef.scrollToEnd({ animated: false });
+      }
+    }, 100);
   };
 
   scrollRefInput = ref => {
@@ -374,7 +375,7 @@ class RoomIn extends Component {
             <RegText>등록</RegText>
           </RegButton>
         </Bottom>
-        <KeyBoard topSpacing={26} onToggle={(shown, height) => this.onKeyboard(shown, height)} />
+        <KeyboardSpacer topSpacing={26} onToggle={this.onKeyboard} />
       </Container>
     );
   }

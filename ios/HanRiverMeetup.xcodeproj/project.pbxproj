@@ -51,6 +51,13 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		BEC42CB6C8D289FAA9E31489 /* libPods-HanRiverMeetup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 616B2CE4301A48E9B27C0A09 /* libPods-HanRiverMeetup.a */; };
 		DE246B026D68463BB378272B /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFB27EDE57A46F68BA7A0D4 /* libRCTFBSDK.a */; };
+		FA53A9D12114AC3F0072C495 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA53A9A42114AC320072C495 /* Lottie.framework */; };
+		FA53A9D22114AC3F0072C495 /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA53A9A42114AC320072C495 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA5BBFFE2114CA3200986734 /* circle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5BBFF92114CA3200986734 /* circle_01.png */; };
+		FA5BBFFF2114CA3200986734 /* logo_05.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5BBFFA2114CA3200986734 /* logo_05.png */; };
+		FA5BC0002114CA3200986734 /* circle_03.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5BBFFB2114CA3200986734 /* circle_03.png */; };
+		FA5BC0012114CA3200986734 /* logo_03.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5BBFFC2114CA3200986734 /* logo_03.png */; };
+		FA5BC0022114CA3200986734 /* circle_02.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5BBFFD2114CA3200986734 /* circle_02.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -355,7 +362,56 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		FA53A9A32114AC320072C495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA53A9992114AC320072C495 /* Lottie.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 62CA59B81E3C173B002D7188;
+			remoteInfo = Lottie_iOS;
+		};
+		FA53A9A52114AC320072C495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA53A9992114AC320072C495 /* Lottie.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FAE1F7E61E428CBE002E0974;
+			remoteInfo = Lottie_macOS;
+		};
+		FA53A9A72114AC320072C495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA53A9992114AC320072C495 /* Lottie.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8C5379761FB471D100C1BC65;
+			remoteInfo = Lottie_tvOS;
+		};
+		FA53A9A92114AC320072C495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA53A9992114AC320072C495 /* Lottie.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 84FE12EF1E4C1485009B157C;
+			remoteInfo = LottieLibraryIOS;
+		};
+		FA53A9D32114AC3F0072C495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA53A9992114AC320072C495 /* Lottie.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 62CA59B71E3C173B002D7188;
+			remoteInfo = Lottie_iOS;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FA53A9D52114AC3F0072C495 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA53A9D22114AC3F0072C495 /* Lottie.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -401,6 +457,12 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		DCFB27EDE57A46F68BA7A0D4 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		F17C43AA8F55682E053F145A /* Pods-HanRiverMeetup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanRiverMeetup.release.xcconfig"; path = "Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup.release.xcconfig"; sourceTree = "<group>"; };
+		FA53A9992114AC320072C495 /* Lottie.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lottie.xcodeproj; path = "../node_modules/lottie-ios/Lottie.xcodeproj"; sourceTree = "<group>"; };
+		FA5BBFF92114CA3200986734 /* circle_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_01.png; sourceTree = "<group>"; };
+		FA5BBFFA2114CA3200986734 /* logo_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_05.png; sourceTree = "<group>"; };
+		FA5BBFFB2114CA3200986734 /* circle_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_03.png; sourceTree = "<group>"; };
+		FA5BBFFC2114CA3200986734 /* logo_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_03.png; sourceTree = "<group>"; };
+		FA5BBFFD2114CA3200986734 /* circle_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_02.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,6 +481,7 @@
 				6F8D879120FB488200EAB090 /* libBVLinearGradient.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
+				FA53A9D12114AC3F0072C495 /* Lottie.framework in Frameworks */,
 				6F969C1920EBEE11001BBEDA /* FBSDKLoginKit.framework in Frameworks */,
 				6F969C1820EBEE11001BBEDA /* FBSDKShareKit.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -686,6 +749,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				FA53A9992114AC320072C495 /* Lottie.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* HanRiverMeetup */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* HanRiverMeetupTests */,
@@ -727,6 +791,11 @@
 		F3C2C854914E436394390655 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FA5BBFF92114CA3200986734 /* circle_01.png */,
+				FA5BBFFD2114CA3200986734 /* circle_02.png */,
+				FA5BBFFB2114CA3200986734 /* circle_03.png */,
+				FA5BBFFC2114CA3200986734 /* logo_03.png */,
+				FA5BBFFA2114CA3200986734 /* logo_05.png */,
 				9746C5CDE7CF40FD954E165A /* NanumSquareBold.ttf */,
 				2A6837D13BF5463E878268B5 /* NanumSquareExtraBold.ttf */,
 				200D039B00504CE08F296AB3 /* NanumSquareLight.ttf */,
@@ -734,6 +803,17 @@
 				A95238D9D91844AFABC4A5BD /* NanumSquareLight.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		FA53A99A2114AC320072C495 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA53A9A42114AC320072C495 /* Lottie.framework */,
+				FA53A9A62114AC320072C495 /* Lottie.framework */,
+				FA53A9A82114AC320072C495 /* Lottie.framework */,
+				FA53A9AA2114AC320072C495 /* libLottie.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -767,11 +847,12 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				9F66B638782D8462E997CF64 /* [CP] Copy Pods Resources */,
-				EEA33820654A020347B6B29C /* [CP] Embed Pods Frameworks */,
+				FA53A9D52114AC3F0072C495 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FA53A9D42114AC3F0072C495 /* PBXTargetDependency */,
 			);
 			name = HanRiverMeetup;
 			productName = "Hello World";
@@ -866,6 +947,10 @@
 				{
 					ProductGroup = 6FC336F52104EEA1004E9EAD /* Products */;
 					ProjectRef = 6FC336F42104EEA1004E9EAD /* FastImage.xcodeproj */;
+				},
+				{
+					ProductGroup = FA53A99A2114AC320072C495 /* Products */;
+					ProjectRef = FA53A9992114AC320072C495 /* Lottie.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1218,6 +1303,34 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		FA53A9A42114AC320072C495 /* Lottie.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Lottie.framework;
+			remoteRef = FA53A9A32114AC320072C495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FA53A9A62114AC320072C495 /* Lottie.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Lottie.framework;
+			remoteRef = FA53A9A52114AC320072C495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FA53A9A82114AC320072C495 /* Lottie.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Lottie.framework;
+			remoteRef = FA53A9A72114AC320072C495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FA53A9AA2114AC320072C495 /* libLottie.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libLottie.a;
+			remoteRef = FA53A9A92114AC320072C495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1234,7 +1347,12 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				FA5BBFFE2114CA3200986734 /* circle_01.png in Resources */,
+				FA5BBFFF2114CA3200986734 /* logo_05.png in Resources */,
+				FA5BC0002114CA3200986734 /* circle_03.png in Resources */,
+				FA5BC0012114CA3200986734 /* logo_03.png in Resources */,
 				5657CF6C769846B8A0DEF6EF /* NanumSquareBold.ttf in Resources */,
+				FA5BC0022114CA3200986734 /* circle_02.png in Resources */,
 				8FAA983B2120405CB9644C6B /* NanumSquareExtraBold.ttf in Resources */,
 				58CE102F769C43639A8BBE66 /* NanumSquareLight.ttf in Resources */,
 				7DBA4431C60B46C7A2E1E423 /* NanumSquareRegular.ttf in Resources */,
@@ -1306,21 +1424,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EEA33820654A020347B6B29C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F3B00A6FB67C0329F519C202 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1388,6 +1491,11 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* HanRiverMeetup-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		FA53A9D42114AC3F0072C495 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Lottie_iOS;
+			targetProxy = FA53A9D32114AC3F0072C495 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -6,5 +6,5 @@
 
 ## Look foward to 
 
- - Change ES to TypeScrpit
- - Clean code
+ - Changing ES to TypeScrpit
+ - Cleaning code

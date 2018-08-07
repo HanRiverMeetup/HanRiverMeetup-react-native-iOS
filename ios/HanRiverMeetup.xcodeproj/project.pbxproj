@@ -35,7 +35,6 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* HanRiverMeetupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HanRiverMeetupTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
-		525BA7D7C3304F0290742DBB /* NanumSquareLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A95238D9D91844AFABC4A5BD /* NanumSquareLight.ttf */; };
 		5657CF6C769846B8A0DEF6EF /* NanumSquareBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9746C5CDE7CF40FD954E165A /* NanumSquareBold.ttf */; };
 		58CE102F769C43639A8BBE66 /* NanumSquareLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 200D039B00504CE08F296AB3 /* NanumSquareLight.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -453,7 +452,6 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		9746C5CDE7CF40FD954E165A /* NanumSquareBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareBold.ttf; path = ../assets/fonts/NanumSquareBold.ttf; sourceTree = "<group>"; };
-		A95238D9D91844AFABC4A5BD /* NanumSquareLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareLight.ttf; path = "../node_modules/react-native-nanum-square/Fonts/NanumSquareLight.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		DCFB27EDE57A46F68BA7A0D4 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		F17C43AA8F55682E053F145A /* Pods-HanRiverMeetup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanRiverMeetup.release.xcconfig"; path = "Pods/Target Support Files/Pods-HanRiverMeetup/Pods-HanRiverMeetup.release.xcconfig"; sourceTree = "<group>"; };
@@ -718,6 +716,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FA53A9992114AC320072C495 /* Lottie.xcodeproj */,
 				6FC336F42104EEA1004E9EAD /* FastImage.xcodeproj */,
 				6F8D876220FB486800EAB090 /* BVLinearGradient.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -749,7 +748,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				FA53A9992114AC320072C495 /* Lottie.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* HanRiverMeetup */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* HanRiverMeetupTests */,
@@ -800,7 +798,6 @@
 				2A6837D13BF5463E878268B5 /* NanumSquareExtraBold.ttf */,
 				200D039B00504CE08F296AB3 /* NanumSquareLight.ttf */,
 				599FE45BF84149B3A50EA029 /* NanumSquareRegular.ttf */,
-				A95238D9D91844AFABC4A5BD /* NanumSquareLight.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1356,7 +1353,6 @@
 				8FAA983B2120405CB9644C6B /* NanumSquareExtraBold.ttf in Resources */,
 				58CE102F769C43639A8BBE66 /* NanumSquareLight.ttf in Resources */,
 				7DBA4431C60B46C7A2E1E423 /* NanumSquareRegular.ttf in Resources */,
-				525BA7D7C3304F0290742DBB /* NanumSquareLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

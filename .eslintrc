@@ -24,6 +24,7 @@
     "camelcase": "off",
     "no-use-before-define": "off",
     "semi-style": "off",
+    "func-names": "off",
 
     "react/display-name": "off",
     "react/no-this-in-sfc": "off",

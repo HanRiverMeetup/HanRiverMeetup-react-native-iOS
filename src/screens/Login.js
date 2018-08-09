@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { LoginManager } from 'react-native-fbsdk';
 import styled from 'styled-components';
 import { Dimensions } from 'react-native';
+import { observer, inject } from 'mobx-react';
 
 import Images from '@assets';
 import BaseButton from '../components/BaseButton';
@@ -61,7 +62,11 @@ const FacebookButton = styled(BaseButton).attrs({ underlayColor: 'rgba(49,49,49,
   width: ${deviceWidth};
 `;
 
-export default class Login extends Component {
+@inject(stores => ({
+  userStore: stores.store.userStore,
+}))
+@observer
+class Login extends Component {
   fbAuth = () => {
     LoginManager.logInWithReadPermissions(['public_profile']).then(
       result => {
@@ -94,3 +99,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default Login;

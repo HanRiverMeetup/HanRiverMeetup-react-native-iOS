@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginManager } from 'react-native-fbsdk';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Dimensions } from 'react-native';
 import { observer, inject } from 'mobx-react';
@@ -64,22 +64,19 @@ const FacebookButton = styled(BaseButton).attrs({ underlayColor: 'rgba(49,49,49,
 
 @inject(stores => ({
   userStore: stores.store.userStore,
+  isLoading: stores.store.userStore.isLoading,
 }))
 @observer
 class Login extends Component {
+  static propTypes = {
+    userStore: PropTypes.shape({
+      fbToken: PropTypes.string,
+    }).isRequired,
+  };
+
   fbAuth = () => {
-    LoginManager.logInWithReadPermissions(['public_profile']).then(
-      result => {
-        if (result.isCancelled) {
-          console.log('Login Cancelled');
-        } else {
-          console.log(result.grantedPermissions);
-        }
-      },
-      error => {
-        console.log('some error occurred!!', error);
-      }
-    );
+    const { userStore } = this.props;
+    userStore.logInWithFB();
   };
 
   render() {

@@ -20,18 +20,16 @@ export default class Launch extends Component {
     };
   }
 
-  componentDidMount() {
-    this.startAnimation();
+  async componentDidMount() {
+    const { navigation } = this.props;
+    const data = await Promise.all([this.animateAsync(), AccessToken.getCurrentAccessToken()]);
+    console.log('data', data);
 
-    setTimeout(() => {
-      AccessToken.getCurrentAccessToken().then(data => {
-        if (_.isEmpty(data)) {
-          this.props.navigation.navigate('Login');
-          return;
-        }
-        this.props.navigation.navigate('App');
-      });
-    }, 2100);
+    if (_.isEmpty(data[1])) {
+      navigation.navigate('Login');
+      return;
+    }
+    navigation.navigate('App');
   }
 
   startAnimation = () => {
@@ -41,6 +39,14 @@ export default class Launch extends Component {
       easing: Easing.linear,
     }).start();
   };
+
+  animateAsync = () =>
+    new Promise(resolve => {
+      this.startAnimation();
+      setTimeout(() => {
+        resolve();
+      }, 2100);
+    });
 
   render() {
     return (

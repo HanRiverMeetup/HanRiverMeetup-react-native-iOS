@@ -3,19 +3,19 @@ import serverInfo from './configs';
 const ACCESS_ENDPOINT = `${serverInfo.url}/access`;
 
 const Fetch = async (method, url, params) => {
+  let response;
   try {
-    const response = await fetch(url, {
+    response = await fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(params),
     });
-
-    return response.json();
   } catch (error) {
     alert(error.messages);
   }
+  return response.json();
 };
 
 export class AccessAPI {

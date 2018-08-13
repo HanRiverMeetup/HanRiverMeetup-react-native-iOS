@@ -298,8 +298,6 @@ class RoomIn extends Component {
       extrapolate: 'clamp',
     });
 
-    console.log('headerHight', headerHeight);
-
     return (
       <Container>
         <Header colors={['#2186f8', '#1fa6df']} style={{ height: headerHeight }}>

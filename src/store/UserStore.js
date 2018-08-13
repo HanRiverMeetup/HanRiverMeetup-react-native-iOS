@@ -55,7 +55,7 @@ const WithLoading = types
         self.fbToken = res.access_token;
         self.hanganToken = res.hangang_token;
       } catch (error) {
-        console.log('loginValidatade Error', error.message);
+        // NOTHING
       }
       return self.nickName;
     });

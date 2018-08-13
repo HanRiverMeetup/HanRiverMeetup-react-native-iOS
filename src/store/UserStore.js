@@ -5,7 +5,7 @@ import { AccessAPI } from '../APIManager';
 import Loading from './compose/Loading';
 
 const UserStore = types.model('UserStore', {
-  nickName: types.optional(types.string, ''),
+  nickName: types.optional(types.maybeNull(types.string), ''),
   hanganToken: types.optional(types.string, ''),
   fbToken: types.optional(types.string, ''),
   fbId: types.optional(types.string, ''),
@@ -47,10 +47,24 @@ const WithLoading = types
       }
     });
 
+    const loginValidate = flow(function*(loginInfo) {
+      try {
+        const res = yield AccessAPI.loginValidate(loginInfo);
+        self.nickName = res.nickname;
+        self.fbId = res.fbId;
+        self.fbToken = res.access_token;
+        self.hanganToken = res.hangang_token;
+      } catch (error) {
+        console.log('loginValidatade Error', error.message);
+      }
+      return self.nickName;
+    });
+
     return {
       logInWithFB: flow(function*() {
         return yield self.withLoading(logInWithFB)();
       }),
+      loginValidate,
     };
   });
 

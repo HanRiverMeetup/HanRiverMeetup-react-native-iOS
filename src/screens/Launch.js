@@ -2,11 +2,17 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { AccessToken } from 'react-native-fbsdk';
 import { StyleSheet, View, Animated, Easing } from 'react-native';
+import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import LottieView from 'lottie-react-native';
 import Lotties from '@lottie';
 
-export default class Launch extends Component {
+@inject(stores => ({
+  userStore: stores.store.userStore,
+  isLoading: stores.store.userStore.isLoading,
+}))
+@observer
+class Launch extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -21,14 +27,26 @@ export default class Launch extends Component {
   }
 
   async componentDidMount() {
-    const { navigation } = this.props;
+    const { navigation, userStore } = this.props;
     const data = await Promise.all([this.animateAsync(), AccessToken.getCurrentAccessToken()]);
-    console.log('data', data);
 
     if (_.isEmpty(data[1])) {
       navigation.navigate('Login');
       return;
     }
+
+    const loginInfo = {
+      access_token: data[1].accessToken,
+      user_id: data[1].userID,
+    };
+
+    const res = await userStore.loginValidate(loginInfo);
+
+    if (_.isEmpty(res)) {
+      navigation.navigate('SignIn');
+      return;
+    }
+
     navigation.navigate('App');
   }
 
@@ -70,3 +88,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default Launch;

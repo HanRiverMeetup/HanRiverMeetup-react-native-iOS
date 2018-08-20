@@ -78,7 +78,8 @@ export default class Home extends Component {
   registerNickName = async () => {
     const { userStore } = this.props;
     const { nickName } = this.state;
-    await userStore.registerUser(nickName);
+
+    await userStore.registUser(nickName);
   };
 
   render() {
@@ -99,8 +100,8 @@ export default class Home extends Component {
             value={nickName}
           />
         </MainView>
-        <UserRegButton>
-          <UserRegText onPress={this.registerNickName}>등록하기</UserRegText>
+        <UserRegButton onPress={this.registerNickName}>
+          <UserRegText>등록하기</UserRegText>
         </UserRegButton>
       </KeyboardAwareView>
     );

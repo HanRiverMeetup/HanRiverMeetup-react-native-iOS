@@ -40,9 +40,9 @@ class Launch extends Component {
       user_id: data[1].userID,
     };
 
-    const res = await userStore.loginValidate(loginInfo);
+    const userNickName = await userStore.loginValidate(loginInfo);
 
-    if (_.isEmpty(res)) {
+    if (_.isEmpty(userNickName)) {
       navigation.navigate('SignIn');
       return;
     }

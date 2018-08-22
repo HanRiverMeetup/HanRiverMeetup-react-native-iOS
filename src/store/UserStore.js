@@ -1,14 +1,14 @@
+import _ from 'lodash';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
-import { flow, types } from 'mobx-state-tree';
+import { flow, types, getRoot } from 'mobx-state-tree';
 
-import { AccessAPI } from '../APIManager';
 import Loading from './compose/Loading';
 
 const UserStore = types.model('UserStore', {
   nickName: types.optional(types.maybeNull(types.string), ''),
-  hanganToken: types.optional(types.string, ''),
+  hangangToken: types.optional(types.string, ''),
   fbToken: types.optional(types.string, ''),
-  fbId: types.optional(types.string, ''),
+  user_id: types.optional(types.string, ''),
 });
 
 const WithLoading = types
@@ -34,11 +34,11 @@ const WithLoading = types
             user_id: data.userID,
           };
 
-          const res = yield AccessAPI.loginValidate(loginInfo);
+          const res = yield getRoot(self).loginValidate(loginInfo);
           self.nickName = res.nickname;
-          self.fbId = res.fbId;
+          self.user_id = res.user_id;
           self.fbToken = res.access_token;
-          self.hanganToken = res.hangang_token;
+          self.hangangToken = res.hangang_token;
         } else {
           alert('no permisson');
         }
@@ -48,16 +48,23 @@ const WithLoading = types
     });
 
     const loginValidate = flow(function*(loginInfo) {
-      try {
-        const res = yield AccessAPI.loginValidate(loginInfo);
-        self.nickName = res.nickname;
-        self.fbId = res.fbId;
-        self.fbToken = res.access_token;
-        self.hanganToken = res.hangang_token;
-      } catch (error) {
-        // NOTHING
-      }
+      const res = yield getRoot(self).loginValidate(loginInfo);
+
+      self.nickName = res.nickname;
+      self.user_id = res.user_id;
+      self.fbToken = res.access_token;
+      self.hangangToken = res.hangang_token;
+
       return self.nickName;
+    });
+
+    const registUser = flow(function*(nickname) {
+      const params = {
+        nickname,
+        user_id: self.user_id,
+      };
+
+      yield getRoot(self).registUser(params);
     });
 
     return {
@@ -65,6 +72,9 @@ const WithLoading = types
         return yield self.withLoading(logInWithFB)();
       }),
       loginValidate,
+      registUser: flow(function*(nickname) {
+        return yield self.withLoading(_.partial(registUser, nickname))();
+      }),
     };
   });
 

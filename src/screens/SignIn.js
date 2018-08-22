@@ -76,10 +76,15 @@ export default class Home extends Component {
   };
 
   registerNickName = async () => {
-    const { userStore } = this.props;
+    const { navigation, userStore } = this.props;
     const { nickName } = this.state;
 
-    await userStore.registUser(nickName);
+    try {
+      await userStore.registUser(nickName);
+      navigation.navigate('MainTabbar');
+    } catch (error) {
+      alert(error);
+    }
   };
 
   render() {

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -74,9 +75,20 @@ class Login extends Component {
     }).isRequired,
   };
 
-  fbAuth = () => {
-    const { userStore } = this.props;
-    userStore.logInWithFB();
+  fbAuth = async () => {
+    const { userStore, navigation } = this.props;
+    try {
+      const userNickName = await userStore.logInWithFB();
+
+      if (_.isEmpty(userNickName)) {
+        navigation.navigate('SignIn');
+        return;
+      }
+
+      navigation.navigate('MainTabbar');
+    } catch (error) {
+      alert(error);
+    }
   };
 
   render() {

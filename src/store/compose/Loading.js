@@ -1,5 +1,6 @@
 import { flow, types } from 'mobx-state-tree';
 
+//테스트
 const Loading = types
   .model('Loading', {
     isLoading: types.optional(types.boolean, false),

@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import BaseText from '../components/BaseText';
 import BaseButton from '../components/BaseButton';
+import withLoading from '../HOC/withLoading';
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
@@ -65,6 +66,7 @@ const MainView = styled.View`
   userStore: stores.store.userStore,
   isLoading: stores.store.userStore.isLoading,
 }))
+@withLoading
 @observer
 export default class SignIn extends Component {
   state = {

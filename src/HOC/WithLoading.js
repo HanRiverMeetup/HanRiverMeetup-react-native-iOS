@@ -7,7 +7,7 @@ const Container = styled.View`
   flex: 1;
 `;
 
-const withLoading = Component => {
+const WithLoading = Component => {
   const Sub = ({ isLoading, ...rest }) =>
     isLoading ? (
       <Container>
@@ -22,8 +22,8 @@ const withLoading = Component => {
   };
 };
 
-withLoading.propTypes = {
+WithLoading.propTypes = {
   Component: PropTypes.element,
 };
 
-export default withLoading;
+export default WithLoading;

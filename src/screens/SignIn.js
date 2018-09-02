@@ -66,7 +66,7 @@ const MainView = styled.View`
   isLoading: stores.store.userStore.isLoading,
 }))
 @observer
-export default class Home extends Component {
+export default class SignIn extends Component {
   state = {
     nickName: '',
   };

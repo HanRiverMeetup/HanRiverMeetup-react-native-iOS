@@ -23,28 +23,25 @@ const WithLoading = types
   }))
   .actions(self => {
     const logInWithFB = flow(function*() {
-      try {
-        const result = yield LoginManager.logInWithReadPermissions(['public_profile']);
+      const result = yield LoginManager.logInWithReadPermissions(['public_profile']);
 
-        if (result.grantedPermissions.length > 0) {
-          const data = yield AccessToken.getCurrentAccessToken();
+      if (result.grantedPermissions.length > 0) {
+        const data = yield AccessToken.getCurrentAccessToken();
 
-          const loginInfo = {
-            access_token: data.accessToken,
-            user_id: data.userID,
-          };
+        const loginInfo = {
+          access_token: data.accessToken,
+          user_id: data.userID,
+        };
 
-          const res = yield getRoot(self).loginValidate(loginInfo);
-          self.nickName = res.nickname;
-          self.user_id = res.user_id;
-          self.fbToken = res.access_token;
-          self.hangangToken = res.hangang_token;
-        } else {
-          alert('no permisson');
-        }
-      } catch (error) {
-        alert(error.message);
+        const res = yield getRoot(self).loginValidate(loginInfo);
+        self.nickName = res.nickname;
+        self.user_id = res.user_id;
+        self.fbToken = res.access_token;
+        self.hangangToken = res.hangang_token;
+      } else {
+        alert('no permisson');
       }
+      return self.nickName;
     });
 
     const loginValidate = flow(function*(loginInfo) {

@@ -4,8 +4,10 @@ import Images from '@assets';
 import { Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
+import { observer, inject } from 'mobx-react';
 
 import BaseButton from '../components/BaseButton';
+import withLoading from '../HOC/withLoading';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
@@ -102,6 +104,12 @@ const TabIcon = styled.Image`
   height: 18px;
 `;
 
+@inject(stores => ({
+  userStore: stores.store.userStore,
+  isLoading: stores.store.userStore.isLoading,
+}))
+@withLoading
+@observer
 export default class Home extends Component {
   static navigationOptions = () => ({
     title: '같이놀강',
@@ -112,6 +120,7 @@ export default class Home extends Component {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
     }).isRequired,
+    userStore: PropTypes.shape({}).isRequired,
   };
 
   goDetail = index => {
@@ -129,10 +138,12 @@ export default class Home extends Component {
   );
 
   render() {
+    const { userStore } = this.props;
+    const { nickName } = userStore;
     return (
       <Container>
         <Header>
-          <HeaderTitle>{'김태성님,\n한강에서 즐겨볼까요?'}</HeaderTitle>
+          <HeaderTitle>{`${nickName}님,\n한강에서 즐겨볼까요?`}</HeaderTitle>
         </Header>
         <Body>
           <ContentsList

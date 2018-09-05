@@ -25,7 +25,7 @@ const WithLoading = types
     const logInWithFB = flow(function*() {
       const result = yield LoginManager.logInWithReadPermissions(['public_profile']);
 
-      if (result.grantedPermissions.length > 0) {
+      if (result.grantedPermissions) {
         const data = yield AccessToken.getCurrentAccessToken();
 
         const loginInfo = {
@@ -39,7 +39,7 @@ const WithLoading = types
         self.fbToken = res.access_token;
         self.hangangToken = res.hangang_token;
       } else {
-        alert('no permisson');
+        throw new Error('페이스북 로그인을 승인해주세요');
       }
       return self.nickName;
     });

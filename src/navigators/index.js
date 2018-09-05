@@ -1,4 +1,4 @@
-import { StackNavigator, SwitchNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import Launch from '../screens/Launch';
 import Login from '../screens/Login';
 import MainTabbar from './tabNavi';
@@ -7,7 +7,7 @@ import RoomIn from '../screens/RoomIn';
 import MakeRoom from '../screens/MakeRoom';
 import SignIn from '../screens/SignIn';
 
-const LoginStack = StackNavigator(
+const LoginStack = createStackNavigator(
   {
     Login,
     MainTabbar,
@@ -19,24 +19,24 @@ const LoginStack = StackNavigator(
   }
 );
 
-const AppStack = StackNavigator({ MainTabbar, HomeDetail, RoomIn }, { headerMode: 'none' });
+const AppStack = createStackNavigator({ MainTabbar, HomeDetail, RoomIn }, { headerMode: 'none' });
 
-const SignInStack = StackNavigator(
+const SignInStack = createStackNavigator(
   { SignIn, MainTabbar, HomeDetail, RoomIn },
   { headerMode: 'none' }
 );
 
-const AppWithModalStack = StackNavigator(
+const AppWithModalStack = createStackNavigator(
   { AppStack, MakeRoom },
   { headerMode: 'none', mode: 'modal' }
 );
 
-const SignInWithModalStack = StackNavigator(
+const SignInWithModalStack = createStackNavigator(
   { SignInStack, MakeRoom },
   { headerMode: 'none', mode: 'modal' }
 );
 
-export default SwitchNavigator({
+export default createSwitchNavigator({
   Launch,
   App: AppWithModalStack,
   SignIn: SignInWithModalStack,

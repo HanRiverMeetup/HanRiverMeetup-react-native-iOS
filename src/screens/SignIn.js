@@ -5,7 +5,6 @@ import { observer, inject } from 'mobx-react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import BaseText from '../components/BaseText';
-import BaseButton from '../components/BaseButton';
 import withLoading from '../HOC/withLoading';
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
@@ -24,12 +23,14 @@ const WelcomeText = styled(BaseText)`
   line-height: 38px;
 `;
 
-const UserRegButton = styled(BaseButton)`
+const UserRegButton = styled.TouchableOpacity`
   background-color: #2186f8;
   height: 50px;
   position: absolute;
   bottom: 0px;
   width: ${deviceWidth}px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const UserRegText = styled(BaseText)`
@@ -85,7 +86,9 @@ export default class SignIn extends Component {
       await userStore.registUser(nickName);
       navigation.navigate('MainTabbar');
     } catch (error) {
-      alert(error);
+      setTimeout(() => {
+        alert(error);
+      }, 100);
     }
   };
 

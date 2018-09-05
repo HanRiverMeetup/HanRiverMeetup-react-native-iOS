@@ -31,7 +31,6 @@ const withLoading = WrappedComponent => {
 
     render() {
       const { isLoading } = this.props;
-      console.log('isLoading', isLoading);
       return (
         <React.Fragment>
           <Observer>

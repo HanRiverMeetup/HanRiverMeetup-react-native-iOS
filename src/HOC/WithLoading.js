@@ -62,8 +62,4 @@ const withLoading = WrappedComponent => {
   return WithLoading;
 };
 
-withLoading.defaultProps = {
-  isLoading: PropTypes.bool.isRequired,
-};
-
 export default withLoading;

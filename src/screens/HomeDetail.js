@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components';
@@ -5,14 +6,15 @@ import Images from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
+import { observer, inject } from 'mobx-react';
 
 import NaviHeader from '../components/NaviHeader';
 import BaseButton from '../components/BaseButton';
-import WithLoadingContainer from '../components/WithLoadingContainer';
+import withLoading from '../HOC/withLoading';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
-const LoadingContainer = styled(WithLoadingContainer)`
+const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #2186f8;
 `;
@@ -160,11 +162,20 @@ const DATAS = [
   },
 ];
 
-export default class Home extends Component {
+@inject(stores => ({
+  roomStore: stores.store.roomStore,
+  isLoading: stores.store.roomStore.isLoading,
+}))
+@withLoading
+@observer
+export default class HomeDetail extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
       getParam: PropTypes.func,
+    }).isRequired,
+    roomStore: PropTypes.shape({
+      fetchRoomsBySeq: PropTypes.func,
     }).isRequired,
   };
 
@@ -177,11 +188,8 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true }, () =>
-      setTimeout(() => {
-        this.setState({ isLoading: false });
-      }, 1500)
-    );
+    const { index } = this.state;
+    this.props.roomStore.fetchRoomsBySeq(index);
   }
 
   back = () => {
@@ -190,11 +198,7 @@ export default class Home extends Component {
   };
 
   changeIndex = index => {
-    this.setState({ index, isLoading: true }, () =>
-      setTimeout(() => {
-        this.setState({ isLoading: false });
-      }, 1500)
-    );
+    this.setState({ index });
   };
 
   toDetail = () => {
@@ -248,28 +252,28 @@ export default class Home extends Component {
   );
 
   render() {
-    const { index, isLoading } = this.state;
+    const { index } = this.state;
     return (
-      <LoadingContainer isLoading={isLoading}>
+      <Container>
         <Header colors={['#2186f8', '#1fa6df']}>
           <NaviHeader centerView={this.renderCenterView} onBack={this.back} />
           <TitleLists>
-            <TitleText select={index === 0} onPress={() => this.changeIndex(0)}>
+            <TitleText select={index === 0} onPress={_.partial(this.changeIndex, 0)}>
               치킨
             </TitleText>
-            <TitleText select={index === 1} onPress={() => this.changeIndex(1)}>
+            <TitleText select={index === 1} onPress={_.partial(this.changeIndex, 1)}>
               자전거
             </TitleText>
-            <TitleText select={index === 2} onPress={() => this.changeIndex(2)}>
+            <TitleText select={index === 2} onPress={_.partial(this.changeIndex, 2)}>
               오리배
             </TitleText>
-            <TitleText select={index === 3} onPress={() => this.changeIndex(3)}>
+            <TitleText select={index === 3} onPress={_.partial(this.changeIndex, 3)}>
               캠핑
             </TitleText>
-            <TitleText select={index === 4} onPress={() => this.changeIndex(4)}>
+            <TitleText select={index === 4} onPress={_.partial(this.changeIndex, 4)}>
               사진
             </TitleText>
-            <TitleText select={index === 5} onPress={() => this.changeIndex(5)}>
+            <TitleText select={index === 5} onPress={_.partial(this.changeIndex, 5)}>
               기타
             </TitleText>
           </TitleLists>
@@ -285,7 +289,7 @@ export default class Home extends Component {
         <MakeRoomBtn onPress={this.makeRoom}>
           <BlueBtnImg source={Images.bt_plus} />
         </MakeRoomBtn>
-      </LoadingContainer>
+      </Container>
     );
   }
 }

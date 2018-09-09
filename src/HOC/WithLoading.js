@@ -37,6 +37,7 @@ const withLoading = WrappedComponent => {
             {() => (
               <React.Fragment>
                 <WrappedComponent {...this.props} />
+
                 <FrameLoading
                   animating={isLoading}
                   views={VIEWS}

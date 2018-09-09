@@ -183,7 +183,6 @@ export default class HomeDetail extends Component {
     super(props);
     this.state = {
       index: props.navigation.getParam('index'),
-      isLoading: false,
     };
   }
 
@@ -253,6 +252,7 @@ export default class HomeDetail extends Component {
 
   render() {
     const { index } = this.state;
+
     return (
       <Container>
         <Header colors={['#2186f8', '#1fa6df']}>

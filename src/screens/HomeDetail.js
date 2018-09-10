@@ -214,7 +214,7 @@ export default class HomeDetail extends Component {
   render() {
     const { index } = this.state;
     const { roomStore } = this.props;
-    const slectedRoom = roomStore.allRooms.filter(room => room.activity_seq === index);
+    const selectedRoom = roomStore.allRooms.filter(room => room.activity_seq === index);
 
     return (
       <Container>
@@ -243,7 +243,7 @@ export default class HomeDetail extends Component {
         </Header>
         <Body>
           <ContentsList
-            data={slectedRoom}
+            data={selectedRoom}
             renderItem={this.renderItem}
             keyExtractor={item => `${item.meeting_seq}`}
             ItemSeparatorComponent={() => <Separator />}

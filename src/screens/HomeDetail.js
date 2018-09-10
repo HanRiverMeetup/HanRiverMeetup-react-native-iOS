@@ -119,49 +119,6 @@ const InnerView = styled.View`
   width: ${deviceWidth}px;
 `;
 
-const DATAS = [
-  {
-    profileImg: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-    contentTitle: '주말에 난지에서 캠핑할 분 구해요!',
-    location: '여의도 한강공원',
-    time: 'PM 11:00',
-    members: 5,
-    money: '20,000원',
-  },
-  {
-    profileImg: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-    contentTitle: '주말에 난지에서 캠핑할 분 구해요!',
-    location: '여의도 한강공원2',
-    time: 'PM 11:00',
-    members: 5,
-    money: '20,000원',
-  },
-  {
-    profileImg: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-    contentTitle: '주말에 난지에서 캠핑할 분 구해요!',
-    location: '여의도 한강공원3',
-    time: 'PM 11:00',
-    members: 5,
-    money: '20,000원',
-  },
-  {
-    profileImg: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-    contentTitle: '주말에 난지에서 캠핑할 분 구해요!',
-    location: '여의도 한강공원4',
-    time: 'PM 11:00',
-    members: 5,
-    money: '20,000원',
-  },
-  {
-    profileImg: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-    contentTitle: '주말에 난지에서 캠핑할 분 구해요!',
-    location: '여의도 한강공원5',
-    time: 'PM 11:00',
-    members: 5,
-    money: '20,000원',
-  },
-];
-
 @inject(stores => ({
   roomStore: stores.store.roomStore,
   isLoading: stores.store.roomStore.isLoading,
@@ -174,9 +131,7 @@ export default class HomeDetail extends Component {
       navigate: PropTypes.func,
       getParam: PropTypes.func,
     }).isRequired,
-    roomStore: PropTypes.shape({
-      fetchRoomsBySeq: PropTypes.func,
-    }).isRequired,
+    roomStore: PropTypes.shape({}).isRequired,
   };
 
   constructor(props) {
@@ -186,18 +141,22 @@ export default class HomeDetail extends Component {
     };
   }
 
-  componentDidMount() {
-    const { index } = this.state;
-    this.props.roomStore.fetchRoomsBySeq(index);
-  }
-
   back = () => {
     const { navigation } = this.props;
     navigation.goBack();
   };
 
-  changeIndex = index => {
-    this.setState({ index });
+  changeIndex = async index => {
+    const { roomStore } = this.props;
+
+    try {
+      await roomStore.fetchRoomsBySeqence(index);
+      this.setState({ index });
+    } catch (error) {
+      setTimeout(() => {
+        alert(error.message);
+      }, 300);
+    }
   };
 
   toDetail = () => {
@@ -213,17 +172,17 @@ export default class HomeDetail extends Component {
   renderCenterView = () => {
     const { index } = this.state;
     switch (index) {
-      case 0:
-        return <TitleIcon source={Images.chicken_icon_w} />;
       case 1:
-        return <TitleIcon source={Images.cycle_w_icon} />;
+        return <TitleIcon source={Images.chicken_icon_w} />;
       case 2:
-        return <TitleIcon source={Images.duck_w_icon} />;
+        return <TitleIcon source={Images.cycle_w_icon} />;
       case 3:
-        return <TitleIcon source={Images.tent_icon} />;
+        return <TitleIcon source={Images.duck_w_icon} />;
       case 4:
-        return <TitleIcon source={Images.camera_w_icon} />;
+        return <TitleIcon source={Images.tent_icon} />;
       case 5:
+        return <TitleIcon source={Images.camera_w_icon} />;
+      case 6:
         return <TitleIcon source={Images.etc_w_icon} />;
       default:
         return null;
@@ -233,17 +192,19 @@ export default class HomeDetail extends Component {
   renderItem = ({ item }) => (
     <ContentView onPress={this.toDetail}>
       <InnerView>
-        <ProfileImg source={{ uri: item.profileImg }} />
+        <ProfileImg
+          source={{ uri: `http://graph.facebook.com/v3.1/${item.user_id}/picture?type=large` }}
+        />
         <InfoView>
-          <ContentTitle>{item.contentTitle}</ContentTitle>
-          <ContentLocation>{item.location}</ContentLocation>
+          <ContentTitle>{item.title}</ContentTitle>
+          <ContentLocation>{item.meeting_location}</ContentLocation>
           <DetailInfoView>
             <ContentDetailTitle>시간</ContentDetailTitle>
-            <ContentDetailContent>{item.time}</ContentDetailContent>
+            <ContentDetailContent>{item.meeting_time}</ContentDetailContent>
             <ContentDetailTitle>인원</ContentDetailTitle>
-            <ContentDetailContent>{item.members}</ContentDetailContent>
+            <ContentDetailContent>{item.participants_cnt}</ContentDetailContent>
             <ContentDetailTitle>회비</ContentDetailTitle>
-            <ContentDetailContent>{item.money}</ContentDetailContent>
+            <ContentDetailContent>{item.expected_cost}</ContentDetailContent>
           </DetailInfoView>
         </InfoView>
       </InnerView>
@@ -252,37 +213,39 @@ export default class HomeDetail extends Component {
 
   render() {
     const { index } = this.state;
+    const { roomStore } = this.props;
+    const slectedRoom = roomStore.allRooms.filter(room => room.activity_seq === index);
 
     return (
       <Container>
         <Header colors={['#2186f8', '#1fa6df']}>
           <NaviHeader centerView={this.renderCenterView} onBack={this.back} />
           <TitleLists>
-            <TitleText select={index === 0} onPress={_.partial(this.changeIndex, 0)}>
+            <TitleText select={index === 1} onPress={_.partial(this.changeIndex, 1)}>
               치킨
             </TitleText>
-            <TitleText select={index === 1} onPress={_.partial(this.changeIndex, 1)}>
+            <TitleText select={index === 2} onPress={_.partial(this.changeIndex, 2)}>
               자전거
             </TitleText>
-            <TitleText select={index === 2} onPress={_.partial(this.changeIndex, 2)}>
+            <TitleText select={index === 3} onPress={_.partial(this.changeIndex, 3)}>
               오리배
             </TitleText>
-            <TitleText select={index === 3} onPress={_.partial(this.changeIndex, 3)}>
+            <TitleText select={index === 4} onPress={_.partial(this.changeIndex, 4)}>
               캠핑
             </TitleText>
-            <TitleText select={index === 4} onPress={_.partial(this.changeIndex, 4)}>
+            <TitleText select={index === 5} onPress={_.partial(this.changeIndex, 5)}>
               사진
             </TitleText>
-            <TitleText select={index === 5} onPress={_.partial(this.changeIndex, 5)}>
+            <TitleText select={index === 6} onPress={_.partial(this.changeIndex, 6)}>
               기타
             </TitleText>
           </TitleLists>
         </Header>
         <Body>
           <ContentsList
-            data={DATAS}
+            data={slectedRoom}
             renderItem={this.renderItem}
-            keyExtractor={item => item.location}
+            keyExtractor={item => `${item.meeting_seq}`}
             ItemSeparatorComponent={() => <Separator />}
           />
         </Body>

@@ -5,7 +5,6 @@ import RoomStore from './RoomStore';
 import serverInfo from '../configs';
 
 const ACCESS_ENDPOINT = `${serverInfo.url}/access`;
-const MEETING_HOST_ENDPOINT = `${serverInfo.url}/host/meeting`;
 const MEETINGS_HOST_ENDPOINT = `${serverInfo.url}/host/meetings`;
 
 const Store = types

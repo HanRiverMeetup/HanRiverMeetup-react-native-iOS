@@ -13,32 +13,32 @@ const { width: deviceWidth } = Dimensions.get('window');
 
 const CONTENTS_LIST = [
   {
-    id: 0,
+    id: 1,
     image: Images.chicken_icon,
     title: '치킨 같이 먹을사람~',
     iconSize: { width: 44, height: 44 },
   },
   {
-    id: 1,
+    id: 2,
     image: Images.bycycle_icon,
     title: '자전거 같이 탈래?',
     iconSize: { width: 43, height: 45 },
   },
-  { id: 2, image: Images.duck_icon, title: '오리배 타자!', iconSize: { width: 48, height: 35 } },
+  { id: 3, image: Images.duck_icon, title: '오리배 타자!', iconSize: { width: 48, height: 35 } },
   {
-    id: 3,
+    id: 4,
     image: Images.camp_icon,
     title: '캠핑 함께 즐겨요~',
     iconSize: { width: 43, height: 41 },
   },
   {
-    id: 4,
+    id: 5,
     image: Images.camera_icon,
     title: '사진 같이 찍을래?',
     iconSize: { width: 40, height: 42 },
   },
   {
-    id: 5,
+    id: 6,
     image: Images.etc_icon,
     title: '그 밖에 한강 모임들',
     iconSize: { width: 40, height: 43 },
@@ -106,7 +106,8 @@ const TabIcon = styled.Image`
 
 @inject(stores => ({
   userStore: stores.store.userStore,
-  isLoading: stores.store.userStore.isLoading,
+  roomStore: stores.store.roomStore,
+  isLoading: stores.store.roomStore.isLoading,
 }))
 @withLoading
 @observer
@@ -121,11 +122,20 @@ export default class Home extends Component {
       navigate: PropTypes.func,
     }).isRequired,
     userStore: PropTypes.shape({}).isRequired,
+    roomStore: PropTypes.shape({ fetchRoomsBySeqence: PropTypes.func.isRequired }).isRequired,
   };
 
-  goDetail = index => {
-    const { navigation } = this.props;
-    navigation.navigate('HomeDetail', { index });
+  goDetail = async index => {
+    const { navigation, roomStore } = this.props;
+
+    try {
+      await roomStore.fetchRoomsBySeqence(index);
+      navigation.navigate('HomeDetail', { index });
+    } catch (error) {
+      setTimeout(() => {
+        alert(`error' + ${error.message}`);
+      }, 300);
+    }
   };
 
   renderItem = ({ item }) => (

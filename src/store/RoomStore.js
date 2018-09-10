@@ -13,17 +13,43 @@ const WithLoading = types
     Loading,
     RoomStore
   )
+  .views(self => ({
+    get allRooms() {
+      return Array.from(self.rooms.values());
+    },
+  }))
   .actions(self => {
     const fetchRoomsBySeq = flow(function*(seq) {
       const params = {
         activity_seq: seq,
       };
-      const res = yield getRoot(self).fetchRoomsBySeq(params);
+      const meetingRooms = yield getRoot(self).fetchRoomsBySeq(params);
+
+      meetingRooms.map(meetingRoom =>
+        self.rooms.put({
+          meeting_seq: meetingRoom.meeting_seq,
+          activity_seq: meetingRoom.activity_seq,
+          user_id: meetingRoom.user_id,
+          description: meetingRoom.description,
+          participants_cnt: meetingRoom.participants_cnt,
+          meeting_location: meetingRoom.meeting_location,
+          meeting_time: meetingRoom.meeting_time,
+          expected_cost: meetingRoom.expected_cost,
+          creation_time: meetingRoom.creation_time,
+          modification_time: meetingRoom.modification_time,
+          title: meetingRoom.title,
+          contact: meetingRoom.contact,
+          contact_seq: meetingRoom.contact_seq,
+          nickname: meetingRoom.nickname,
+          lat: meetingRoom.lat,
+          lng: meetingRoom.lng,
+        })
+      );
     });
 
     return {
-      fetchRoomsBySeq: flow(function*(seq) {
-        return yield self.withLoading(_.partial(fetchRoomsBySeq, seq))();
+      fetchRoomsBySeqence: flow(function*(seqence) {
+        return yield self.withLoading(_.partial(fetchRoomsBySeq, seqence))();
       }),
     };
   });

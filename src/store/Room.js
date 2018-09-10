@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree';
 
 const Room = types.model('Room', {
-  meeting_seq: types.identifier,
+  meeting_seq: types.identifierNumber,
   activity_seq: types.number,
   user_id: types.string,
   description: types.maybeNull(types.string),

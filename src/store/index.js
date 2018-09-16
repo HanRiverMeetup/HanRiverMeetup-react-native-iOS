@@ -33,8 +33,6 @@ const Store = types
         body: JSON.stringify(params),
       });
 
-      console.log('res', response);
-
       if (!response.ok) {
         const errorMsg = await response.text();
         throw new Error(errorMsg);

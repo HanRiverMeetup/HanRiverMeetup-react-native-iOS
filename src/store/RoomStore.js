@@ -51,7 +51,6 @@ const WithLoading = types
 
     const makeRoomByInfos = flow(function*(roomInfos) {
       try {
-        console.log('makeRoom', roomInfos);
         yield getRoot(self).makeRoom(roomInfos);
       } catch (error) {
         setTimeout(() => {

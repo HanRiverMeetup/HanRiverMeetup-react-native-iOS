@@ -47,9 +47,26 @@ const WithLoading = types
       );
     });
 
+    const getRoomInfoBySeq = seq => self.rooms.get(seq);
+
+    const makeRoomByInfos = flow(function*(roomInfos) {
+      try {
+        console.log('makeRoom', roomInfos);
+        yield getRoot(self).makeRoom(roomInfos);
+      } catch (error) {
+        setTimeout(() => {
+          alert('방생성에 실패했습니다!');
+        }, 300);
+      }
+    });
+
     return {
       fetchRoomsBySeqence: flow(function*(seqence) {
         return yield self.withLoading(_.partial(fetchRoomsBySeq, seqence))();
+      }),
+      getRoomInfoBySeq,
+      makeRoom: flow(function*(roomInfos) {
+        return yield self.withLoading(_.partial(makeRoomByInfos, roomInfos))();
       }),
     };
   });

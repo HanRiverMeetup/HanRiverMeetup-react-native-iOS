@@ -140,7 +140,7 @@ const RightText = styled(BaseText)`
 @inject(stores => ({
   userStore: stores.store.userStore,
   roomStore: stores.store.roomStore,
-  isLoading: stores.store.userStore.isLoading,
+  isLoading: stores.store.roomStore.isLoading,
 }))
 @withLoading
 @observer
@@ -254,6 +254,14 @@ class MakeRoom extends React.Component {
     };
 
     await roomStore.makeRoom(params);
+
+    try {
+      await roomStore.fetchRoomsBySeqence(index);
+    } catch (error) {
+      setTimeout(() => {
+        alert('방목록을 새로 가져오는데 실패 했습니다 ');
+      }, 300);
+    }
   };
 
   renderTableView = () => (

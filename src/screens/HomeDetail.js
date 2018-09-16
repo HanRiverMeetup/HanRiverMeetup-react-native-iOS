@@ -11,6 +11,7 @@ import { observer, inject } from 'mobx-react';
 import NaviHeader from '../components/NaviHeader';
 import BaseButton from '../components/BaseButton';
 import withLoading from '../HOC/withLoading';
+import { timeUtils } from '../utils';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
@@ -149,6 +150,10 @@ export default class HomeDetail extends Component {
   changeIndex = async index => {
     const { roomStore } = this.props;
 
+    if (index === this.state.index) {
+      return;
+    }
+
     try {
       await roomStore.fetchRoomsBySeqence(index);
       this.setState({ index });
@@ -159,14 +164,23 @@ export default class HomeDetail extends Component {
     }
   };
 
-  toDetail = () => {
-    const { navigation } = this.props;
-    navigation.navigate('RoomIn');
+  toDetail = seq => {
+    try {
+      const { navigation, roomStore } = this.props;
+      const roomInfo = roomStore.getRoomInfoBySeq(seq);
+
+      navigation.navigate('RoomIn', { roomInfo });
+    } catch (error) {
+      setTimeout(() => {
+        alert(error.message);
+      }, 300);
+    }
   };
 
   makeRoom = () => {
     const { navigation } = this.props;
-    navigation.navigate('MakeRoom');
+    const { index } = this.state;
+    navigation.navigate('MakeRoom', { index });
   };
 
   renderCenterView = () => {
@@ -190,7 +204,7 @@ export default class HomeDetail extends Component {
   };
 
   renderItem = ({ item }) => (
-    <ContentView onPress={this.toDetail}>
+    <ContentView onPress={_.partial(this.toDetail, item.meeting_seq)}>
       <InnerView>
         <ProfileImg
           source={{ uri: `http://graph.facebook.com/v3.1/${item.user_id}/picture?type=large` }}
@@ -200,7 +214,7 @@ export default class HomeDetail extends Component {
           <ContentLocation>{item.meeting_location}</ContentLocation>
           <DetailInfoView>
             <ContentDetailTitle>시간</ContentDetailTitle>
-            <ContentDetailContent>{item.meeting_time}</ContentDetailContent>
+            <ContentDetailContent>{timeUtils.toTime(item.meeting_time)}</ContentDetailContent>
             <ContentDetailTitle>인원</ContentDetailTitle>
             <ContentDetailContent>{item.participants_cnt}</ContentDetailContent>
             <ContentDetailTitle>회비</ContentDetailTitle>

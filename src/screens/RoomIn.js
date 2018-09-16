@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Animated, Dimensions, View } from 'react-native';
 import styled from 'styled-components';
@@ -5,46 +6,17 @@ import LinearGradient from 'react-native-linear-gradient';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
+import { observer, inject } from 'mobx-react';
 
 import NaviHeader from '../components/NaviHeader';
 import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
+import withLoading from '../HOC/withLoading';
+import { timeUtils } from '../utils';
 
 const { width: deviceWidth } = Dimensions.get('window');
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 const AnimatedHeader = Animated.createAnimatedComponent(LinearGradient);
-const DATAS = [
-  {
-    id: '0',
-    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
-    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-  },
-  {
-    id: '1',
-    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
-    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-  },
-  {
-    id: '2',
-    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
-    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-  },
-  {
-    id: '3',
-    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
-    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-  },
-  {
-    id: '4',
-    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
-    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-  },
-  {
-    id: '5',
-    text: '안녕하세요! 반갑습니다 저는 전날에 일이 있어서 조금 늦게 참석도 가능한가요?',
-    imageUri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
-  },
-];
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -68,19 +40,31 @@ const ChatTextInput = styled.TextInput`
   flex: 3.5;
 `;
 
-const RegButton = styled(BaseButton)`
-  flex: 1;
-  height: 44px;
-`;
+// const RegButton = styled.TouchableOpacity`
+//   flex: 1;
+//   height: 44px;
+//   background-color: blue;
+//   justify-content: center;
+//   align-items: center;
+// `;
 
 const Bottom = styled.View`
-  flex: 0.3;
   flex-direction: row;
+  background-color: blue;
+  border-top-color: #dcdcdc;
+  border-top-width: 1px;
 `;
 
 const RegText = styled(BaseText)`
   font-family: NanumSquareB;
   font-size: 15.9;
+  padding-horizontal: 12px;
+  padding-vertical: 12px;
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  background-color: #2186f8;
+  height: 44px;
 `;
 
 const NameText = styled(BaseText)`
@@ -112,14 +96,19 @@ const ContentText = styled(BaseText)`
   color: #666666;
   font-size: 12;
   line-height: 19px;
-  padding-horizontal: 23px;
   margin-top: 11px;
 `;
 
-const KeyBoard = styled(KeyboardSpacer)``;
+const KeyBoard = styled(KeyboardSpacer)`
+  background-color: white;
+`;
 
 const Scroll = styled.ScrollView.attrs({
-  contentContainerStyle: { alignItems: 'center', paddingBottom: 30, paddingTop: 60 },
+  contentContainerStyle: {
+    alignItems: 'center',
+    paddingBottom: 0,
+    paddingTop: 60,
+  },
 })``;
 
 const HeaderText = styled(BaseText)`
@@ -161,6 +150,7 @@ const CommentsList = styled.FlatList`
   border-top-width: 1px;
   border-top-color: #dcdcdc;
   margin-top: 9px;
+  width: ${deviceWidth};
 `;
 
 const CommentText = styled(BaseText)`
@@ -183,7 +173,6 @@ const CommentTitleText = styled(BaseText)`
   color: black;
   font-size: 14;
   font-family: NanumSquareB;
-  text-align: center;
 `;
 
 const TimeText = styled(BaseText)`
@@ -219,19 +208,36 @@ const MiniProfileView = styled(FastImage)`
   margin-right: 7;
 `;
 
+@inject(stores => ({
+  userStore: stores.store.userStore,
+  commentStore: stores.store.commentStore,
+  isLoading: stores.store.commentStore.isLoading,
+}))
+@withLoading
+@observer
 class RoomIn extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
     }).isRequired,
+    commentStore: PropTypes.shape({}).isRequired,
+    userStore: PropTypes.shape({}).isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       scrollY: new Animated.Value(0),
+      comment: '',
     };
   }
+
+  componentDidMount = () => {
+    const { commentStore, navigation } = this.props;
+    const roomInfo = navigation.getParam('roomInfo');
+
+    commentStore.fetchCommentByMeetingSeq(roomInfo.meeting_seq);
+  };
 
   onKeyboard = show => {
     setTimeout(() => {
@@ -239,6 +245,30 @@ class RoomIn extends Component {
         this.scrollRef.scrollToEnd({ animated: false });
       }
     }, 100);
+  };
+
+  onCommentChange = text => {
+    this.setState({ comment: text });
+  };
+
+  onCommentReg = () => {
+    const { comment } = this.state;
+    const { userStore, commentStore, navigation } = this.props;
+    const roomInfo = navigation.getParam('roomInfo');
+
+    if (comment.length <= 0) {
+      return;
+    }
+
+    const commentInfos = {
+      comment,
+      meeting_seq: roomInfo.meeting_seq,
+      user_id: userStore.user_id,
+    };
+
+    commentStore.registerCommentByCommentInfo(commentInfos);
+    this.scrollRef.scrollToEnd({ animated: true });
+    this.setState({ comment: '' });
   };
 
   scrollRefInput = ref => {
@@ -252,18 +282,20 @@ class RoomIn extends Component {
     navigation.goBack();
   };
 
-  renderCenterView = () => <HeaderText>영수와 함께하는 한강여행!</HeaderText>;
+  renderCenterView = roomInfo => <HeaderText>{roomInfo.title}</HeaderText>;
 
   renderItem = ({ item }) => (
     <CommentListView>
       <UserInfoView>
-        <MiniProfileView source={{ uri: item.imageUri }} />
+        <MiniProfileView
+          source={{ uri: `http://graph.facebook.com/v3.1/${item.user_id}/picture?type=large` }}
+        />
         <TimeAndName>
-          <CommentTitleText>USER1</CommentTitleText>
-          <TimeText>45분전</TimeText>
+          <CommentTitleText>{item.nickname}</CommentTitleText>
+          <TimeText>{item.creation_time}</TimeText>
         </TimeAndName>
       </UserInfoView>
-      <CommentText>{item.text}</CommentText>
+      <CommentText>{item.comment}</CommentText>
     </CommentListView>
   );
 
@@ -298,6 +330,14 @@ class RoomIn extends Component {
       extrapolate: 'clamp',
     });
 
+    const { navigation, commentStore } = this.props;
+    const roomInfo = navigation.getParam('roomInfo');
+    const { comment } = this.state;
+
+    const selectedComments = commentStore.allComments.filter(
+      commentJSON => commentJSON.meeting_seq === roomInfo.meeting_seq
+    );
+
     return (
       <Container>
         <Header colors={['#2186f8', '#1fa6df']} style={{ height: headerHeight }}>
@@ -306,7 +346,7 @@ class RoomIn extends Component {
               zIndex: 200,
               paddingTop: 10,
             }}
-            centerView={this.renderCenterView}
+            centerView={_.partial(this.renderCenterView, roomInfo)}
             onBack={this.back}
           />
           <View style={{ flex: 1.3 }} />
@@ -321,7 +361,7 @@ class RoomIn extends Component {
               opacity: imageOpacity,
             }}
             source={{
-              uri: `https://unsplash.it/200/200?image=${Math.ceil(Math.random() * 10 + 1)}`,
+              uri: `http://graph.facebook.com/v3.1/${roomInfo.user_id}/picture?type=large`,
             }}
           />
           <Scroll
@@ -333,21 +373,17 @@ class RoomIn extends Component {
             ])}
           >
             <ContentsView>
-              <NameText>조영니</NameText>
+              <NameText>{roomInfo.nickname}</NameText>
               <InfoView>
                 <LabelText>시간</LabelText>
-                <LabelContent>11:00 / </LabelContent>
+                <LabelContent>{`${timeUtils.toTime(roomInfo.meeting_time)} / `}</LabelContent>
                 <LabelText>인원</LabelText>
-                <LabelContent>15명 / </LabelContent>
+                <LabelContent>{`${roomInfo.participants_cnt}명 / `}</LabelContent>
                 <LabelText>회비</LabelText>
-                <LabelContent>20,000원</LabelContent>
+                <LabelContent>{`${roomInfo.expected_cost}원`}</LabelContent>
               </InfoView>
-              <LocationText>여의도 한강공원</LocationText>
-              <ContentText>
-                난지 캠핑장에서 캠핑하실 분들 구합니다. 저는 모든 장비를갖추 고 있어서 바베큐 파티에
-                쓸 고기만 사서 우리 같이 놀아봐요!ㅁ! 구합니다. 저는 모든 장비를 갖추고 있어서
-                바베큐 파티에 쓸 고기만 사서 우리 같이 놀아봐요!ㅁ
-              </ContentText>
+              <LocationText>{roomInfo.meeting_location}</LocationText>
+              <ContentText>{roomInfo.description}</ContentText>
               <JoinButton onPress={() => alert('touch!')}>
                 <JoinView colors={['#2186f8', '#00c0c9']}>
                   <JoinInnerView>
@@ -359,21 +395,23 @@ class RoomIn extends Component {
             <CommentView>
               <CommentTitleText>댓글</CommentTitleText>
               <CommentsList
-                data={DATAS}
+                data={selectedComments}
                 renderItem={this.renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={item => `${item.comment_seq}`}
                 ItemSeparatorComponent={this.separator}
               />
             </CommentView>
           </Scroll>
+          <Bottom>
+            <ChatTextInput
+              placeholder="궁금한 사항을 댓글로 물어보세요"
+              onChangeText={this.onCommentChange}
+              value={comment}
+            />
+            <RegText onPress={this.onCommentReg}>등록</RegText>
+          </Bottom>
         </Body>
-        <Bottom>
-          <ChatTextInput placeholder="궁금한 사항을 댓글로 물어보세요" />
-          <RegButton>
-            <RegText>등록</RegText>
-          </RegButton>
-        </Bottom>
-        <KeyboardSpacer topSpacing={26} onToggle={this.onKeyboard} />
+        <KeyBoard onToggle={this.onKeyboard} />
       </Container>
     );
   }

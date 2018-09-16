@@ -28,6 +28,7 @@ class Launch extends Component {
 
   async componentDidMount() {
     const { navigation, userStore } = this.props;
+
     const data = await Promise.all([this.animateAsync(), AccessToken.getCurrentAccessToken()]);
 
     if (_.isEmpty(data[1])) {
@@ -40,14 +41,16 @@ class Launch extends Component {
       user_id: data[1].userID,
     };
 
-    const userNickName = await userStore.loginValidate(loginInfo);
-
-    if (_.isEmpty(userNickName)) {
-      navigation.navigate('SignIn');
-      return;
+    try {
+      const userNickName = await userStore.loginValidate(loginInfo);
+      if (_.isEmpty(userNickName)) {
+        navigation.navigate('SignIn');
+        return;
+      }
+      navigation.navigate('App');
+    } catch (error) {
+      alert('서버에서 데이터를 읽어오지 못했습니다!');
     }
-
-    navigation.navigate('App');
   }
 
   startAnimation = () => {

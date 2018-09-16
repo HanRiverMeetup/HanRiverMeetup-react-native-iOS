@@ -30,6 +30,7 @@ const images = {
   etc_w_icon: require('./etc_w.png'),
   flag_icon: require('./flag.png'),
   info_tab: require('./Info_tab.png'),
+  down_arrow: require('./down_arrow.png'),
 };
 /* eslint-enable global-require */
 

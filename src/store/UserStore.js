@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { flow, types, getRoot } from 'mobx-state-tree';
+import User from './User';
 
 import Loading from './compose/Loading';
 
@@ -9,6 +10,7 @@ const UserStore = types.model('UserStore', {
   hangangToken: types.optional(types.string, ''),
   fbToken: types.optional(types.string, ''),
   user_id: types.optional(types.string, ''),
+  userMap: types.optional(types.map(User), {}),
 });
 
 const WithLoading = types
@@ -16,16 +18,11 @@ const WithLoading = types
     Loading,
     UserStore
   )
-  .views(self => ({
-    get token() {
-      return self.fbToken;
-    },
-  }))
   .actions(self => {
     const logInWithFB = flow(function*() {
       const result = yield LoginManager.logInWithReadPermissions(['public_profile']);
 
-      if (result.grantedPermissions.length > 0) {
+      if (result.grantedPermissions) {
         const data = yield AccessToken.getCurrentAccessToken();
 
         const loginInfo = {
@@ -39,7 +36,7 @@ const WithLoading = types
         self.fbToken = res.access_token;
         self.hangangToken = res.hangang_token;
       } else {
-        alert('no permisson');
+        throw new Error('페이스북 로그인을 승인해주세요');
       }
       return self.nickName;
     });

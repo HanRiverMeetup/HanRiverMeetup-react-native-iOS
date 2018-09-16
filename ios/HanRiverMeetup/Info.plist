@@ -58,7 +58,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>앱에서 유저정보를 얻기 위해 위치정보를 요구합니다.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NanumSquareBold.ttf</string>

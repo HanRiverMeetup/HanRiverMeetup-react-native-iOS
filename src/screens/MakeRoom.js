@@ -244,7 +244,7 @@ class MakeRoom extends React.Component {
       title,
       user_id: userStore.user_id,
       meeting_location,
-      meeting_time: moment(meeting_time).format('YYYY-MM-DD HH:MM:SS'),
+      meeting_time: moment(this.formatDate).format('YYYY-MM-DD HH:MM:SS'),
       participants_cnt: parseInt(participants_cnt, 10),
       description,
       expected_cost: parseInt(expected_cost, 10),
@@ -309,8 +309,9 @@ class MakeRoom extends React.Component {
               opacity: 0.7,
             },
           }}
-          onDateChange={date => {
+          onDateChange={(date, formatDate) => {
             this.setState({ meeting_time: date });
+            this.formatDate = formatDate;
           }}
         />
         <RightButton>

@@ -8,15 +8,25 @@ const Base = styled.Text`
   color: white;
 `;
 
-const BaseText = ({ style, children }) => <Base style={style}>{children}</Base>;
+const BaseText = ({ style, children, onPress }) => (
+  <Base style={style} onPress={onPress}>
+    {children}
+  </Base>
+);
 
 BaseText.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-  style: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]),
+  style: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number),
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  onPress: PropTypes.func,
 };
 
 BaseText.defaultProps = {
   style: {},
+  onPress: () => {},
 };
 
 export default BaseText;

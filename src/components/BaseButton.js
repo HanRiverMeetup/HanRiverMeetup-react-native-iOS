@@ -7,13 +7,19 @@ const ButtonContainer = styled.TouchableHighlight`
   align-items: center;
 `;
 
-const BaseButton = props => <ButtonContainer {...props}>{props.children}</ButtonContainer>;
+const BaseButton = ({ style, children, onPress, underlayColor }) => (
+  <ButtonContainer onPress={onPress} underlayColor={underlayColor} style={style}>
+    {children}
+  </ButtonContainer>
+);
 
 BaseButton.propTypes = {
+  style: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.array]),
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   underlayColor: PropTypes.string,
+  onPress: PropTypes.func,
 };
 
-BaseButton.defaultProps = { underlayColor: 'rgba(240,256,256,0.7)' };
+BaseButton.defaultProps = { underlayColor: 'rgba(240,256,256,0.7)', style: {}, onPress: () => {} };
 
 export default BaseButton;

@@ -65,7 +65,7 @@ class Launch extends Component {
     new Promise(resolve => {
       this.startAnimation();
       setTimeout(() => {
-        resolve();
+        resolve(true);
       }, 2100);
     });
 

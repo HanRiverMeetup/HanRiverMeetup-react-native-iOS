@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { flow, types, getRoot } from 'mobx-state-tree';
-import User from './User';
 
+import User from './User';
 import Loading from './compose/Loading';
 
 const UserStore = types.model('UserStore', {

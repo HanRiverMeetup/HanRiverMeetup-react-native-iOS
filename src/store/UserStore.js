@@ -28,6 +28,7 @@ const WithLoading = types
         const loginInfo = {
           access_token: data.accessToken,
           user_id: data.userID,
+          fcm_token: 'iOS_FCM_TOKEN',
         };
 
         const res = yield getRoot(self).loginValidate(loginInfo);
@@ -43,6 +44,7 @@ const WithLoading = types
 
     const loginValidate = flow(function*(loginInfo) {
       const res = yield getRoot(self).loginValidate(loginInfo);
+      console.log('res', res);
 
       self.nickName = res.nickname;
       self.user_id = res.user_id;

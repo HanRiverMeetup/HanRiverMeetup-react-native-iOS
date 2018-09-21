@@ -59,6 +59,10 @@ const WithLoading = types
       }
     });
 
+    const joinRoomByGuestInfos = flow(function*(guestInfos) {
+      return yield getRoot(self).joinRoom(guestInfos);
+    });
+
     return {
       fetchRoomsBySeqence: flow(function*(seqence) {
         return yield self.withLoading(_.partial(fetchRoomsBySeq, seqence))();
@@ -66,6 +70,9 @@ const WithLoading = types
       getRoomInfoBySeq,
       makeRoom: flow(function*(roomInfos) {
         return yield self.withLoading(_.partial(makeRoomByInfos, roomInfos))();
+      }),
+      joinRoomByGuestInfos: flow(function*(guestInfos) {
+        return yield self.withLoading(_.partial(joinRoomByGuestInfos, guestInfos))();
       }),
     };
   });

@@ -9,6 +9,7 @@ const ACCESS_ENDPOINT = `${serverInfo.url}/access`;
 const MEETING_HOST_ENDPOINT = `${serverInfo.url}/host/meeting`;
 const MEETINGS_HOST_ENDPOINT = `${serverInfo.url}/host/meetings`;
 const COMMENT_ENDPOINT = `${serverInfo.url}/comm`;
+const GUEST_ENDPOINT = `${serverInfo.url}/guest`;
 
 const Store = types
   .model('Store', {
@@ -41,7 +42,7 @@ const Store = types
       return response.json();
     };
 
-    const loginValidate = params => Fetch('POST', `${ACCESS_ENDPOINT}/loginValidate`, params);
+    const loginValidate = params => Fetch('POST', `${ACCESS_ENDPOINT}/login`, params);
     const registUser = params => Fetch('POST', `${ACCESS_ENDPOINT}/registUser`, params);
     const registerComment = params => Fetch('POST', `${COMMENT_ENDPOINT}/comment`, params);
     const fetchRoomsBySeq = params =>
@@ -49,6 +50,7 @@ const Store = types
     const fetchCommentByMeetingSeq = params =>
       Fetch('GET', `${COMMENT_ENDPOINT}/comments/${params.meeting_seq}`);
     const makeRoom = params => Fetch('POST', `${MEETING_HOST_ENDPOINT}`, params);
+    const joinRoom = params => Fetch('POST', `${GUEST_ENDPOINT}/join`, params);
 
     return {
       loginValidate,
@@ -57,6 +59,7 @@ const Store = types
       fetchRoomsBySeq,
       fetchCommentByMeetingSeq,
       makeRoom,
+      joinRoom,
     };
   });
 

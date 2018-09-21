@@ -113,12 +113,6 @@ const BottomText = styled(BaseText)`
   font-family: NanumSquareB;
 `;
 
-// const RightButton = styled(BaseButton).attrs({ underlayColor: 'white' })`
-//   position: absolute;
-//   right: 23px;
-//   padding-top: 23.5px;
-// `;
-
 const RightText = styled(BaseText)`
   font-size: 14;
   font-family: NanumSquareB;

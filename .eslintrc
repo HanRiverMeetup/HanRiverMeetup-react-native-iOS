@@ -26,6 +26,7 @@
     "semi-style": "off",
     "func-names": "off",
     "no-param-reassign": "off",
+    "consistent-return": "off",
 
     "react/display-name": "off",
     "react/no-this-in-sfc": "off",

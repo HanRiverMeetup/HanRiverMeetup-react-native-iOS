@@ -119,7 +119,7 @@ export default class MyPage extends Component {
     return (
       <Container>
         <Header>
-          <HeaderTitle>{`안녕하세요\n ${nickName}님 반가워요`}</HeaderTitle>
+          <HeaderTitle>{`안녕하세요\n${nickName}님 반가워요`}</HeaderTitle>
         </Header>
         <Body />
       </Container>

@@ -24,7 +24,11 @@ const VIEWS = [
 const withLoading = WrappedComponent => {
   class WithLoading extends React.Component {
     static propTypes = {
-      isLoading: PropTypes.bool.isRequired,
+      isLoading: PropTypes.bool,
+    };
+
+    static defaultProps = {
+      isLoading: false,
     };
 
     componentDidMount = () => {};

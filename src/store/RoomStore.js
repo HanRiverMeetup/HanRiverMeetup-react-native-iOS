@@ -51,10 +51,10 @@ const WithLoading = types
 
     const makeRoomByInfos = flow(function*(roomInfos) {
       try {
-        yield getRoot(self).makeRoom(roomInfos);
+        return yield getRoot(self).makeRoom(roomInfos);
       } catch (error) {
         setTimeout(() => {
-          alert('방생성에 실패했습니다!');
+          alert(error);
         }, 300);
       }
     });

@@ -17,6 +17,7 @@ const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
 const Container = styled.SafeAreaView`
   flex: 1;
+  background-color: white;
 `;
 
 const Header = styled.View`
@@ -253,7 +254,11 @@ class MakeRoom extends React.Component {
       lng,
     };
 
-    await roomStore.makeRoom(params);
+    const res = await roomStore.makeRoom(params);
+
+    if (res) {
+      navigation.goBack();
+    }
 
     try {
       await roomStore.fetchRoomsBySeqence(index);

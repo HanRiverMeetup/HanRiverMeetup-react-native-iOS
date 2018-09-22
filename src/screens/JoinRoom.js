@@ -12,8 +12,14 @@ import withLoading from '../HOC/withLoading';
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
+const ScrollContainer = styled.View`
+  flex: 1;
+  background-color: white;
+`;
+
 const Container = styled.SafeAreaView`
   flex: 1;
+  background-color: white;
 `;
 
 const Header = styled.View`
@@ -239,7 +245,7 @@ class JoinRoom extends React.Component {
     const roomInfo = navigation.getParam('roomInfo');
 
     return (
-      <React.Fragment>
+      <ScrollContainer>
         <KeyboardAwareScrollView
           contentContainerStyle={{
             height: deviceHeight,
@@ -281,7 +287,7 @@ class JoinRoom extends React.Component {
             </BottomButtonContaienr>
           </BottomButton>
         </Bottom>
-      </React.Fragment>
+      </ScrollContainer>
     );
   }
 }

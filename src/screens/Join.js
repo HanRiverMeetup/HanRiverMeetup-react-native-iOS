@@ -55,6 +55,21 @@ const Profile = styled(FastImage)`
   width: 40px;
   height: 40px;
   border-radius: 20px;
+  border-color: white;
+  border-width: 1px;
+`;
+
+const NickNameText = styled(BaseText)`
+  font-family: NanumSquareB;
+  color: white;
+  margin-left: 13.3px;
+`;
+
+const LocationText = styled(BaseText)`
+  font-family: NanumSquareB;
+  color: white;
+  font-size: 12px;
+  margin-left: 12px;
 `;
 
 const EventPager = styled.FlatList.attrs({ horizontal: true, pagingEnabled: true })`
@@ -87,6 +102,14 @@ const WritingView = styled.View`
 const Writing = styled(BaseText)`
   color: #666666;
   font-size: 12px;
+`;
+
+const UserInfoView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  bottom: 8.3px;
+  left: 23.7px;
 `;
 
 @inject(stores => ({
@@ -123,7 +146,13 @@ export default class Home extends Component {
 
   renderContents = () => (
     <ContentsContainer>
-      <ContentPicture source={{ uri: `https://via.placeholder.com/500x150` }} />
+      <ContentPicture source={{ uri: `https://via.placeholder.com/500x150` }}>
+        <UserInfoView>
+          <Profile source={{ uri: `https://placeimg.com/40/40/40` }} />
+          <NickNameText>하이루</NickNameText>
+          <LocationText>뚝섬 유원지</LocationText>
+        </UserInfoView>
+      </ContentPicture>
       <WritingView>
         <Writing>오늘 한강 괜춘?</Writing>
       </WritingView>

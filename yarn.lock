@@ -5015,6 +5015,10 @@ react-native-nanum-square@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-nanum-square/-/react-native-nanum-square-1.0.0.tgz#a6a8500daffed5e3a7b26dac7ecbf5d9a065524b"
 
+react-native-permissions@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"
+
 react-native-responsive-image@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-native-responsive-image/-/react-native-responsive-image-2.3.1.tgz#3f8d3882061a8eae389d70a960e3e6436da9e354"

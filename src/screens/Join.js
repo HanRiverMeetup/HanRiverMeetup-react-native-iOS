@@ -17,7 +17,6 @@ const Container = styled.SafeAreaView`
 `;
 
 const Header = styled.View`
-  flex: 1;
   padding-vertical: 51px;
   padding-left: 24px;
 `;
@@ -88,7 +87,7 @@ const EvnetImage = styled(FastImage)`
 
 const ContentsContainer = styled.View``;
 
-const ContentPicture = styled(FastImage)`
+const ContentPicture = styled(FastImage).attrs({ resizeMode: 'cover' })`
   height: 228px;
   width: ${deviceWidth}px;
 `;
@@ -114,10 +113,12 @@ const UserInfoView = styled.View`
 
 @inject(stores => ({
   userStore: stores.store.userStore,
+  contentStore: stores.store.contentStore,
+  isLoading: stores.store.contentStore.isLoading,
 }))
 @withLoading
 @observer
-export default class Home extends Component {
+export default class Join extends Component {
   static navigationOptions = () => ({
     title: '지금한강',
     tabBarIcon: ({ tintColor }) => <TabIcon source={Images.bubble} style={{ tintColor }} />,
@@ -125,11 +126,40 @@ export default class Home extends Component {
 
   static propTypes = {
     userStore: PropTypes.shape({}).isRequired,
+    contentStore: PropTypes.shape({ allContents: PropTypes.arrayOf(PropTypes.shape({})) })
+      .isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      refresh: false,
+      evnetPage: 0,
+    };
+  }
+
+  componentDidMount = () => {
+    const { contentStore } = this.props;
+    contentStore.fetchTodayContentsByOffset();
   };
 
   evnetkeyExtractor = (item, index) => `${index}`;
 
-  contentKeyExtractor = (item, index) => `${index}`;
+  contentKeyExtractor = item => `${item.timeline_seq}`;
+
+  eventPagerEnd = e => {
+    const { x } = e.nativeEvent.contentOffset;
+    const evnetPage = Math.floor(x / deviceWidth);
+
+    this.setState({ evnetPage });
+  };
+
+  refreshContents = async () => {
+    this.setState({ refresh: true });
+    const { contentStore } = this.props;
+    await contentStore.fetchTodayContentsByOffset();
+    this.setState({ refresh: false });
+  };
 
   renderListHeader = () => {
     const { userStore } = this.props;
@@ -144,25 +174,28 @@ export default class Home extends Component {
     <EvnetImage source={{ uri: `https://placeimg.com/400/200/${index}` }} />
   );
 
-  renderContents = () => (
+  renderContents = ({ item }) => (
     <ContentsContainer>
-      <ContentPicture source={{ uri: `https://via.placeholder.com/500x150` }}>
+      <ContentPicture source={{ uri: `${item.imageurl}` }}>
         <UserInfoView>
-          <Profile source={{ uri: `https://placeimg.com/40/40/40` }} />
-          <NickNameText>하이루</NickNameText>
-          <LocationText>뚝섬 유원지</LocationText>
+          <Profile
+            source={{ uri: `http://graph.facebook.com/v3.1/${item.user_id}/picture?type=large` }}
+          />
+          <NickNameText>{item.nickname}</NickNameText>
+          <LocationText>{item.location}</LocationText>
         </UserInfoView>
       </ContentPicture>
       <WritingView>
-        <Writing>오늘 한강 괜춘?</Writing>
+        <Writing>{item.content}</Writing>
       </WritingView>
     </ContentsContainer>
   );
 
   render() {
     const dummis = [...new Array(3)];
-
-    const conentsDummis = [...new Array(10)];
+    const { contentStore } = this.props;
+    const { refresh, evnetPage } = this.state;
+    const { allContents } = contentStore;
 
     return (
       <Container>
@@ -171,17 +204,20 @@ export default class Home extends Component {
             data={dummis}
             renderItem={this.renderEvents}
             keyExtractor={this.evnetkeyExtractor}
+            onMomentumScrollEnd={this.eventPagerEnd}
           />
           <IndicatorView>
-            <IndicatorText>1 / 4</IndicatorText>
+            <IndicatorText>{`${evnetPage + 1} / 3`}</IndicatorText>
           </IndicatorView>
         </PagerView>
 
         <ContentsList
-          data={conentsDummis}
+          data={allContents}
+          refreshing={refresh}
           keyExtractor={this.contentKeyExtractor}
-          renderItem={this.renderContents}
           ListHeaderComponent={this.renderListHeader}
+          renderItem={this.renderContents}
+          onRefresh={this.refreshContents}
         />
       </Container>
     );

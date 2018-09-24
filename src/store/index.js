@@ -3,6 +3,7 @@ import { types } from 'mobx-state-tree';
 import UserStore from './UserStore';
 import RoomStore from './RoomStore';
 import CommentStore from './CommentStore';
+import ContentStore from './ContentStore';
 import serverInfo from '../configs';
 
 const ACCESS_ENDPOINT = `${serverInfo.url}/access`;
@@ -10,12 +11,14 @@ const MEETING_HOST_ENDPOINT = `${serverInfo.url}/host/meeting`;
 const MEETINGS_HOST_ENDPOINT = `${serverInfo.url}/host/meetings`;
 const COMMENT_ENDPOINT = `${serverInfo.url}/comm`;
 const GUEST_ENDPOINT = `${serverInfo.url}/guest`;
+const TIMELINE_ENDPOINT = `${serverInfo.url}/timeLine`;
 
 const Store = types
   .model('Store', {
     userStore: types.optional(UserStore, UserStore.create()),
     roomStore: types.optional(RoomStore, RoomStore.create()),
     commentStore: types.optional(CommentStore, CommentStore.create()),
+    contentStore: types.optional(ContentStore, ContentStore.create()),
   })
   .views(self => {
     const Fetch = async (method, url, params = undefined) => {
@@ -51,6 +54,7 @@ const Store = types
       Fetch('GET', `${COMMENT_ENDPOINT}/comments/${params.meeting_seq}`);
     const makeRoom = params => Fetch('POST', `${MEETING_HOST_ENDPOINT}`, params);
     const joinRoom = params => Fetch('POST', `${GUEST_ENDPOINT}/join`, params);
+    const FetchTimeLinesByOffset = parmas => Fetch('POST', `${TIMELINE_ENDPOINT}/posts`, parmas);
 
     return {
       loginValidate,
@@ -60,6 +64,7 @@ const Store = types
       fetchCommentByMeetingSeq,
       makeRoom,
       joinRoom,
+      FetchTimeLinesByOffset,
     };
   });
 

@@ -39,7 +39,7 @@ const TitleLists = styled.View`
 const TitleText = styled.Text`
   font-family: NanumSquareR;
   font-size: 18;
-  font-weight: ${props => (props.select ? '900' : '400')};
+  font-weight: ${props => (props.select ? '800' : '400')};
   color: white;
 `;
 

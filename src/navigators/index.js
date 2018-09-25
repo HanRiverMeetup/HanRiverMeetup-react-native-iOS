@@ -7,6 +7,7 @@ import RoomIn from '../screens/RoomIn';
 import MakeRoom from '../screens/MakeRoom';
 import SignIn from '../screens/SignIn';
 import JoinRoom from '../screens/JoinRoom';
+import MakeTimeLine from '../screens/MakeTimeLine';
 
 const LoginStack = createStackNavigator(
   {
@@ -28,12 +29,12 @@ const SignInStack = createStackNavigator(
 );
 
 const AppWithModalStack = createStackNavigator(
-  { AppStack, MakeRoom, JoinRoom },
+  { AppStack, MakeRoom, JoinRoom, MakeTimeLine },
   { headerMode: 'none', mode: 'modal' }
 );
 
 const SignInWithModalStack = createStackNavigator(
-  { SignInStack, MakeRoom },
+  { SignInStack, MakeRoom, JoinRoom, MakeTimeLine },
   { headerMode: 'none', mode: 'modal' }
 );
 

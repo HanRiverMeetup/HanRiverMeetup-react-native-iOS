@@ -264,7 +264,7 @@ export default class HomeDetail extends Component {
           />
         </Body>
         <MakeRoomBtn onPress={this.makeRoom}>
-          <BlueBtnImg source={Images.bt_plus} />
+          <BlueBtnImg source={Images.bt_plus_copy_2} />
         </MakeRoomBtn>
       </Container>
     );

@@ -40,14 +40,6 @@ const ChatTextInput = styled.TextInput`
   flex: 3.5;
 `;
 
-// const RegButton = styled.TouchableOpacity`
-//   flex: 1;
-//   height: 44px;
-//   background-color: blue;
-//   justify-content: center;
-//   align-items: center;
-// `;
-
 const Bottom = styled.View`
   flex-direction: row;
   background-color: blue;

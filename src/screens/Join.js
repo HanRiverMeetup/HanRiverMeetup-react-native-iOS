@@ -7,6 +7,7 @@ import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 
 import BaseText from '../components/BaseText';
+import BaseButton from '../components/BaseButton';
 import withLoading from '../HOC/withLoading';
 
 const { width: deviceWidth } = Dimensions.get('window');
@@ -111,6 +112,18 @@ const UserInfoView = styled.View`
   left: 23.7px;
 `;
 
+const MakeTimeLineBtn = styled(BaseButton).attrs({ underlayColor: 'transparent' })`
+  position: absolute;
+  bottom: 32px;
+  right: 24px;
+`;
+
+const BlueBtnImg = styled.Image`
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+`;
+
 @inject(stores => ({
   userStore: stores.store.userStore,
   contentStore: stores.store.contentStore,
@@ -125,6 +138,7 @@ export default class Join extends Component {
   });
 
   static propTypes = {
+    navigation: PropTypes.shape({}).isRequired,
     userStore: PropTypes.shape({}).isRequired,
     contentStore: PropTypes.shape({ allContents: PropTypes.arrayOf(PropTypes.shape({})) })
       .isRequired,
@@ -154,9 +168,16 @@ export default class Join extends Component {
     this.setState({ evnetPage });
   };
 
+  makeTimeLine = () => {
+    const { navigation } = this.props;
+    navigation.navigate('MakeTimeLine');
+  };
+
   refreshContents = async () => {
     this.setState({ refresh: true });
     const { contentStore } = this.props;
+    contentStore.resetContents();
+
     await contentStore.fetchTodayContentsByOffset();
     this.setState({ refresh: false });
   };
@@ -210,7 +231,6 @@ export default class Join extends Component {
             <IndicatorText>{`${evnetPage + 1} / 3`}</IndicatorText>
           </IndicatorView>
         </PagerView>
-
         <ContentsList
           data={allContents}
           refreshing={refresh}
@@ -219,6 +239,9 @@ export default class Join extends Component {
           renderItem={this.renderContents}
           onRefresh={this.refreshContents}
         />
+        <MakeTimeLineBtn onPress={this.makeTimeLine}>
+          <BlueBtnImg source={Images.bt_plus_copy_2} />
+        </MakeTimeLineBtn>;
       </Container>
     );
   }

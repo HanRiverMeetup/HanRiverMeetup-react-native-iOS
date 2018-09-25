@@ -55,6 +55,7 @@ const Store = types
     const makeRoom = params => Fetch('POST', `${MEETING_HOST_ENDPOINT}`, params);
     const joinRoom = params => Fetch('POST', `${GUEST_ENDPOINT}/join`, params);
     const FetchTimeLinesByOffset = parmas => Fetch('POST', `${TIMELINE_ENDPOINT}/posts`, parmas);
+    const makeTimeLineByInfos = params => Fetch('POST', `${TIMELINE_ENDPOINT}/post`, params);
 
     return {
       loginValidate,
@@ -65,6 +66,7 @@ const Store = types
       makeRoom,
       joinRoom,
       FetchTimeLinesByOffset,
+      makeTimeLineByInfos,
     };
   });
 

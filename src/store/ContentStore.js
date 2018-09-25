@@ -7,7 +7,7 @@ import Loading from './compose/Loading';
 
 const ContentStore = types.model('ContentStore', {
   contents: types.optional(types.map(Content), {}),
-  offset: 0,
+  offset: types.optional(types.number, 0),
 });
 
 const WithLoading = types
@@ -21,11 +21,16 @@ const WithLoading = types
     },
   }))
   .actions(self => {
+    const resetContents = () => {
+      self.offset = 0;
+      self.contents = {};
+    };
+
     const fetchTodayContentsByOffset = flow(function*() {
       const date = moment().format('YYYY-MM-DD');
 
       const params = {
-        date: '2018-09-07',
+        date,
         offset: self.offset,
         limit: 20,
       };
@@ -47,9 +52,24 @@ const WithLoading = types
           })
         );
 
-        self.offset += 10;
+        self.offset += 20;
       } catch (error) {
-        alert(error);
+        setTimeout(() => {
+          alert(error);
+        }, 300);
+      }
+    });
+
+    const makeTimeLineByInfos = flow(function*(infos) {
+      try {
+        const res = yield getRoot(self).makeTimeLineByInfos(infos);
+        resetContents();
+        fetchTodayContentsByOffset();
+        return res;
+      } catch (error) {
+        setTimeout(() => {
+          alert(error);
+        }, 300);
       }
     });
 
@@ -57,6 +77,10 @@ const WithLoading = types
       fetchTodayContentsByOffset: flow(function*() {
         return yield self.withLoading(fetchTodayContentsByOffset)();
       }),
+      makeTimeLineByInfos: flow(function*(infos) {
+        return yield self.withLoading(_.partial(makeTimeLineByInfos, infos))();
+      }),
+      resetContents,
     };
   });
 

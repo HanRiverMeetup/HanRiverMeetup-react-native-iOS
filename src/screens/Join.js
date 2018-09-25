@@ -114,7 +114,7 @@ const UserInfoView = styled.View`
 
 const MakeTimeLineBtn = styled(BaseButton).attrs({ underlayColor: 'transparent' })`
   position: absolute;
-  bottom: 32px;
+  bottom: 15px;
   right: 24px;
 `;
 

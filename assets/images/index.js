@@ -31,6 +31,10 @@ const images = {
   flag_icon: require('./flag.png'),
   info_tab: require('./Info_tab.png'),
   down_arrow: require('./down_arrow.png'),
+  bt_plus_copy_2: require('./bt_plus_copy_2.png'),
+  img_cute_2: require('./img_cute_2.png'),
+  img_cute: require('./img_cute.png'),
+  plus: require('./plus.png'),
 };
 /* eslint-enable global-require */
 

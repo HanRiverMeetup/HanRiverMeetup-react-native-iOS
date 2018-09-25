@@ -202,8 +202,11 @@ class MakeTimeLine extends React.Component {
       cropping: true,
     });
 
-    const imageURL = imageInfo.path;
+    if (!imageInfo) {
+      return;
+    }
 
+    const imageURL = imageInfo.path;
     this.setState({ imageURL });
   };
 

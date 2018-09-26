@@ -37,6 +37,7 @@ const images = {
   plus: require('./plus.png'),
   shape_546: require('./shape_546.png'),
   shape_595: require('./shape_595.png'),
+  icon_pin: require('./icon_pin.png'),
 };
 
 export default images;

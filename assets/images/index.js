@@ -35,7 +35,8 @@ const images = {
   img_cute_2: require('./img_cute_2.png'),
   img_cute: require('./img_cute.png'),
   plus: require('./plus.png'),
+  shape_546: require('./shape_546.png'),
+  shape_595: require('./shape_595.png'),
 };
-/* eslint-enable global-require */
 
 export default images;

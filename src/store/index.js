@@ -9,9 +9,11 @@ import serverInfo from '../configs';
 const ACCESS_ENDPOINT = `${serverInfo.url}/access`;
 const MEETING_HOST_ENDPOINT = `${serverInfo.url}/host/meeting`;
 const MEETINGS_HOST_ENDPOINT = `${serverInfo.url}/host/meetings`;
+const REQUEST_HOST_ENDPOINT = `${serverInfo.url}/host/requests`;
 const COMMENT_ENDPOINT = `${serverInfo.url}/comm`;
 const GUEST_ENDPOINT = `${serverInfo.url}/guest`;
 const TIMELINE_ENDPOINT = `${serverInfo.url}/timeLine`;
+const MY_PAGE_ENDPOINT = `${serverInfo.url}/mypage`;
 
 const Store = types
   .model('Store', {
@@ -56,6 +58,12 @@ const Store = types
     const joinRoom = params => Fetch('POST', `${GUEST_ENDPOINT}/join`, params);
     const FetchTimeLinesByOffset = parmas => Fetch('POST', `${TIMELINE_ENDPOINT}/posts`, parmas);
     const makeTimeLineByInfos = params => Fetch('POST', `${TIMELINE_ENDPOINT}/post`, params);
+    const fetchMyRoomsById = params =>
+      Fetch('GET', `${MY_PAGE_ENDPOINT}/${params.user_id}/meetings`);
+    const fetchRequestRoomById = params =>
+      Fetch('GET', `${MY_PAGE_ENDPOINT}/${params.user_id}/join/meetings`);
+    const fetchMeetingMemberBySeq = parmas =>
+      Fetch('GET', `${REQUEST_HOST_ENDPOINT}/${parmas.meeting_seq}`);
 
     return {
       loginValidate,
@@ -67,6 +75,9 @@ const Store = types
       joinRoom,
       FetchTimeLinesByOffset,
       makeTimeLineByInfos,
+      fetchMyRoomsById,
+      fetchRequestRoomById,
+      fetchMeetingMemberBySeq,
     };
   });
 

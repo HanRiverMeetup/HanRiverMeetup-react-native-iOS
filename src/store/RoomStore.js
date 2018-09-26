@@ -131,7 +131,6 @@ const WithLoading = types
       try {
         const members = yield getRoot(self).fetchMeetingMemberBySeq(params);
         const memberModel = Member.create();
-        console.log('members', members);
 
         members.map(mem => memberModel.updateMember(mem));
 

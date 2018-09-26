@@ -42,7 +42,10 @@ const WithLoading = types
         const res = yield getRoot(self).registerComment(commentInfos);
         fetchCommentByMeetingSeq(res.meeting_seq);
       } catch (error) {
-        alert('댓글 등록 실패!');
+        console.log(error);
+        setTimeout(() => {
+          alert(error);
+        }, 300);
       }
     });
 

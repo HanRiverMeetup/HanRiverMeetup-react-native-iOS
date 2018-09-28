@@ -38,6 +38,8 @@ const images = {
   shape_546: require('./shape_546.png'),
   shape_595: require('./shape_595.png'),
   icon_pin: require('./icon_pin.png'),
+  icon_myRoom: require('./myRoom.png'),
+  icon_othersRoom: require('./othersRoom.png'),
 };
 
 export default images;

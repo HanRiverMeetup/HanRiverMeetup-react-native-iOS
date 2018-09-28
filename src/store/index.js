@@ -62,6 +62,8 @@ const Store = types
       Fetch('GET', `${MY_PAGE_ENDPOINT}/${params.user_id}/meetings`);
     const fetchRequestRoomById = params =>
       Fetch('GET', `${MY_PAGE_ENDPOINT}/${params.user_id}/join/meetings`);
+    const fetchMatchCompletedById = params =>
+      Fetch('GET', `${MY_PAGE_ENDPOINT}/${params.user_id}/matchings`);
     const fetchMeetingMemberBySeq = parmas =>
       Fetch('GET', `${REQUEST_HOST_ENDPOINT}/${parmas.meeting_seq}`);
 
@@ -78,6 +80,7 @@ const Store = types
       fetchMyRoomsById,
       fetchRequestRoomById,
       fetchMeetingMemberBySeq,
+      fetchMatchCompletedById,
     };
   });
 

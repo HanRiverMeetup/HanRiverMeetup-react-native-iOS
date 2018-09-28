@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { flow, types, getRoot, applySnapshot } from 'mobx-state-tree';
+import { flow, types, getRoot } from 'mobx-state-tree';
 
 import Room from './Room';
 import User from './User';
@@ -38,6 +38,7 @@ const RoomStore = types.model('RoomStore', {
   rooms: types.optional(types.map(Room), {}),
   myRooms: types.optional(types.map(Room), {}),
   requestRooms: types.optional(types.map(Room), {}),
+  completeRooms: types.optional(types.map(Room), {}),
   meetingMembers: types.optional(types.array(Member), []),
 });
 
@@ -56,6 +57,9 @@ const WithLoading = types
     },
     get requestAllRooms() {
       return Array.from(self.requestRooms.values());
+    },
+    get completedAllRooms() {
+      return Array.from(self.completeRooms.values());
     },
     get allMembers() {
       return self.meetingMembers.map(member => member.member);
@@ -114,8 +118,25 @@ const WithLoading = types
       };
 
       try {
-        const requestRooms = yield getRoot(self).fetchRequestRoomById(params);
+        const requestRoomsInfos = yield getRoot(self).fetchRequestRoomById(params);
+        const requestRooms = requestRoomsInfos.map(infos => infos.meeting_detail);
         updateRoom(self.requestRooms, requestRooms);
+      } catch (error) {
+        setTimeout(() => {
+          alert(error);
+        }, 300);
+      }
+    });
+
+    const fetchMatchCompletedById = flow(function*(user_id) {
+      const params = {
+        user_id,
+      };
+
+      try {
+        const fetchedRoomsInfos = yield getRoot(self).fetchMatchCompletedById(params);
+        const completeRooms = fetchedRoomsInfos.map(infos => infos.meeting_detail);
+        updateRoom(self.completeRooms, completeRooms);
       } catch (error) {
         setTimeout(() => {
           alert(error);
@@ -174,6 +195,9 @@ const WithLoading = types
       }),
       fetchRequestRoomsById: flow(function*(user_id) {
         return yield self.withLoading(_.partial(fetchRequestRoomsById, user_id))();
+      }),
+      fetchMatchCompletedById: flow(function*(user_id) {
+        return yield self.withLoading(_.partial(fetchMatchCompletedById, user_id))();
       }),
       fetchMeetingMemberBySeq: flow(function*(seq) {
         return yield self.withLoading(_.partial(fetchMeetingMemberBySeq, seq))();

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Images from '@assets';
@@ -13,6 +14,57 @@ import MyRooms from '../components/MyRooms';
 const Container = styled.SafeAreaView`
   flex: 1;
   background-color: white;
+`;
+
+const PinImage = styled(FastImage)`
+  width: 10px;
+  height: 13px;
+  margin-right: 9px;
+`;
+
+const ListView = styled.View`
+  padding-vertical: 25px;
+  padding-horizontal: 24px;
+  padding-top: 23px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const SkyBlueLabel = styled.View`
+  width: 4px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  background-color: #2186f8;
+`;
+
+const MintLabel = styled.View`
+  width: 4px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  background-color: #00c0c9;
+`;
+
+const CardTitle = styled(BaseText)`
+  font-family: NanumSquareB;
+  color: #333333;
+  font-size: 14px;
+`;
+
+const SubTitleView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  padding-vertical: 9px;
+`;
+
+const CardSubTitle = styled(BaseText)`
+  color: #949494;
+  font-size: 12px;
+  margin-right: 9px;
 `;
 
 const Header = styled.View`
@@ -56,7 +108,7 @@ const HeaderTitle = styled.Text`
   font-size: 22;
 `;
 
-const List = styled.FlatList`
+const RoomList = styled.FlatList.attrs({ contentContainerStyle: { paddingBottom: 30 } })`
   flex: 1;
   border-top-color: #dcdcdc;
   border-top-width: 1;
@@ -98,14 +150,39 @@ const CategoryView = styled.View`
   padding-top: 34px;
 `;
 
-const CategoryText = styled(BaseText)`
+const ContactText = styled(BaseText)`
+  color: #42c9d1;
+  font-size: 14px;
+  font-family: NanumSquareB;
+`;
+
+const CategoryTouch = styled(BaseButton)``;
+
+const CategoryText0 = styled(BaseText)`
   color: ${({ selected }) => (selected ? '#2186f8' : '#b1b1b1')};
+  font-weight: ${({ selected }) => (selected ? '800' : '400')};
+`;
+
+const CategoryText1 = styled(BaseText)`
+  color: ${({ selected }) => (selected ? '#00c0c9' : '#b1b1b1')};
+  font-weight: ${({ selected }) => (selected ? '800' : '400')};
+`;
+
+const CategoryText2 = styled(BaseText)`
+  color: ${({ selected }) => (selected ? '#333333' : '#b1b1b1')};
   font-weight: ${({ selected }) => (selected ? '800' : '400')};
 `;
 
 const Separator = styled.View`
   height: 1px;
   background-color: #dcdcdc;
+`;
+
+const RequestView = styled.View``;
+
+const RoomImage = styled(FastImage)`
+  width: 36px;
+  height: 36px;
 `;
 
 @inject(stores => ({
@@ -125,6 +202,13 @@ export default class MyPage extends Component {
     roomStore: PropTypes.shape({}).isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      categoryIndex: 0,
+    };
+  }
+
   componentDidMount = () => {
     const { roomStore, userStore } = this.props;
     roomStore.fetchMyRoomsById(userStore.user_id);
@@ -132,14 +216,99 @@ export default class MyPage extends Component {
 
   keyExtractor = item => `${item.meeting_seq}`;
 
-  renderList = ({ item, index }) => {
-    return <MyRooms item={item} index={index} />;
+  changeCategory = categoryIndex => {
+    this.setState({ categoryIndex });
+
+    if (categoryIndex === 0) {
+      const { roomStore, userStore } = this.props;
+      roomStore.fetchMyRoomsById(userStore.user_id);
+
+      return;
+    }
+
+    if (categoryIndex === 1) {
+      const { roomStore, userStore } = this.props;
+      roomStore.fetchRequestRoomsById(userStore.user_id);
+
+      return;
+    }
+
+    if (categoryIndex === 2) {
+      const { roomStore, userStore } = this.props;
+      roomStore.fetchMatchCompletedById(userStore.user_id);
+    }
   };
+
+  contactSeq = seq => {
+    if (seq === 0) {
+      return <ContactText>대기중</ContactText>;
+    }
+
+    return <ContactText>매칭실패</ContactText>;
+  };
+
+  myRoom = userId => {
+    const { userStore } = this.props;
+    const { user_id } = userStore;
+
+    if (user_id === userId) {
+      return <RoomImage source={Images.icon_myRoom} />;
+    }
+
+    return <RoomImage source={Images.icon_othersRoom} />;
+  };
+
+  myRoomLabel = userId => {
+    const { userStore } = this.props;
+    const { user_id } = userStore;
+
+    if (user_id === userId) {
+      return <SkyBlueLabel />;
+    }
+
+    return <MintLabel />;
+  };
+
+  renderMyRoomList = ({ item, index }) => <MyRooms item={item} index={index} />;
+
+  renderRequestRoomList = ({ item }) => (
+    <ListView>
+      <MintLabel />
+      <RequestView>
+        <CardTitle>{item.title}</CardTitle>
+
+        <SubTitleView>
+          <PinImage source={Images.icon_pin} />
+          <CardSubTitle>{item.meeting_location}</CardSubTitle>
+          <CardSubTitle>{item.meeting_time}</CardSubTitle>
+        </SubTitleView>
+      </RequestView>
+      {this.contactSeq(item.contact_seq)}
+    </ListView>
+  );
+
+  renderCompletedRoomList = ({ item }) => (
+    <ListView>
+      {this.myRoomLabel(item.user_id)}
+      <MintLabel />
+      <RequestView>
+        <CardTitle>{item.title}</CardTitle>
+
+        <SubTitleView>
+          <PinImage source={Images.icon_pin} />
+          <CardSubTitle>{item.meeting_location}</CardSubTitle>
+          <CardSubTitle>{item.meeting_time}</CardSubTitle>
+        </SubTitleView>
+      </RequestView>
+      {this.myRoom(item.user_id)}
+    </ListView>
+  );
 
   render() {
     const { userStore, roomStore } = this.props;
+    const { categoryIndex } = this.state;
     const { nickName } = userStore;
-    const { myAllRooms } = roomStore;
+    const { myAllRooms, requestAllRooms, completedAllRooms } = roomStore;
 
     return (
       <Container>
@@ -165,16 +334,40 @@ export default class MyPage extends Component {
             <NameText>{userStore.nickName}</NameText>
           </ProfileInfoView>
           <CategoryView>
-            <CategoryText selected>만든모임</CategoryText>
-            <CategoryText>신청모임</CategoryText>
-            <CategoryText>완료모임</CategoryText>
+            <CategoryTouch onPress={_.partial(this.changeCategory, 0)}>
+              <CategoryText0 selected={categoryIndex === 0}>만든모임</CategoryText0>
+            </CategoryTouch>
+            <CategoryTouch onPress={_.partial(this.changeCategory, 1)}>
+              <CategoryText1 selected={categoryIndex === 1}>신청모임</CategoryText1>
+            </CategoryTouch>
+            <CategoryTouch onPress={_.partial(this.changeCategory, 2)}>
+              <CategoryText2 selected={categoryIndex === 2}>완료모임</CategoryText2>
+            </CategoryTouch>
           </CategoryView>
-          <List
-            data={myAllRooms}
-            renderItem={this.renderList}
-            keyExtractor={this.keyExtractor}
-            ItemSeparatorComponent={() => <Separator />}
-          />
+          {categoryIndex === 0 && (
+            <RoomList
+              data={myAllRooms}
+              renderItem={this.renderMyRoomList}
+              keyExtractor={this.keyExtractor}
+              ItemSeparatorComponent={() => <Separator />}
+            />
+          )}
+          {categoryIndex === 1 && (
+            <RoomList
+              data={requestAllRooms}
+              renderItem={this.renderRequestRoomList}
+              keyExtractor={this.keyExtractor}
+              ItemSeparatorComponent={() => <Separator />}
+            />
+          )}
+          {categoryIndex === 2 && (
+            <RoomList
+              data={completedAllRooms}
+              renderItem={this.renderCompletedRoomList}
+              keyExtractor={this.keyExtractor}
+              ItemSeparatorComponent={() => <Separator />}
+            />
+          )}
         </Body>
       </Container>
     );

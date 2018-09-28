@@ -1,13 +1,14 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Images from '@assets';
-import MapView from 'react-native-maps';
-import PropTypes from 'prop-types';
+import MapView, { Marker } from 'react-native-maps';
 import { observer, inject } from 'mobx-react';
 
 import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
 import withLoading from '../HOC/withLoading';
+import { toilets, trashCans, conveniencStores } from '../datas/pins';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -19,6 +20,8 @@ const Header = styled.View`
   padding-top: 38px;
   padding-horizontal: 24px;
 `;
+
+const Button = styled(BaseButton)``;
 
 const CategoryView = styled.View`
   flex-direction: row;
@@ -67,25 +70,80 @@ export default class Map extends Component {
     tabBarIcon: ({ tintColor }) => <TabIcon source={Images.rectangle} style={{ tintColor }} />,
   });
 
-  static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-    }).isRequired,
+  constructor(props) {
+    super(props);
+    this.state = {
+      convenienceCategory: 0,
+      pins: trashCans,
+    };
+  }
+
+  onLoadMap = () => {
+    const { pins } = this.state;
+    this.map.fitToCoordinates(pins, {
+      edgePadding: { top: 100, right: 100, bottom: 100, left: 100 },
+      animated: true,
+    });
+  };
+
+  setMapRef = ref => {
+    this.map = ref;
+  };
+
+  chagneCartegoty = convenienceCategory => {
+    const { pins } = this.state;
+    if (convenienceCategory === 0) {
+      this.setState({ convenienceCategory, pins: trashCans });
+      this.map.fitToCoordinates(trashCans, {
+        edgePadding: { top: 100, right: 100, bottom: 100, left: 100 },
+        animated: true,
+      });
+      return;
+    }
+
+    if (convenienceCategory === 1) {
+      this.setState({ convenienceCategory, pins: conveniencStores });
+      this.map.fitToCoordinates(conveniencStores, {
+        edgePadding: { top: 100, right: 100, bottom: 100, left: 100 },
+        animated: true,
+      });
+      return;
+    }
+
+    if (convenienceCategory === 2) {
+      this.setState({ convenienceCategory, pins: toilets });
+      this.map.fitToCoordinates(toilets, {
+        edgePadding: { top: 100, right: 100, bottom: 100, left: 100 },
+        animated: true,
+      });
+    }
   };
 
   render() {
+    const { convenienceCategory, pins } = this.state;
+
     return (
       <Container>
         <Header>
           <HeaderTitle>편의시설을 확인해보세요</HeaderTitle>
           <CategoryView>
-            <CategoryText selected>휴지통</CategoryText>
-            <CategoryText>편의점</CategoryText>
-            <CategoryText>화장실</CategoryText>
+            <Button onPress={_.partial(this.chagneCartegoty, 0)}>
+              <CategoryText selected={convenienceCategory === 0}>휴지통</CategoryText>
+            </Button>
+
+            <Button onPress={_.partial(this.chagneCartegoty, 1)}>
+              <CategoryText selected={convenienceCategory === 1}>편의점</CategoryText>
+            </Button>
+
+            <Button onPress={_.partial(this.chagneCartegoty, 2)}>
+              <CategoryText selected={convenienceCategory === 2}>화장실</CategoryText>
+            </Button>
           </CategoryView>
         </Header>
         <Body>
-          <InfoMapView />
+          <InfoMapView innerRef={this.setMapRef} onLayout={this.onLoadMap}>
+            {pins.map(pin => <Marker key={pin.longitude} coordinate={pin} />)}
+          </InfoMapView>
         </Body>
       </Container>
     );

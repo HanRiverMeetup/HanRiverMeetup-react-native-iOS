@@ -198,6 +198,7 @@ export default class MyPage extends Component {
   });
 
   static propTypes = {
+    navigation: PropTypes.shape({}).isRequired,
     userStore: PropTypes.shape({}).isRequired,
     roomStore: PropTypes.shape({}).isRequired,
   };
@@ -269,7 +270,15 @@ export default class MyPage extends Component {
     return <MintLabel />;
   };
 
-  renderMyRoomList = ({ item, index }) => <MyRooms item={item} index={index} />;
+  onPressProfile = user => {
+    const { navigation } = this.props;
+    console.log('user', user);
+    navigation.navigate('MemberDetail');
+  };
+
+  renderMyRoomList = ({ item, index }) => (
+    <MyRooms item={item} index={index} onPressProfile={this.onPressProfile} />
+  );
 
   renderRequestRoomList = ({ item }) => (
     <ListView>
@@ -315,8 +324,8 @@ export default class MyPage extends Component {
         <Header>
           <HeaderTitle>{`안녕하세요\n${nickName}님 반가워요`}</HeaderTitle>
           <RightView>
-            <HeaderImage source={Images.shape_546} />
             <HeaderImage source={Images.shape_595} />
+            <HeaderImage source={Images.shape_546} />
           </RightView>
         </Header>
         <Body>

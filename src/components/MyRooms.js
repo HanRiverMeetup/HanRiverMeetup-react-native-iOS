@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -61,7 +62,7 @@ const SkyBlueLabel = styled.View`
   background-color: #2186f8;
 `;
 
-const ProfileContainer = styled.View`
+const ProfileContainer = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   margin-right: 19px;
@@ -89,6 +90,7 @@ export default class MyRooms extends Component {
     item: PropTypes.shape({}).isRequired,
     index: PropTypes.number.isRequired,
     roomStore: PropTypes.shape({}).isRequired,
+    onPressProfile: PropTypes.func.isRequired,
   };
 
   componentDidMount = () => {
@@ -115,7 +117,10 @@ export default class MyRooms extends Component {
         {memberMap && memberMap.size > 0 ? (
           <HorizontalScrollView>
             {Array.from(memberMap.values()).map(member => (
-              <ProfileContainer key={member.user_id}>
+              <ProfileContainer
+                key={member.user_id}
+                onPress={_.partial(this.props.onPressProfile, member)}
+              >
                 <ProfileView
                   source={{
                     uri: `http://graph.facebook.com/v3.1/${member.user_id}/picture?type=large`,

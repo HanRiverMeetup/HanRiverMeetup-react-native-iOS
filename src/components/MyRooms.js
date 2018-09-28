@@ -6,7 +6,6 @@ import FastImage from 'react-native-fast-image';
 import Images from '@assets';
 
 import BaseText from './BaseText';
-import BaseButton from './BaseButton';
 
 const PinImage = styled(FastImage)`
   width: 10px;
@@ -16,8 +15,11 @@ const PinImage = styled(FastImage)`
 
 const ListText = styled.Text`
   font-family: NanumSquareR;
-  font-size: 18;
-  margin-left: 48px;
+  font-size: 14;
+  color: #949494;
+  text-decoration: underline;
+  align-self: center;
+  margin-vertical: 48px;
 `;
 
 const ListView = styled.View`
@@ -108,6 +110,7 @@ export default class MyRooms extends Component {
           <CardSubTitle>{item.meeting_location}</CardSubTitle>
           <CardSubTitle>{item.meeting_time}</CardSubTitle>
         </SubTitleView>
+
         <CardTitle>신청자</CardTitle>
         {memberMap && memberMap.size > 0 ? (
           <HorizontalScrollView>

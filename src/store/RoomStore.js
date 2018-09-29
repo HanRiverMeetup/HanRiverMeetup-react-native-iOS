@@ -179,6 +179,20 @@ const WithLoading = types
       return yield getRoot(self).joinRoom(guestInfos);
     });
 
+    const matchWith = flow(function*(infos) {
+      try {
+        return yield getRoot(self).matchWith(infos);
+      } catch (error) {
+        setTimeout(() => {
+          alert(error);
+        }, 300);
+      }
+    });
+
+    const resetMyRooms = () => {
+      self.myRooms.clear();
+    };
+
     return {
       fetchRoomsBySeqence: flow(function*(seqence) {
         return yield self.withLoading(_.partial(fetchRoomsBySeq, seqence))();
@@ -202,6 +216,10 @@ const WithLoading = types
       fetchMeetingMemberBySeq: flow(function*(seq) {
         return yield self.withLoading(_.partial(fetchMeetingMemberBySeq, seq))();
       }),
+      matchWith: flow(function*(infos) {
+        return yield self.withLoading(_.partial(matchWith, infos))();
+      }),
+      resetMyRooms,
     };
   });
 

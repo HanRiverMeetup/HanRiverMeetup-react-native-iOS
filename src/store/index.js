@@ -66,6 +66,7 @@ const Store = types
       Fetch('GET', `${MY_PAGE_ENDPOINT}/${params.user_id}/matchings`);
     const fetchMeetingMemberBySeq = parmas =>
       Fetch('GET', `${REQUEST_HOST_ENDPOINT}/${parmas.meeting_seq}`);
+    const matchWith = params => Fetch('POST', `${COMMENT_ENDPOINT}/match`, params);
 
     return {
       loginValidate,
@@ -81,6 +82,7 @@ const Store = types
       fetchRequestRoomById,
       fetchMeetingMemberBySeq,
       fetchMatchCompletedById,
+      matchWith,
     };
   });
 

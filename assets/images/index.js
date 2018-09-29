@@ -42,6 +42,9 @@ const images = {
   icon_othersRoom: require('./othersRoom.png'),
   icon_O: require('./icon_o.png'),
   icon_X: require('./icon_x.png'),
+  icon_cloud: require('./cloud.png'),
+  icon_rainy: require('./rainy.png'),
+  icon_sunny: require('./sunny.png'),
 };
 
 export default images;

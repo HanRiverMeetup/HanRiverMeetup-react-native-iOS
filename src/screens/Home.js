@@ -1,15 +1,20 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Images from '@assets';
 import { Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import { observer, inject } from 'mobx-react';
+import Images from '@assets';
 
+import { weathers } from '../datas/weathers';
 import BaseButton from '../components/BaseButton';
 import withLoading from '../HOC/withLoading';
+import BaseText from '../components/BaseText';
 
 const { width: deviceWidth } = Dimensions.get('window');
+
+global.weather = _.head(_.shuffle(weathers));
 
 const CONTENTS_LIST = [
   {
@@ -51,7 +56,7 @@ const Container = styled.SafeAreaView`
 `;
 
 const Header = styled.View`
-  flex: 1;
+  flex: 1.4;
   padding-top: 38px;
   padding-left: 24px;
 `;
@@ -104,6 +109,39 @@ const TabIcon = styled.Image`
   height: 18px;
 `;
 
+const WeatherView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  width: 180px;
+  justify-content: space-around;
+  margin-top: 21px;
+`;
+
+const WeatherImage = styled(FastImage)`
+  width: 35px;
+  height: 35px;
+  margin-bottom: 4px;
+`;
+
+const TempText = styled(BaseText)`
+  color: #2186f8;
+  font-size: 40px;
+`;
+
+const MiniTempText = styled(BaseText)`
+  color: #2186f8;
+  font-size: 14px;
+  bottom: 10px;
+`;
+
+const DetailWeatherView = styled.View``;
+
+const DetailWeatherText = styled(BaseText)`
+  color: #666666;
+  font-size: 12px;
+  line-height: 18px;
+`;
+
 @inject(stores => ({
   userStore: stores.store.userStore,
   roomStore: stores.store.roomStore,
@@ -150,10 +188,22 @@ export default class Home extends Component {
   render() {
     const { userStore } = this.props;
     const { nickName } = userStore;
+
     return (
       <Container>
         <Header>
           <HeaderTitle>{`${nickName}님,\n한강에서 즐겨볼까요?`}</HeaderTitle>
+          <WeatherView>
+            <WeatherImage source={global.weather.image} resizeMode="contain" />
+            <TempText>{global.weather.temp}</TempText>
+            <MiniTempText>℃</MiniTempText>
+            <DetailWeatherView>
+              <DetailWeatherText>{global.weather.text}</DetailWeatherText>
+              <DetailWeatherText>{`${global.weather.min}℃ / ${
+                global.weather.max
+              }℃`}</DetailWeatherText>
+            </DetailWeatherView>
+          </WeatherView>
         </Header>
         <Body>
           <ContentsList

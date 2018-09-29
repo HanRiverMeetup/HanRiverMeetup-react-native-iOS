@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components';
@@ -124,6 +125,39 @@ const BlueBtnImg = styled.Image`
   border-radius: 25px;
 `;
 
+const WeatherView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  width: 180px;
+  justify-content: space-around;
+  margin-top: 21px;
+`;
+
+const WeatherImage = styled(FastImage)`
+  width: 35px;
+  height: 35px;
+  margin-bottom: 4px;
+`;
+
+const TempText = styled(BaseText)`
+  color: #2186f8;
+  font-size: 40px;
+`;
+
+const MiniTempText = styled(BaseText)`
+  color: #2186f8;
+  font-size: 14px;
+  bottom: 10px;
+`;
+
+const DetailWeatherView = styled.View``;
+
+const DetailWeatherText = styled(BaseText)`
+  color: #666666;
+  font-size: 12px;
+  line-height: 18px;
+`;
+
 @inject(stores => ({
   userStore: stores.store.userStore,
   contentStore: stores.store.contentStore,
@@ -184,9 +218,21 @@ export default class Join extends Component {
 
   renderListHeader = () => {
     const { userStore } = this.props;
+
     return (
       <Header>
         <HeaderTitle>{`${userStore.nickName},\n한강소식을 알아볼까요? `}</HeaderTitle>
+        <WeatherView>
+          <WeatherImage source={global.weather.image} resizeMode="contain" />
+          <TempText>{global.weather.temp}</TempText>
+          <MiniTempText>℃</MiniTempText>
+          <DetailWeatherView>
+            <DetailWeatherText>{global.weather.text}</DetailWeatherText>
+            <DetailWeatherText>{`${global.weather.min}℃ / ${
+              global.weather.max
+            }℃`}</DetailWeatherText>
+          </DetailWeatherView>
+        </WeatherView>
       </Header>
     );
   };

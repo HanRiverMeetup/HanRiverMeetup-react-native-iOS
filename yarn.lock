@@ -5026,6 +5026,12 @@ react-native-nanum-square@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-nanum-square/-/react-native-nanum-square-1.0.0.tgz#a6a8500daffed5e3a7b26dac7ecbf5d9a065524b"
 
+react-native-parallax-scroll-view@^0.21.3:
+  version "0.21.3"
+  resolved "https://registry.yarnpkg.com/react-native-parallax-scroll-view/-/react-native-parallax-scroll-view-0.21.3.tgz#d956ad224ce3b0a2725b80574bcbf688bbeda14e"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-permissions@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"

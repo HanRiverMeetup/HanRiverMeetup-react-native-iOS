@@ -35,6 +35,7 @@
     "react-native-maps": "^0.21.0",
     "react-native-modal": "^6.5.0",
     "react-native-nanum-square": "^1.0.0",
+    "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-permissions": "^1.1.1",
     "react-native-responsive-image": "^2.3.1",
     "react-native-svg-uri": "^1.2.3",

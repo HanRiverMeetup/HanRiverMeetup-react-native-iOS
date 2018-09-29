@@ -1,21 +1,20 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { Dimensions } from 'react-native';
 import styled from 'styled-components';
 import Images from '@assets';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import { observer, inject } from 'mobx-react';
 import * as Animatable from 'react-native-animatable';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
 import withLoading from '../HOC/withLoading';
 import MyRooms from '../components/MyRooms';
 
-const Container = styled.SafeAreaView`
-  flex: 1;
-  background-color: white;
-`;
+const { height: deviceHeight } = Dimensions.get('window');
 
 const PinImage = styled(FastImage)`
   width: 10px;
@@ -69,22 +68,18 @@ const CardSubTitle = styled(BaseText)`
 `;
 
 const Header = styled.View`
-  flex: 1;
-  padding-top: 38px;
+  padding-top: 58px;
   padding-horizontal: 24px;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
 `;
 
-const Body = styled.View`
-  flex: 4;
-`;
-
 const ProfileInfoView = styled.View`
   flex-direction: row;
   padding-horizontal: 24;
   align-items: center;
+  margin-top: 57px;
 `;
 
 const ProfileTouchView = styled(BaseButton)``;
@@ -110,7 +105,6 @@ const HeaderTitle = styled.Text`
 `;
 
 const RoomList = styled.FlatList.attrs({ contentContainerStyle: { paddingBottom: 30 } })`
-  flex: 1;
   border-top-color: #dcdcdc;
   border-top-width: 1;
 `;
@@ -194,6 +188,14 @@ const BlueDot = styled.View`
   position: absolute;
   right: 35px;
   top: 0px;
+`;
+
+const HeaderContainer = styled.View`
+  height: 250px;
+`;
+
+const BodyContainer = styled.View`
+  height: ${deviceHeight - 50}px;
 `;
 
 @inject(stores => ({
@@ -330,14 +332,12 @@ export default class MyPage extends Component {
     </ListView>
   );
 
-  render() {
-    const { userStore, roomStore } = this.props;
-    const { categoryIndex, refresh } = this.state;
+  renderForeground = () => {
+    const { userStore } = this.props;
     const { nickName } = userStore;
-    const { myAllRooms, requestAllRooms, completedAllRooms } = roomStore;
 
     return (
-      <Container>
+      <HeaderContainer>
         <Header>
           <HeaderTitle>{`안녕하세요\n${nickName}님 반가워요`}</HeaderTitle>
           <RightView>
@@ -351,20 +351,35 @@ export default class MyPage extends Component {
             <HeaderImage source={Images.shape_546} />
           </RightView>
         </Header>
-        <Body>
-          <ProfileInfoView>
-            <ProfileTouchView>
-              <InnerProfileView>
-                <CircleProfile
-                  source={{
-                    uri: `http://graph.facebook.com/v3.1/${userStore.user_id}/picture?type=large`,
-                  }}
-                />
-                <PlusButton source={Images.bt_plus_copy_2} />
-              </InnerProfileView>
-            </ProfileTouchView>
-            <NameText>{userStore.nickName}</NameText>
-          </ProfileInfoView>
+        <ProfileInfoView>
+          <ProfileTouchView>
+            <InnerProfileView>
+              <CircleProfile
+                source={{
+                  uri: `http://graph.facebook.com/v3.1/${userStore.user_id}/picture?type=large`,
+                }}
+              />
+              <PlusButton source={Images.bt_plus_copy_2} />
+            </InnerProfileView>
+          </ProfileTouchView>
+          <NameText>{userStore.nickName}</NameText>
+        </ProfileInfoView>
+      </HeaderContainer>
+    );
+  };
+
+  render() {
+    const { roomStore } = this.props;
+    const { categoryIndex, refresh } = this.state;
+    const { myAllRooms, requestAllRooms, completedAllRooms } = roomStore;
+
+    return (
+      <ParallaxScrollView
+        backgroundColor="white"
+        parallaxHeaderHeight={250}
+        renderForeground={this.renderForeground}
+      >
+        <BodyContainer>
           <CategoryView>
             <CategoryTouch onPress={_.partial(this.changeCategory, 0)}>
               <CategoryText0 selected={categoryIndex === 0}>만든모임</CategoryText0>
@@ -384,6 +399,7 @@ export default class MyPage extends Component {
               keyExtractor={this.keyExtractor}
               ItemSeparatorComponent={() => <Separator />}
               onRefresh={this.refreshMyRooms}
+              length={myAllRooms.length}
             />
           )}
           {categoryIndex === 1 && (
@@ -406,8 +422,8 @@ export default class MyPage extends Component {
               onRefresh={() => {}}
             />
           )}
-        </Body>
-      </Container>
+        </BodyContainer>
+      </ParallaxScrollView>
     );
   }
 }

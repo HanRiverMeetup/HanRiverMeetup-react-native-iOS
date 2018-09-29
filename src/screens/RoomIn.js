@@ -125,10 +125,11 @@ const JoinButton = styled(BaseButton)`
   margin-top: 36px;
 `;
 
-const JoinView = styled(LinearGradient)`
+const JoinView = styled.View`
   height: 46px;
   width: ${deviceWidth - 48}px;
   padding: 1.5px;
+  background-color: #2186f8;
 `;
 
 const JoinInnerView = styled.View`
@@ -136,6 +137,7 @@ const JoinInnerView = styled.View`
   background-color: white;
   justify-content: center;
   align-items: center;
+  background-color: #2186f8;
 `;
 
 const CommentsList = styled.FlatList`
@@ -156,7 +158,6 @@ const CommentListView = styled.View`
 `;
 
 const JoinText = styled(BaseText)`
-  color: #2186f8;
   font-size: 14;
   font-family: NanumSquareB;
 `;
@@ -383,7 +384,7 @@ class RoomIn extends Component {
               <LocationText>{roomInfo.meeting_location}</LocationText>
               <ContentText>{roomInfo.description}</ContentText>
               <JoinButton onPress={this.joinRoom}>
-                <JoinView colors={['#2186f8', '#00c0c9']}>
+                <JoinView>
                   <JoinInnerView>
                     <JoinText>참여하기</JoinText>
                   </JoinInnerView>

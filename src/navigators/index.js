@@ -6,6 +6,9 @@ import HomeDetail from '../screens/HomeDetail';
 import RoomIn from '../screens/RoomIn';
 import MakeRoom from '../screens/MakeRoom';
 import SignIn from '../screens/SignIn';
+import JoinRoom from '../screens/JoinRoom';
+import MakeTimeLine from '../screens/MakeTimeLine';
+import MemberDetail from '../screens/MemberDetail';
 
 const LoginStack = createStackNavigator(
   {
@@ -19,6 +22,7 @@ const LoginStack = createStackNavigator(
   }
 );
 
+//Base
 const AppStack = createStackNavigator({ MainTabbar, HomeDetail, RoomIn }, { headerMode: 'none' });
 
 const SignInStack = createStackNavigator(
@@ -26,13 +30,14 @@ const SignInStack = createStackNavigator(
   { headerMode: 'none' }
 );
 
+// Main
 const AppWithModalStack = createStackNavigator(
-  { AppStack, MakeRoom },
+  { AppStack, MakeRoom, JoinRoom, MakeTimeLine, MemberDetail },
   { headerMode: 'none', mode: 'modal' }
 );
 
 const SignInWithModalStack = createStackNavigator(
-  { SignInStack, MakeRoom },
+  { SignInStack, MakeRoom, JoinRoom, MakeTimeLine, MemberDetail },
   { headerMode: 'none', mode: 'modal' }
 );
 

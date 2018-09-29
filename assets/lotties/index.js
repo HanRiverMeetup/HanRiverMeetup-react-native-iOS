@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 const Lotties = {
   splash: require('./data.json'),
+  shape: require('./data2.json'),
 };
-/* eslint-disable global-require */
+
 export default Lotties;

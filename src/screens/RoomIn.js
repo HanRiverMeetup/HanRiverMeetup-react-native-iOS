@@ -40,14 +40,6 @@ const ChatTextInput = styled.TextInput`
   flex: 3.5;
 `;
 
-// const RegButton = styled.TouchableOpacity`
-//   flex: 1;
-//   height: 44px;
-//   background-color: blue;
-//   justify-content: center;
-//   align-items: center;
-// `;
-
 const Bottom = styled.View`
   flex-direction: row;
   background-color: blue;
@@ -271,6 +263,12 @@ class RoomIn extends Component {
     this.setState({ comment: '' });
   };
 
+  joinRoom = () => {
+    const { navigation } = this.props;
+    const roomInfo = navigation.getParam('roomInfo');
+    navigation.navigate('JoinRoom', { roomInfo });
+  };
+
   scrollRefInput = ref => {
     this.scrollRef = ref;
   };
@@ -384,7 +382,7 @@ class RoomIn extends Component {
               </InfoView>
               <LocationText>{roomInfo.meeting_location}</LocationText>
               <ContentText>{roomInfo.description}</ContentText>
-              <JoinButton onPress={() => alert('touch!')}>
+              <JoinButton onPress={this.joinRoom}>
                 <JoinView colors={['#2186f8', '#00c0c9']}>
                   <JoinInnerView>
                     <JoinText>참여하기</JoinText>
@@ -408,7 +406,9 @@ class RoomIn extends Component {
               onChangeText={this.onCommentChange}
               value={comment}
             />
-            <RegText onPress={this.onCommentReg}>등록</RegText>
+            <BaseButton onPress={this.onCommentReg}>
+              <RegText>등록</RegText>
+            </BaseButton>
           </Bottom>
         </Body>
         <KeyBoard onToggle={this.onKeyboard} />

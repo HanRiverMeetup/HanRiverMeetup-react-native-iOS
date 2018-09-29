@@ -31,7 +31,20 @@ const images = {
   flag_icon: require('./flag.png'),
   info_tab: require('./Info_tab.png'),
   down_arrow: require('./down_arrow.png'),
+  bt_plus_copy_2: require('./bt_plus_copy_2.png'),
+  img_cute_2: require('./img_cute_2.png'),
+  img_cute: require('./img_cute.png'),
+  plus: require('./plus.png'),
+  shape_546: require('./shape_546.png'),
+  shape_595: require('./shape_595.png'),
+  icon_pin: require('./icon_pin.png'),
+  icon_myRoom: require('./myRoom.png'),
+  icon_othersRoom: require('./othersRoom.png'),
+  icon_O: require('./icon_o.png'),
+  icon_X: require('./icon_x.png'),
+  icon_cloud: require('./cloud.png'),
+  icon_rainy: require('./rainy.png'),
+  icon_sunny: require('./sunny.png'),
 };
-/* eslint-enable global-require */
 
 export default images;

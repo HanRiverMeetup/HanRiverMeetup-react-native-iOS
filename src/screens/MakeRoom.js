@@ -12,11 +12,13 @@ import ModalHeader from '../components/ModalHeader';
 import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
 import withLoading from '../HOC/withLoading';
+import LocationModal from '../components/LocationModal';
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
 const Container = styled.SafeAreaView`
   flex: 1;
+  background-color: white;
 `;
 
 const Header = styled.View`
@@ -140,7 +142,7 @@ const RightText = styled(BaseText)`
 @inject(stores => ({
   userStore: stores.store.userStore,
   roomStore: stores.store.roomStore,
-  isLoading: stores.store.userStore.isLoading,
+  isLoading: stores.store.roomStore.isLoading,
 }))
 @withLoading
 @observer
@@ -165,6 +167,7 @@ class MakeRoom extends React.Component {
       contact: '',
       lat: 10.0,
       lng: 10.0,
+      modalVisible: false,
     };
   }
 
@@ -201,13 +204,9 @@ class MakeRoom extends React.Component {
     this.setState({ contact: text });
   };
 
-  // onChangeTitle = text => {
-  //   this.setState({ lat: text });
-  // };
-
-  // onChangeTitle = text => {
-  //   this.setState({ lng: text });
-  // };
+  onSetLocation = location => {
+    this.setState({ meeting_location: location, modalVisible: false });
+  };
 
   registerRoom = async () => {
     const { userStore, roomStore, navigation } = this.props;
@@ -244,7 +243,7 @@ class MakeRoom extends React.Component {
       title,
       user_id: userStore.user_id,
       meeting_location,
-      meeting_time: moment(meeting_time).format('YYYY-MM-DD HH:MM:SS'),
+      meeting_time: moment(this.formatDate).format('YYYY-MM-DD HH:MM:SS'),
       participants_cnt: parseInt(participants_cnt, 10),
       description,
       expected_cost: parseInt(expected_cost, 10),
@@ -253,7 +252,19 @@ class MakeRoom extends React.Component {
       lng,
     };
 
-    await roomStore.makeRoom(params);
+    const res = await roomStore.makeRoom(params);
+
+    if (res) {
+      navigation.goBack();
+    }
+
+    try {
+      await roomStore.fetchRoomsBySeqence(index);
+    } catch (error) {
+      setTimeout(() => {
+        alert('방목록을 새로 가져오는데 실패 했습니다 ');
+      }, 300);
+    }
   };
 
   renderTableView = () => (
@@ -272,7 +283,7 @@ class MakeRoom extends React.Component {
           onChangeText={this.onChangeLocation}
           value={this.state.meeting_location}
         />
-        <RightButton>
+        <RightButton onPress={() => this.setState({ modalVisible: true })}>
           <ArrowBottomImage source={Images.down_arrow} />
         </RightButton>
       </TableRow>
@@ -309,8 +320,9 @@ class MakeRoom extends React.Component {
               opacity: 0.7,
             },
           }}
-          onDateChange={date => {
+          onDateChange={(date, formatDate) => {
             this.setState({ meeting_time: date });
+            this.formatDate = formatDate;
           }}
         />
         <RightButton>
@@ -355,10 +367,12 @@ class MakeRoom extends React.Component {
   );
 
   render() {
+    const { modalVisible } = this.state;
     const { userStore } = this.props;
 
     return (
       <React.Fragment>
+        <LocationModal modalVisible={modalVisible} onPressItem={this.onSetLocation} />
         <KeyboardAwareScrollView
           contentContainerStyle={{
             height: deviceHeight + 100,

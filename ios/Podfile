@@ -31,6 +31,7 @@ target 'HanRiverMeetup' do
   # Use the following line instead:
   #pod 'GLog', :podspec => "#{rn_path}/third-party-podspecs/GLog.podspec"
   pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
+  pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
 
   # react-native-maps dependencies
   pod 'react-native-maps', path: rn_maps_path
@@ -43,6 +44,7 @@ target 'HanRiverMeetup' do
 
   pod 'lottie-ios', :path => '../node_modules/lottie-ios'
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+  pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
 
 end
 

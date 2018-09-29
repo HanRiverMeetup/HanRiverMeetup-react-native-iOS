@@ -5,6 +5,7 @@ import Images from '@assets';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import { observer, inject } from 'mobx-react';
+import * as Animatable from 'react-native-animatable';
 
 import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
@@ -185,6 +186,16 @@ const RoomImage = styled(FastImage)`
   height: 36px;
 `;
 
+const BlueDot = styled.View`
+  background-color: #2186f8;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  position: absolute;
+  right: 35px;
+  top: 0px;
+`;
+
 @inject(stores => ({
   userStore: stores.store.userStore,
   roomStore: stores.store.roomStore,
@@ -330,7 +341,13 @@ export default class MyPage extends Component {
         <Header>
           <HeaderTitle>{`안녕하세요\n${nickName}님 반가워요`}</HeaderTitle>
           <RightView>
-            <HeaderImage source={Images.shape_595} />
+            <Animatable.Image
+              source={Images.shape_595}
+              style={{ width: 20, height: 20 }}
+              animation="tada"
+              iterationCount="infinite"
+            />
+            <BlueDot />
             <HeaderImage source={Images.shape_546} />
           </RightView>
         </Header>

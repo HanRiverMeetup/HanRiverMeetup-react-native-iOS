@@ -207,6 +207,7 @@ export default class MyPage extends Component {
     super(props);
     this.state = {
       categoryIndex: 0,
+      refresh: false,
     };
   }
 
@@ -215,7 +216,18 @@ export default class MyPage extends Component {
     roomStore.fetchMyRoomsById(userStore.user_id);
   };
 
-  keyExtractor = item => `${item.meeting_seq}`;
+  onPressProfile = user => {
+    const { navigation } = this.props;
+    navigation.navigate('MemberDetail', { user });
+  };
+
+  refreshMyRooms = async () => {
+    this.setState({ refresh: true });
+    const { roomStore, userStore } = this.props;
+    roomStore.resetMyRooms();
+    await roomStore.fetchMyRoomsById(userStore.user_id);
+    this.setState({ refresh: false });
+  };
 
   changeCategory = categoryIndex => {
     this.setState({ categoryIndex });
@@ -261,20 +273,15 @@ export default class MyPage extends Component {
 
   myRoomLabel = userId => {
     const { userStore } = this.props;
-    const { user_id } = userStore;
 
-    if (user_id === userId) {
+    if (userStore.user_id === userId) {
       return <SkyBlueLabel />;
     }
 
     return <MintLabel />;
   };
 
-  onPressProfile = user => {
-    const { navigation } = this.props;
-    console.log('user', user);
-    navigation.navigate('MemberDetail', { user });
-  };
+  keyExtractor = item => `${item.meeting_seq}`;
 
   renderMyRoomList = ({ item, index }) => (
     <MyRooms item={item} index={index} onPressProfile={this.onPressProfile} />
@@ -299,7 +306,6 @@ export default class MyPage extends Component {
   renderCompletedRoomList = ({ item }) => (
     <ListView>
       {this.myRoomLabel(item.user_id)}
-      <MintLabel />
       <RequestView>
         <CardTitle>{item.title}</CardTitle>
 
@@ -315,7 +321,7 @@ export default class MyPage extends Component {
 
   render() {
     const { userStore, roomStore } = this.props;
-    const { categoryIndex } = this.state;
+    const { categoryIndex, refresh } = this.state;
     const { nickName } = userStore;
     const { myAllRooms, requestAllRooms, completedAllRooms } = roomStore;
 
@@ -356,25 +362,31 @@ export default class MyPage extends Component {
           {categoryIndex === 0 && (
             <RoomList
               data={myAllRooms}
+              refreshing={refresh}
               renderItem={this.renderMyRoomList}
               keyExtractor={this.keyExtractor}
               ItemSeparatorComponent={() => <Separator />}
+              onRefresh={this.refreshMyRooms}
             />
           )}
           {categoryIndex === 1 && (
             <RoomList
               data={requestAllRooms}
+              refreshing={refresh}
               renderItem={this.renderRequestRoomList}
               keyExtractor={this.keyExtractor}
               ItemSeparatorComponent={() => <Separator />}
+              onRefresh={() => {}}
             />
           )}
           {categoryIndex === 2 && (
             <RoomList
+              refreshing={refresh}
               data={completedAllRooms}
               renderItem={this.renderCompletedRoomList}
               keyExtractor={this.keyExtractor}
               ItemSeparatorComponent={() => <Separator />}
+              onRefresh={() => {}}
             />
           )}
         </Body>

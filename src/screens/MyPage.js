@@ -208,7 +208,7 @@ const BodyContainer = styled.View`
 export default class MyPage extends Component {
   static navigationOptions = () => ({
     title: '난누굴강',
-    tabBarIcon: ({ tintColor }) => <TabIcon source={Images.rectangle} style={{ tintColor }} />,
+    tabBarIcon: ({ tintColor }) => <TabIcon source={Images.icon_rows} style={{ tintColor }} />,
   });
 
   static propTypes = {

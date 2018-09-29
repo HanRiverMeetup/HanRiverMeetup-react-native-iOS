@@ -12,6 +12,7 @@ import ModalHeader from '../components/ModalHeader';
 import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
 import withLoading from '../HOC/withLoading';
+import LocationModal from '../components/LocationModal';
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
@@ -179,6 +180,7 @@ class MakeTimeLine extends React.Component {
       imageURL: '',
       location: '',
       content: '',
+      modalVisible: false,
     };
   }
 
@@ -193,6 +195,10 @@ class MakeTimeLine extends React.Component {
 
   onChangeContent = text => {
     this.setState({ content: text });
+  };
+
+  onSetLocation = location => {
+    this.setState({ location, modalVisible: false });
   };
 
   openImagePicker = async () => {
@@ -258,7 +264,7 @@ class MakeTimeLine extends React.Component {
             onChangeText={this.onChangeLocation}
             value={this.state.location}
           />
-          <RightButton>
+          <RightButton onPress={() => this.setState({ modalVisible: true })}>
             <ArrowBottomImage source={Images.down_arrow} />
           </RightButton>
         </TableRow>
@@ -275,10 +281,12 @@ class MakeTimeLine extends React.Component {
   };
 
   render() {
+    const { modalVisible } = this.state;
     const { userStore } = this.props;
 
     return (
       <ScrollContainer>
+        <LocationModal modalVisible={modalVisible} onPressItem={this.onSetLocation} />
         <KeyboardAwareScrollView
           contentContainerStyle={{
             height: deviceHeight,

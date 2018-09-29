@@ -12,6 +12,7 @@ import ModalHeader from '../components/ModalHeader';
 import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
 import withLoading from '../HOC/withLoading';
+import LocationModal from '../components/LocationModal';
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
@@ -166,6 +167,7 @@ class MakeRoom extends React.Component {
       contact: '',
       lat: 10.0,
       lng: 10.0,
+      modalVisible: false,
     };
   }
 
@@ -202,13 +204,9 @@ class MakeRoom extends React.Component {
     this.setState({ contact: text });
   };
 
-  // onChangeTitle = text => {
-  //   this.setState({ lat: text });
-  // };
-
-  // onChangeTitle = text => {
-  //   this.setState({ lng: text });
-  // };
+  onSetLocation = location => {
+    this.setState({ meeting_location: location, modalVisible: false });
+  };
 
   registerRoom = async () => {
     const { userStore, roomStore, navigation } = this.props;
@@ -285,7 +283,7 @@ class MakeRoom extends React.Component {
           onChangeText={this.onChangeLocation}
           value={this.state.meeting_location}
         />
-        <RightButton>
+        <RightButton onPress={() => this.setState({ modalVisible: true })}>
           <ArrowBottomImage source={Images.down_arrow} />
         </RightButton>
       </TableRow>
@@ -369,10 +367,12 @@ class MakeRoom extends React.Component {
   );
 
   render() {
+    const { modalVisible } = this.state;
     const { userStore } = this.props;
 
     return (
       <React.Fragment>
+        <LocationModal modalVisible={modalVisible} onPressItem={this.onSetLocation} />
         <KeyboardAwareScrollView
           contentContainerStyle={{
             height: deviceHeight + 100,

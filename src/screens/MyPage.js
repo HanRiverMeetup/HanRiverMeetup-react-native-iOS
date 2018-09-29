@@ -273,7 +273,7 @@ export default class MyPage extends Component {
   onPressProfile = user => {
     const { navigation } = this.props;
     console.log('user', user);
-    navigation.navigate('MemberDetail');
+    navigation.navigate('MemberDetail', { user });
   };
 
   renderMyRoomList = ({ item, index }) => (

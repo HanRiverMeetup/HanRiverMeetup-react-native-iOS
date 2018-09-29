@@ -6,13 +6,13 @@ import FastImage from 'react-native-fast-image';
 import LottieView from 'lottie-react-native';
 import { observer, inject } from 'mobx-react';
 import { SafeAreaView } from 'react-navigation';
+import Lotties from '@lottie';
+import Images from '@assets';
 
 import withLoading from '../HOC/withLoading';
 import ModalHeader from '../components/ModalHeader';
 import BaseText from '../components/BaseText';
 import BaseButton from '../components/BaseButton';
-import Lotties from '@lottie';
-import Images from '@assets';
 
 const { width: devideWidth } = Dimensions.get('window');
 
@@ -42,7 +42,7 @@ const Profile = styled(FastImage)`
   height: 100px;
   border-radius: 50px;
   position: absolute;
-  bottom: 117px;
+  bottom: 144px;
 `;
 
 const UserNameText = styled(BaseText)`
@@ -123,22 +123,36 @@ export default class MemberDetail extends React.Component {
   static propTypes = {
     navigation: PropTypes.shape({}).isRequired,
     userStore: PropTypes.shape({}).isRequired,
+    roomStore: PropTypes.shape({}).isRequired,
   };
 
   componentDidMount = () => {
     this.animation.play();
   };
 
-  confirmMatch = () => {};
-
   onClsoe = () => {
     const { navigation } = this.props;
     navigation.goBack();
   };
 
+  confirmMatch = async () => {
+    const { roomStore, navigation } = this.props;
+    const user = navigation.getParam('user');
+
+    const params = {
+      application_seq: user.application_seq,
+      meeting_seq: user.meeting_seq,
+    };
+
+    const result = await roomStore.matchWith(params);
+
+    if (result) {
+      navigation.goBack();
+    }
+  };
+
   render() {
     const { navigation, userStore } = this.props;
-
     const user = navigation.getParam('user');
 
     return (

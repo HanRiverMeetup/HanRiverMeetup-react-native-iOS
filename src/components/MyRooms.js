@@ -7,6 +7,7 @@ import FastImage from 'react-native-fast-image';
 import Images from '@assets';
 
 import BaseText from './BaseText';
+import { dateUtils } from '../utils/dateUtils';
 
 const PinImage = styled(FastImage)`
   width: 10px;
@@ -110,7 +111,7 @@ export default class MyRooms extends Component {
         <SubTitleView>
           <PinImage source={Images.icon_pin} />
           <CardSubTitle>{item.meeting_location}</CardSubTitle>
-          <CardSubTitle>{item.meeting_time}</CardSubTitle>
+          <CardSubTitle>{dateUtils.toKRDate(item.meeting_time)}</CardSubTitle>
         </SubTitleView>
 
         <CardTitle>신청자</CardTitle>

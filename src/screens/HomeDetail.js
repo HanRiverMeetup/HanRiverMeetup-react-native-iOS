@@ -11,7 +11,7 @@ import { observer, inject } from 'mobx-react';
 import NaviHeader from '../components/NaviHeader';
 import BaseButton from '../components/BaseButton';
 import withLoading from '../HOC/withLoading';
-import { timeUtils } from '../utils';
+import { dateUtils } from '../utils';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
@@ -214,7 +214,7 @@ export default class HomeDetail extends Component {
           <ContentLocation>{item.meeting_location}</ContentLocation>
           <DetailInfoView>
             <ContentDetailTitle>시간</ContentDetailTitle>
-            <ContentDetailContent>{timeUtils.toTime(item.meeting_time)}</ContentDetailContent>
+            <ContentDetailContent>{dateUtils.toMMDDT(item.meeting_time)}</ContentDetailContent>
             <ContentDetailTitle>인원</ContentDetailTitle>
             <ContentDetailContent>{item.participants_cnt}</ContentDetailContent>
             <ContentDetailTitle>회비</ContentDetailTitle>

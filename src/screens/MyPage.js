@@ -13,6 +13,7 @@ import BaseButton from '../components/BaseButton';
 import BaseText from '../components/BaseText';
 import withLoading from '../HOC/withLoading';
 import MyRooms from '../components/MyRooms';
+import { dateUtils } from '../utils/dateUtils';
 
 const { height: deviceHeight } = Dimensions.get('window');
 
@@ -309,7 +310,7 @@ export default class MyPage extends Component {
         <SubTitleView>
           <PinImage source={Images.icon_pin} />
           <CardSubTitle>{item.meeting_location}</CardSubTitle>
-          <CardSubTitle>{item.meeting_time}</CardSubTitle>
+          <CardSubTitle>{dateUtils.toKRDate(item.meeting_time)}</CardSubTitle>
         </SubTitleView>
       </RequestView>
       {this.contactSeq(item.contact_seq)}
@@ -325,7 +326,7 @@ export default class MyPage extends Component {
         <SubTitleView>
           <PinImage source={Images.icon_pin} />
           <CardSubTitle>{item.meeting_location}</CardSubTitle>
-          <CardSubTitle>{item.meeting_time}</CardSubTitle>
+          <CardSubTitle>{dateUtils.toKRDate(item.meeting_time)}</CardSubTitle>
         </SubTitleView>
       </RequestView>
       {this.myRoom(item.user_id)}

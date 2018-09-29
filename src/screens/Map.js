@@ -67,7 +67,7 @@ const TabIcon = styled.Image`
 export default class Map extends Component {
   static navigationOptions = () => ({
     title: '어디로강',
-    tabBarIcon: ({ tintColor }) => <TabIcon source={Images.rectangle} style={{ tintColor }} />,
+    tabBarIcon: ({ tintColor }) => <TabIcon source={Images.flag_icon} style={{ tintColor }} />,
   });
 
   constructor(props) {

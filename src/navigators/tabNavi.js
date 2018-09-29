@@ -1,4 +1,6 @@
 import { createBottomTabNavigator } from 'react-navigation';
+
+import AppTabBar from '../components/AppTabBar';
 import Home from '../screens/Home';
 import Join from '../screens/Join';
 import Map from '../screens/Map';

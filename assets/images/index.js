@@ -28,7 +28,7 @@ const images = {
   duck_w_icon: require('./duck_w.png'),
   camera_w_icon: require('./camera_w.png'),
   etc_w_icon: require('./etc_w.png'),
-  flag_icon: require('./flag.png'),
+  flag_icon: require('./flag_icon.png'),
   info_tab: require('./Info_tab.png'),
   down_arrow: require('./down_arrow.png'),
   bt_plus_copy_2: require('./bt_plus_copy_2.png'),
@@ -45,6 +45,7 @@ const images = {
   icon_cloud: require('./cloud.png'),
   icon_rainy: require('./rainy.png'),
   icon_sunny: require('./sunny.png'),
+  icon_rows: require('./rows.png'),
 };
 
 export default images;

@@ -33,6 +33,7 @@
     "react-native-keyboard-spacer": "^0.4.1",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-maps": "^0.21.0",
+    "react-native-modal": "^6.5.0",
     "react-native-nanum-square": "^1.0.0",
     "react-native-permissions": "^1.1.1",
     "react-native-responsive-image": "^2.3.1",

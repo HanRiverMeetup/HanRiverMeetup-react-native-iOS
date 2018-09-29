@@ -40,6 +40,8 @@ const images = {
   icon_pin: require('./icon_pin.png'),
   icon_myRoom: require('./myRoom.png'),
   icon_othersRoom: require('./othersRoom.png'),
+  icon_O: require('./icon_o.png'),
+  icon_X: require('./icon_x.png'),
 };
 
 export default images;

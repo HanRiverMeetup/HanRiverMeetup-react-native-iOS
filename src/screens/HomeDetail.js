@@ -1,15 +1,16 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components';
-import Images from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import { observer, inject } from 'mobx-react';
+import Images from '@assets';
 
 import NaviHeader from '../components/NaviHeader';
 import BaseButton from '../components/BaseButton';
+import BaseText from '../components/BaseText';
 import withLoading from '../HOC/withLoading';
 import { dateUtils } from '../utils';
 
@@ -62,6 +63,7 @@ const InfoView = styled.View`
 `;
 
 const DetailInfoView = styled.View`
+  flex: 1;
   flex-direction: row;
   justify-content: space-around;
 `;
@@ -83,17 +85,10 @@ const ContentLocation = styled.Text`
   color: #2186f8;
 `;
 
-const ContentDetailTitle = styled.Text`
-  font-family: NanumSquareR;
-  font-size: 12;
-  color: #949494;
-`;
-
 const ContentDetailContent = styled.Text`
   font-family: NanumSquareR;
   font-size: 12;
   color: #666666;
-  margin-right: 10px;
 `;
 
 const Separator = styled.View`
@@ -120,13 +115,50 @@ const InnerView = styled.View`
   width: ${deviceWidth}px;
 `;
 
+const RowInfosView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: 3px;
+`;
+
+const RowInfosImage = styled(FastImage)`
+  width: 13px;
+  height: 13px;
+  margin-right: 5px;
+`;
+
+const LocationImage = styled(FastImage)`
+  width: 11px;
+  height: 14px;
+  margin-right: 5px;
+`;
+
+const EmptyContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding-top: 122px;
+`;
+
+const EmptyImage = styled(FastImage)`
+  width: 188px;
+  height: 76px;
+  align-self: center;
+`;
+
+const EmptyText = styled(BaseText)`
+  font-size: 18px;
+  color: #aaaaaa;
+  text-align: center;
+  margin-top: 41px;
+`;
+
 @inject(stores => ({
   roomStore: stores.store.roomStore,
   isLoading: stores.store.roomStore.isLoading,
 }))
 @withLoading
 @observer
-export default class HomeDetail extends Component {
+export default class HomeDetail extends React.Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -211,21 +243,43 @@ export default class HomeDetail extends Component {
         />
         <InfoView>
           <ContentTitle>{item.title}</ContentTitle>
-          <ContentLocation>{item.meeting_location}</ContentLocation>
+          <RowInfosView>
+            <LocationImage source={Images.icon_loca} />
+            <ContentLocation>{item.meeting_location}</ContentLocation>
+          </RowInfosView>
           <DetailInfoView>
-            <ContentDetailTitle>시간</ContentDetailTitle>
-            <ContentDetailContent>{dateUtils.toMMDDT(item.meeting_time)}</ContentDetailContent>
-            <ContentDetailTitle>인원</ContentDetailTitle>
-            <ContentDetailContent>{item.participants_cnt}</ContentDetailContent>
-            <ContentDetailTitle>회비</ContentDetailTitle>
-            <ContentDetailContent>{item.expected_cost}</ContentDetailContent>
+            <RowInfosView>
+              <RowInfosImage source={Images.icon_time} />
+              <ContentDetailContent style={{ width: 90 }}>
+                {dateUtils.toMMDDT(item.meeting_time)}
+              </ContentDetailContent>
+            </RowInfosView>
+            <RowInfosView>
+              <RowInfosImage source={Images.icon_people} />
+              <ContentDetailContent style={{ width: 40 }}>
+                {item.participants_cnt}명
+              </ContentDetailContent>
+            </RowInfosView>
+            <RowInfosView>
+              <RowInfosImage source={Images.icon_money} />
+              <ContentDetailContent style={{ width: 60 }}>
+                {item.expected_cost}원
+              </ContentDetailContent>
+            </RowInfosView>
           </DetailInfoView>
         </InfoView>
       </InnerView>
     </ContentView>
   );
 
-  render() {
+  renderEmptyView = () => (
+    <EmptyContainer>
+      <EmptyImage source={Images.img_cute_2} />
+      <EmptyText>{'모임이 없어요 :(\n한강모임을 만들어주세요'}(</EmptyText>
+    </EmptyContainer>
+  );
+
+  render = () => {
     const { index } = this.state;
     const { roomStore } = this.props;
     const selectedRoom = roomStore.allRooms.filter(room => room.activity_seq === index);
@@ -261,6 +315,7 @@ export default class HomeDetail extends Component {
             renderItem={this.renderItem}
             keyExtractor={item => `${item.meeting_seq}`}
             ItemSeparatorComponent={() => <Separator />}
+            ListEmptyComponent={this.renderEmptyView}
           />
         </Body>
         <MakeRoomBtn onPress={this.makeRoom}>
@@ -268,5 +323,5 @@ export default class HomeDetail extends Component {
         </MakeRoomBtn>
       </Container>
     );
-  }
+  };
 }

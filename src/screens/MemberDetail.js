@@ -136,7 +136,7 @@ export default class MemberDetail extends React.Component {
   };
 
   confirmMatch = async () => {
-    const { roomStore, navigation } = this.props;
+    const { userStore, roomStore, navigation } = this.props;
     const user = navigation.getParam('user');
 
     const params = {
@@ -149,6 +149,9 @@ export default class MemberDetail extends React.Component {
     if (result) {
       navigation.goBack();
     }
+
+    roomStore.resetMyRooms();
+    roomStore.fetchMyRoomsById(userStore.user_id);
   };
 
   render() {

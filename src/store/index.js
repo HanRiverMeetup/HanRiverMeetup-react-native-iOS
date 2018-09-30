@@ -4,6 +4,7 @@ import UserStore from './UserStore';
 import RoomStore from './RoomStore';
 import CommentStore from './CommentStore';
 import ContentStore from './ContentStore';
+import AlarmStore from './AlarmStore';
 import serverInfo from '../configs';
 
 const ACCESS_ENDPOINT = `${serverInfo.url}/access`;
@@ -14,6 +15,7 @@ const COMMENT_ENDPOINT = `${serverInfo.url}/comm`;
 const GUEST_ENDPOINT = `${serverInfo.url}/guest`;
 const TIMELINE_ENDPOINT = `${serverInfo.url}/timeLine`;
 const MY_PAGE_ENDPOINT = `${serverInfo.url}/mypage`;
+const ALARM_ENDPOINT = `${serverInfo.url}/notificationLog`;
 
 const Store = types
   .model('Store', {
@@ -21,6 +23,7 @@ const Store = types
     roomStore: types.optional(RoomStore, RoomStore.create()),
     commentStore: types.optional(CommentStore, CommentStore.create()),
     contentStore: types.optional(ContentStore, ContentStore.create()),
+    alarmStore: types.optional(AlarmStore, AlarmStore.create()),
   })
   .views(self => {
     const Fetch = async (method, url, params = undefined) => {
@@ -67,6 +70,7 @@ const Store = types
     const fetchMeetingMemberBySeq = parmas =>
       Fetch('GET', `${REQUEST_HOST_ENDPOINT}/${parmas.meeting_seq}`);
     const matchWith = params => Fetch('POST', `${COMMENT_ENDPOINT}/match`, params);
+    const fetchAlarmsById = params => Fetch('GET', `${ALARM_ENDPOINT}/${params.user_id}`);
 
     return {
       loginValidate,
@@ -83,6 +87,7 @@ const Store = types
       fetchMeetingMemberBySeq,
       fetchMatchCompletedById,
       matchWith,
+      fetchAlarmsById,
     };
   });
 

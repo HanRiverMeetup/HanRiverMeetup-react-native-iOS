@@ -196,7 +196,7 @@ const HeaderContainer = styled.View`
 `;
 
 const BodyContainer = styled.View`
-  height: ${deviceHeight - 50}px;
+  height: ${deviceHeight - 30}px;
 `;
 
 @inject(stores => ({

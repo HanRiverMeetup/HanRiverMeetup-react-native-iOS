@@ -9,6 +9,7 @@ import SignIn from '../screens/SignIn';
 import JoinRoom from '../screens/JoinRoom';
 import MakeTimeLine from '../screens/MakeTimeLine';
 import MemberDetail from '../screens/MemberDetail';
+import Alarms from '../screens/Alarms';
 
 const LoginStack = createStackNavigator(
   {
@@ -22,7 +23,7 @@ const LoginStack = createStackNavigator(
   }
 );
 
-//Base
+// Base
 const AppStack = createStackNavigator({ MainTabbar, HomeDetail, RoomIn }, { headerMode: 'none' });
 
 const SignInStack = createStackNavigator(
@@ -32,12 +33,12 @@ const SignInStack = createStackNavigator(
 
 // Main
 const AppWithModalStack = createStackNavigator(
-  { AppStack, MakeRoom, JoinRoom, MakeTimeLine, MemberDetail },
+  { AppStack, MakeRoom, JoinRoom, MakeTimeLine, MemberDetail, Alarms },
   { headerMode: 'none', mode: 'modal' }
 );
 
 const SignInWithModalStack = createStackNavigator(
-  { SignInStack, MakeRoom, JoinRoom, MakeTimeLine, MemberDetail },
+  { SignInStack, MakeRoom, JoinRoom, MakeTimeLine, MemberDetail, Alarms },
   { headerMode: 'none', mode: 'modal' }
 );
 

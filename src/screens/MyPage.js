@@ -202,6 +202,8 @@ const BodyContainer = styled.View`
 @inject(stores => ({
   userStore: stores.store.userStore,
   roomStore: stores.store.roomStore,
+  alarmStore: stores.store.alarmStore,
+  isLoading: stores.store.roomStore.isLoading || stores.store.alarmStore.isLoading,
 }))
 @withLoading
 @observer
@@ -215,6 +217,7 @@ export default class MyPage extends Component {
     navigation: PropTypes.shape({}).isRequired,
     userStore: PropTypes.shape({}).isRequired,
     roomStore: PropTypes.shape({}).isRequired,
+    alarmStore: PropTypes.shape({}).isRequired,
   };
 
   constructor(props) {
@@ -226,8 +229,9 @@ export default class MyPage extends Component {
   }
 
   componentDidMount = () => {
-    const { roomStore, userStore } = this.props;
+    const { alarmStore, roomStore, userStore } = this.props;
     roomStore.fetchMyRoomsById(userStore.user_id);
+    alarmStore.fetchAlarmsById(userStore.user_id);
   };
 
   onPressProfile = user => {
@@ -295,6 +299,11 @@ export default class MyPage extends Component {
     return <MintLabel />;
   };
 
+  showAlarms = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Alarms');
+  };
+
   keyExtractor = item => `${item.meeting_seq}`;
 
   renderMyRoomList = ({ item, index }) => (
@@ -342,12 +351,14 @@ export default class MyPage extends Component {
         <Header>
           <HeaderTitle>{`안녕하세요\n${nickName}님 반가워요`}</HeaderTitle>
           <RightView>
-            <Animatable.Image
-              source={Images.shape_595}
-              style={{ width: 20, height: 20 }}
-              animation="tada"
-              iterationCount="infinite"
-            />
+            <BaseButton onPress={this.showAlarms}>
+              <Animatable.Image
+                source={Images.shape_595}
+                style={{ width: 20, height: 20 }}
+                animation="tada"
+                iterationCount="infinite"
+              />
+            </BaseButton>
             <BlueDot />
             <HeaderImage source={Images.shape_546} />
           </RightView>

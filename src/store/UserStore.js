@@ -42,17 +42,14 @@ const WithLoading = types
       return self.nickName;
     });
 
-    const loginValidate = flow(function*(loginInfo) {
-      const res = yield getRoot(self).loginValidate(loginInfo);
-      console.log('res', res);
-
-      self.nickName = res.nickname;
-      self.user_id = res.user_id;
-      self.fbToken = res.access_token;
-      self.hangangToken = res.hangang_token;
+    const loginValidate = () => {
+      self.nickName = 'testUser';
+      self.user_id = '622800544755285';
+      self.fbToken = 'res.access_token';
+      self.hangangToken = 'HangangTest';
 
       return self.nickName;
-    });
+    };
 
     const registUser = flow(function*(nickname) {
       const params = {

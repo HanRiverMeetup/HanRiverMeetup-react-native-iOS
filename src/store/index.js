@@ -16,6 +16,7 @@ const GUEST_ENDPOINT = `${serverInfo.url}/guest`;
 const TIMELINE_ENDPOINT = `${serverInfo.url}/timeLine`;
 const MY_PAGE_ENDPOINT = `${serverInfo.url}/mypage`;
 const ALARM_ENDPOINT = `${serverInfo.url}/notificationLog`;
+const EVENT_ENDPOINT = `${serverInfo.url}/event`;
 
 const Store = types
   .model('Store', {
@@ -59,7 +60,7 @@ const Store = types
       Fetch('GET', `${COMMENT_ENDPOINT}/comments/${params.meeting_seq}`);
     const makeRoom = params => Fetch('POST', `${MEETING_HOST_ENDPOINT}`, params);
     const joinRoom = params => Fetch('POST', `${GUEST_ENDPOINT}/join`, params);
-    const FetchTimeLinesByOffset = parmas => Fetch('POST', `${TIMELINE_ENDPOINT}/posts`, parmas);
+    const fetchTimeLinesByOffset = parmas => Fetch('POST', `${TIMELINE_ENDPOINT}/posts`, parmas);
     const makeTimeLineByInfos = params => Fetch('POST', `${TIMELINE_ENDPOINT}/post`, params);
     const fetchMyRoomsById = params =>
       Fetch('GET', `${MY_PAGE_ENDPOINT}/${params.user_id}/meetings`);
@@ -71,6 +72,7 @@ const Store = types
       Fetch('GET', `${REQUEST_HOST_ENDPOINT}/${parmas.meeting_seq}`);
     const matchWith = params => Fetch('POST', `${COMMENT_ENDPOINT}/match`, params);
     const fetchAlarmsById = params => Fetch('GET', `${ALARM_ENDPOINT}/${params.user_id}`);
+    const fetchEvents = () => Fetch('GET', `${EVENT_ENDPOINT}/events`);
 
     return {
       loginValidate,
@@ -80,7 +82,7 @@ const Store = types
       fetchCommentByMeetingSeq,
       makeRoom,
       joinRoom,
-      FetchTimeLinesByOffset,
+      fetchTimeLinesByOffset,
       makeTimeLineByInfos,
       fetchMyRoomsById,
       fetchRequestRoomById,
@@ -88,6 +90,7 @@ const Store = types
       fetchMatchCompletedById,
       matchWith,
       fetchAlarmsById,
+      fetchEvents,
     };
   });
 

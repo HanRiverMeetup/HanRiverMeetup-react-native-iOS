@@ -189,9 +189,10 @@ export default class Join extends Component {
   componentDidMount = () => {
     const { contentStore } = this.props;
     contentStore.fetchTodayContentsByOffset();
+    contentStore.fetchEvents();
   };
 
-  evnetkeyExtractor = (item, index) => `${index}`;
+  evnetkeyExtractor = (__, index) => `${index}`;
 
   contentKeyExtractor = item => `${item.timeline_seq}`;
 
@@ -237,9 +238,7 @@ export default class Join extends Component {
     );
   };
 
-  renderEvents = ({ index }) => (
-    <EvnetImage source={{ uri: `https://placeimg.com/400/200/${index}` }} />
-  );
+  renderEvents = ({ item }) => <EvnetImage source={{ uri: item.imageurl }} />;
 
   renderContents = ({ item }) => (
     <ContentsContainer>
@@ -259,22 +258,21 @@ export default class Join extends Component {
   );
 
   render() {
-    const dummis = [...new Array(3)];
     const { contentStore } = this.props;
     const { refresh, evnetPage } = this.state;
-    const { allContents } = contentStore;
+    const { allContents, allEvents } = contentStore;
 
     return (
       <Container>
         <PagerView>
           <EventPager
-            data={dummis}
+            data={allEvents}
             renderItem={this.renderEvents}
             keyExtractor={this.evnetkeyExtractor}
             onMomentumScrollEnd={this.eventPagerEnd}
           />
           <IndicatorView>
-            <IndicatorText>{`${evnetPage + 1} / 3`}</IndicatorText>
+            <IndicatorText>{`${evnetPage + 1} / ${allEvents.length}`}</IndicatorText>
           </IndicatorView>
         </PagerView>
         <ContentsList

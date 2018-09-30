@@ -65,7 +65,8 @@ const InfoView = styled.View`
 const DetailInfoView = styled.View`
   flex: 1;
   flex-direction: row;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-right: 20px;
 `;
 
 const ProfileImg = styled(FastImage)`

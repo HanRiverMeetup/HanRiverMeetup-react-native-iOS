@@ -46,6 +46,10 @@ const images = {
   icon_rainy: require('./rainy.png'),
   icon_sunny: require('./sunny.png'),
   icon_rows: require('./rows.png'),
+  icon_loca: require('./icon_loca_03.png'),
+  icon_money: require('./icon_money.png'),
+  icon_people: require('./icon_people.png'),
+  icon_time: require('./icon_time.png'),
 };
 
 export default images;

@@ -7,6 +7,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import { observer, inject } from 'mobx-react';
+import Images from '@assets';
 
 import NaviHeader from '../components/NaviHeader';
 import BaseButton from '../components/BaseButton';
@@ -201,6 +202,25 @@ const MiniProfileView = styled(FastImage)`
   margin-right: 7;
 `;
 
+const EmptyContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding-top: 27px;
+`;
+
+const EmptyImage = styled(FastImage)`
+  width: 88px;
+  height: 62px;
+  align-self: center;
+`;
+
+const EmptyText = styled(BaseText)`
+  font-size: 12px;
+  color: #aaaaaa;
+  text-align: center;
+  margin-top: 23px;
+`;
+
 @inject(stores => ({
   userStore: stores.store.userStore,
   commentStore: stores.store.commentStore,
@@ -296,6 +316,13 @@ class RoomIn extends Component {
       </UserInfoView>
       <CommentText>{item.comment}</CommentText>
     </CommentListView>
+  );
+
+  renderEmptyView = () => (
+    <EmptyContainer>
+      <EmptyImage source={Images.img_cute} />
+      <EmptyText>{'댓글이 아직 없습니다\n조금만 더 가디려주세요'}(</EmptyText>
+    </EmptyContainer>
   );
 
   render() {
@@ -398,6 +425,7 @@ class RoomIn extends Component {
                 renderItem={this.renderItem}
                 keyExtractor={item => `${item.comment_seq}`}
                 ItemSeparatorComponent={this.separator}
+                ListEmptyComponent={this.renderEmptyView}
               />
             </CommentView>
           </Scroll>

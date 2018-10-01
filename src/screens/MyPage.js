@@ -17,6 +17,8 @@ import { dateUtils } from '../utils/dateUtils';
 
 const { height: deviceHeight } = Dimensions.get('window');
 
+const ScrollContainer = styled.ScrollView``;
+
 const PinImage = styled(FastImage)`
   width: 10px;
   height: 13px;
@@ -108,15 +110,7 @@ const HeaderTitle = styled.Text`
 const RoomList = styled.FlatList.attrs({ contentContainerStyle: { paddingBottom: 30 } })`
   border-top-color: #dcdcdc;
   border-top-width: 1;
-`;
-
-const PlusButton = styled(FastImage)`
-  width: 33px;
-  height: 33px;
-  border-radius: 16.5px;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+  height: ${deviceHeight - 150}px;
 `;
 
 const TabIcon = styled.Image`
@@ -191,14 +185,9 @@ const BlueDot = styled.View`
   top: 0px;
 `;
 
-const HeaderContainer = styled.View`
-  height: 300;
-  flex: 1;
-`;
+const HeaderContainer = styled.View``;
 
-const BodyContainer = styled.View`
-  height: 500px;
-`;
+const BodyContainer = styled.View``;
 
 @inject(stores => ({
   userStore: stores.store.userStore,
@@ -357,55 +346,42 @@ export default class MyPage extends Component {
     </CategoryView>
   );
 
-  renderForeground = () => {
-    const { userStore } = this.props;
-    const { nickName } = userStore;
-
-    return (
-      <HeaderContainer>
-        <Header>
-          <HeaderTitle>{`안녕하세요\n${nickName}님 반가워요`}</HeaderTitle>
-          <RightView>
-            <BaseButton onPress={this.showAlarms}>
-              <Animatable.Image
-                source={Images.shape_595}
-                style={{ width: 20, height: 20 }}
-                animation="tada"
-                iterationCount="infinite"
-              />
-            </BaseButton>
-            <BlueDot />
-            <HeaderImage source={Images.shape_546} />
-          </RightView>
-        </Header>
-        <ProfileInfoView>
-          <ProfileTouchView>
-            <InnerProfileView>
-              <CircleProfile
-                source={{
-                  uri: `http://graph.facebook.com/v3.1/${userStore.user_id}/picture?type=large`,
-                }}
-              />
-            </InnerProfileView>
-          </ProfileTouchView>
-          <NameText>{userStore.nickName}</NameText>
-        </ProfileInfoView>
-      </HeaderContainer>
-    );
-  };
-
   render() {
-    const { roomStore } = this.props;
+    const { roomStore, userStore } = this.props;
     const { categoryIndex, refresh } = this.state;
     const { myAllRooms, requestAllRooms, completedAllRooms } = roomStore;
 
     return (
-      <ParallaxScrollView
-        backgroundColor="white"
-        parallaxHeaderHeight={300}
-        renderForeground={this.renderForeground}
-        // renderFixedHeader={_.partial(this.renderFixedHeader, categoryIndex)}
-      >
+      <ScrollContainer stickyHeaderIndices={[1]} showsVerticalScrollIndicator={false}>
+        <HeaderContainer>
+          <Header>
+            <HeaderTitle>{`안녕하세요\n${userStore.nickName}님 반가워요`}</HeaderTitle>
+            <RightView>
+              <BaseButton onPress={this.showAlarms}>
+                <Animatable.Image
+                  source={Images.shape_595}
+                  style={{ width: 20, height: 20 }}
+                  animation="tada"
+                  iterationCount="infinite"
+                />
+              </BaseButton>
+              <BlueDot />
+              <HeaderImage source={Images.shape_546} />
+            </RightView>
+          </Header>
+          <ProfileInfoView>
+            <ProfileTouchView>
+              <InnerProfileView>
+                <CircleProfile
+                  source={{
+                    uri: `http://graph.facebook.com/v3.1/${userStore.user_id}/picture?type=large`,
+                  }}
+                />
+              </InnerProfileView>
+            </ProfileTouchView>
+            <NameText>{userStore.nickName}</NameText>
+          </ProfileInfoView>
+        </HeaderContainer>
         <BodyContainer>
           <CategoryView>
             <CategoryTouch onPress={_.partial(this.changeCategory, 0)}>
@@ -426,7 +402,6 @@ export default class MyPage extends Component {
               keyExtractor={this.keyExtractor}
               ItemSeparatorComponent={() => <Separator />}
               onRefresh={this.refreshMyRooms}
-              length={myAllRooms.length}
             />
           )}
           {categoryIndex === 1 && (
@@ -450,7 +425,7 @@ export default class MyPage extends Component {
             />
           )}
         </BodyContainer>
-      </ParallaxScrollView>
+      </ScrollContainer>
     );
   }
 }

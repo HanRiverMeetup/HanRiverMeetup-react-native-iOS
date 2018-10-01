@@ -282,6 +282,8 @@ export default class Join extends Component {
           ListHeaderComponent={this.renderListHeader}
           renderItem={this.renderContents}
           onRefresh={this.refreshContents}
+          onEndReached={() => contentStore.fetchTodayContentsByOffset()}
+          onEndReachedThreshold={0.5}
         />
         <MakeTimeLineBtn onPress={this.makeTimeLine}>
           <BlueBtnImg source={Images.bt_plus_copy_2} />

@@ -17,7 +17,9 @@ import { dateUtils } from '../utils/dateUtils';
 
 const { height: deviceHeight } = Dimensions.get('window');
 
-const ScrollContainer = styled.ScrollView``;
+const ScrollContainer = styled.ScrollView`
+  background-color: white;
+`;
 
 const PinImage = styled(FastImage)`
   width: 10px;

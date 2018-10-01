@@ -192,11 +192,12 @@ const BlueDot = styled.View`
 `;
 
 const HeaderContainer = styled.View`
-  height: 250px;
+  height: 300;
+  flex: 1;
 `;
 
 const BodyContainer = styled.View`
-  height: ${deviceHeight - 30}px;
+  height: 500px;
 `;
 
 @inject(stores => ({
@@ -342,6 +343,20 @@ export default class MyPage extends Component {
     </ListView>
   );
 
+  renderFixedHeader = categoryIndex => (
+    <CategoryView>
+      <CategoryTouch onPress={_.partial(this.changeCategory, 0)}>
+        <CategoryText0 selected={categoryIndex === 0}>만든모임</CategoryText0>
+      </CategoryTouch>
+      <CategoryTouch onPress={_.partial(this.changeCategory, 1)}>
+        <CategoryText1 selected={categoryIndex === 1}>신청모임</CategoryText1>
+      </CategoryTouch>
+      <CategoryTouch onPress={_.partial(this.changeCategory, 2)}>
+        <CategoryText2 selected={categoryIndex === 2}>완료모임</CategoryText2>
+      </CategoryTouch>
+    </CategoryView>
+  );
+
   renderForeground = () => {
     const { userStore } = this.props;
     const { nickName } = userStore;
@@ -371,7 +386,6 @@ export default class MyPage extends Component {
                   uri: `http://graph.facebook.com/v3.1/${userStore.user_id}/picture?type=large`,
                 }}
               />
-              <PlusButton source={Images.bt_plus_copy_2} />
             </InnerProfileView>
           </ProfileTouchView>
           <NameText>{userStore.nickName}</NameText>
@@ -388,8 +402,9 @@ export default class MyPage extends Component {
     return (
       <ParallaxScrollView
         backgroundColor="white"
-        parallaxHeaderHeight={250}
+        parallaxHeaderHeight={300}
         renderForeground={this.renderForeground}
+        // renderFixedHeader={_.partial(this.renderFixedHeader, categoryIndex)}
       >
         <BodyContainer>
           <CategoryView>

@@ -5,7 +5,7 @@ export const dateUtils = {
     return moment(serverTimeFormat).format('MM.DD. HH:mm');
   },
   toKRDate(serverTimeFormat) {
-    return moment(serverTimeFormat).format('MMd월 DD일 시간 HH:mm');
+    return moment(serverTimeFormat).format('MM월 DD일 시간 HH:mm');
   },
   toYYYYMMDD(serverTimeFormat) {
     return moment(serverTimeFormat).format('YYYY. MM. DD');

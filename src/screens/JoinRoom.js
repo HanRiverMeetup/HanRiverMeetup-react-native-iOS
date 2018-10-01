@@ -110,7 +110,7 @@ const BottomButtonContaienr = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #aaaaaa;
+  background-color: #2186f8;
   width: ${deviceWidth};
 `;
 
